@@ -62,8 +62,8 @@ Chris Ayers
 ---
 
 # Understanding Reliability and Resiliency
-* Failures are inevitable in distributed systems.
-* Workloads must detect, withstand, and recover from failures within acceptable timeframes.
+* Failures are ***inevitable*** in distributed systems.
+* Workloads must **detect**, **withstand**, and **recover** from failures within ***acceptable*** timeframes.
 * Ensuring availability for users to access workloads as promised.
 
 ---
@@ -75,37 +75,62 @@ Chris Ayers
 
 ---
 
+## Financial Impact of Downtime
+
+- **Revenue Loss**: Downtime can cost businesses over $1 million per hour, especially for e-commerce and online services.
+- **Increased Expenses**: Includes emergency maintenance, staff overtime, and potential penalties for SLA breaches.
+- **Legal Liabilities**: Potential lawsuits from customers or clients affected by downtime, leading to legal fees and settlements.
+- **Insurance Challenges**: Downtime can affect insurance coverage and premiums, especially if it leads to data breaches or other significant issues.
+- **Operational Costs**: Additional costs for restoring systems, data recovery, and implementing preventive measures to avoid future downtime.
+
+---
+
 # Understanding RPOs and RTOs
-## Recovery Time Objectives (RTOs)
-RTOs specify the maximum acceptable downtime for restoring services after a disruption, guiding the recovery process to minimize impact on operations and users.
 
-## Recovery Point Objectives (RPOs)
-RPOs define the amount of data that can be lost during a disruption and set the frequency of data backups, ensuring data recovery to a predefined state.
+- **Recovery Time Objectives (RTOs)**: RTOs specify the maximum acceptable downtime for restoring services after a disruption.
 
----
+- **Recovery Point Objectives (RPOs)**: RPOs define the amount of data that can be lost during a disruption.
 
-```mermaid
-graph TD
-    A[Disruption Occurs] --> B[Recovery Time Objective (RTO)]
-    B --> C[Maximum Acceptable Downtime]
-    A --> D[Recovery Point Objective (RPO)]
-    D --> E[Maximum Data Loss]
-    C --> F[Service Restored]
-    E --> F
-```
+<div align="center">
+
+![width:900px](./img/rpo-rto.drawio.png)
+
+</div>
 
 ---
 
-# Understanding SLAs, SLOs, and SLIs
+<style scoped>
+table { display: table; }
+tr { display: table-row; }
+td, th { display: table-cell; }
+table {
+  width: 100%;
+}
+</style>
+# Reliability
 
-## Service Level Agreements (SLAs)
-SLAs are contractual agreements that define the level of service and performance expected from a service provider, such as Azure, ensuring reliability and accountability.
+| Level       | Monthly Downtime  | Annual Downtime | Cost  |
+| ----------- | ----------------- | --------------- | ----- |
+| **99.9%**   | 43.8 minutes      | 8.75 hours      | $     |
+| **99.95%**  | 21.9 minutes      | 4.375 hours     | $$    |
+| **99.99%**  | 4.38 minutes      | 52.6 minutes    | $$$   |
+| **99.995%** | 2.19 minutes      | 26.3 minutes    | $$$$  |
+| **99.999%** | 26 seconds        | 5.25 minutes    | $$$$$ |
 
-## Service Level Objectives (SLOs)
-SLOs are specific measurable characteristics of the SLA, such as availability, throughput, frequency, response time, or quality.
+>https://uptime.is/five-nines
 
-## Service Level Indicators (SLIs)
-SLIs are metrics used to measure the performance of the service against the SLOs.
+---
+
+# Service Level Objectives
+| SLI | SLO | SLA |
+|---|---|---|
+| Service Level Indicator | Service Level Objective | Service Level Agreement |
+| Metrics for service quality, e.g., error rate. | Targets, e.g., 99.9% uptime/month. | Contracts with set metrics and penalties. |
+| Assess service quality. | Define service quality goals. | Formalize commitments and consequences. |
+
+---
+
+![SLA Pyramid](./img/sla-slo-sli.png)
 
 ---
 
@@ -119,52 +144,131 @@ SLIs are metrics used to measure the performance of the service against the SLOs
 
 ---
 
+# Azure Well-Architected Framework
+
+- Provides best practices and guidance for building high-quality Azure solutions.
+- Ensure workloads are reliable, secure, efficient, and cost-effective.
+
+---
+
+## Microsoft Azure Well-Architected Framework Pillars
+
+| Reliability                        | Security                            | Cost Optimization                  | Operational Excellence                  | Performance Efficiency                  |
+|------------------------------------|-------------------------------------|------------------------------------|-----------------------------------------|-----------------------------------------|
+| Resiliency, availability, recovery | Protect data, detect threats, mitigate risks | Budgeting, reducing waste, efficiency | Observability, DevOps practices, safe deployments | Scalability, load testing, performance monitoring |
+
+---
+
 # Design Principles for Reliable Workloads
 
 ---
 
-# Design for Business Needs
-## Aligning Design with Business Needs
-Aligning the design of Azure workloads with specific business needs is crucial for reliability and overall success. A customized design ensures that the technology supports the business objectives effectively.
+# Design for Business Requirements
 
-## Enhancing Workload Reliability
-Discover how designing Azure workloads to meet business needs can significantly enhance the overall reliability of your systems. A well-aligned design can increase efficiency and performance.
+- Gather business requirements focusing on the workload's intended utility.
+- Cover user experience, data, workflows, and unique characteristics.
+- Clearly state expectations and ensure goals are achievable and documented.
+
+---
+
+# Design for Business Requirements
+
+| Approach | Description |
+| --- | --- |
+| **Quantify Success** | Set targets for components, flows, and the system. |
+| **Compliance** | Ensure predictable outcomes for sensitive flows. |
+| **Platform Commitments** | Understand SLAs, limits, and regional constraints. |
+| **Dependencies** | Track dependencies and implement resilient design patterns. |
 
 ---
 
 # Design for Resilience
-## Importance of Resilience
-Resilience is crucial for ensuring business continuity and operational stability, especially in challenging and unpredictable conditions.
 
-## Designing Azure Workloads for Resilience
-Learn how to architect your Azure workloads with redundancy and failover mechanisms to ensure high availability and resilience against failures.
+- The workload must continue to operate with full or reduced functionality.
+- Expect component malfunctions, platform outages, performance degradations, limited resource availability, and other faults.
+- Build resiliency to ensure fault tolerance and graceful degradation.
+
+---
+
+# Design for Resilience
+
+| Approach | Description |
+| --- | --- |
+| Distinguish critical components from those that can degrade. | Design according to criticality, avoiding overengineering. |
+| Identify potential failure points and their effects. | Analyze failure cases to influence error handling design. |
+| Build self-preservation capabilities. | Isolate faults and mitigate failures. |
+| Add scalability for critical components. | Handle capacity spikes and regional issues. |
+| Build redundancy in layers and tiers. | Minimize single points of failure. |
 
 ---
 
 # Design for Recovery
-## Importance of Recovery Strategies
-Recovery strategies are crucial for minimizing downtime and reducing data loss in case of system failures or disasters. They ensure business continuity and data integrity.
 
-## Designing Azure Workloads for Recovery
-Explore best practices for designing Azure workloads that prioritize recovery. Implementing resilient architectures and backup solutions are key components of a robust recovery strategy.
+- The workload must be able to anticipate and recover from most failures, of all magnitudes, with minimal disruption to the user experience and business objectives.
+- Even highly resilient systems need disaster preparedness approaches, in both architecture design and workload operations.
+- On the data layer, you should have strategies that can repair workload state in case of corruption.
+
+---
+
+# Design for Recovery
+
+| Approach | Description |
+| --- | --- |
+| Structured recovery plans | Cover all components and the system as a whole. Regular drills test recovery processes. |
+| Data repair for stateful components | Use backups to restore to a trusted recovery point. Ensure data integrity with immutable, consistent backups. |
+| Automated self-healing | Reduce risks and shorten the break-fix cycle. |
+| Immutable ephemeral units | Spin up and destroy on demand for consistency. Use side-by-side deployment to minimize disruptions. |
 
 ---
 
 # Design for Operations
-## Efficiency in Operations
-Efficient operations are essential for ensuring the reliability and performance of Azure workloads. Learn how to optimize your workflow for maximum efficiency.
 
-## Smooth Workload Design
-Discover strategies to design your workloads in Azure for smooth and streamlined operations. Enhance your workflow with effective workload design.
+- Shift left in operations to anticipate failure conditions.
+- Test failures early and often in the development lifecycle.
+- Ensure shared visibility across teams for dependency status and ongoing failures.
+- Use insights, diagnostics, and alerts from observable systems for effective incident management and continuous improvement.
+
+---
+
+# Design for Operations
+
+| Approach | Description |
+| --- | --- |
+| Build observable systems that can correlate telemetry. | Monitoring and diagnostics are crucial. Aggregated observability provides a holistic view of health status. |
+| Predict potential malfunctions and anomalous behavior. | Use prioritized and actionable alerts for active reliability failures. |
+| Invest in reliable processes and infrastructure. | Enable quicker triage and proactive mitigation of potential failures. |
+
+
+---
+
+# Design for Operations
+
+| Approach | Description |
+| --- | --- |
+| Simulate failures and run tests. | Set realistic recovery expectations and test metrics. |
+| Automate components. | Minimize human error and ensure consistency. |
+| Scrutinize routine operations. | Ensure system stability. |
+| Learn from production incidents. | Drive improvements based on real incidents. |
 
 ---
 
 # Keep It Simple
-## Simplicity in Design
-Simplicity in design can enhance reliability by reducing complexity. A clean and minimalistic approach can lead to more robust and efficient solutions.
 
-## Azure Workload Simplification
-Learn how simplifying your Azure workloads can significantly contribute to their reliability and performance. Embracing simplicity can lead to more manageable and efficient cloud solutions.
+- Avoid overengineering the architecture design, application code, and operations.
+- Simplicity reduces inefficiencies and potential misconfigurations.
+- Maintain a balanced approach to avoid single points of failure.
+
+---
+
+# Keep It Simple
+
+| Approach | Benefit |
+| --- | --- |
+| Add components only if necessary. | Keep the critical path lean. |
+| Establish and document standards. | Minimize errors and maintain quality. |
+| Evaluate pragmatic design. | Avoid unnecessary interdependence. |
+| Develop just enough code. | Ensure code resilience and efficiency. |
+| Use platform features and prebuilt assets. | Save time and use tested practices. |
 
 ---
 
@@ -490,10 +594,3 @@ Enhancing the performance of Azure workloads requires adherence to best practice
 ---
 
 ![bg](./img/feeback.png)
-
-
-<!-- Needed for mermaid, can be anywhere in file except frontmatter -->
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.min.js';
-  mermaid.initialize({ startOnLoad: true });
-</script>
