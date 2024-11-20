@@ -1,7 +1,7 @@
 ---
 marp: true
 theme: custom-default
-footer: 'https://example.com'
+footer: 'https://chris-ayers.com'
 ---
 
 ![bg](./img/intro.png)
@@ -75,10 +75,7 @@ Chris Ayers
 
 ---
 
-# Understanding SLAs, RTOs, and RPOs
-## Service Level Agreements (SLAs)
-SLAs are contractual agreements that define the level of service and performance expected from a service provider, such as Azure, ensuring reliability and accountability.
-
+# Understanding RPOs and RTOs
 ## Recovery Time Objectives (RTOs)
 RTOs specify the maximum acceptable downtime for restoring services after a disruption, guiding the recovery process to minimize impact on operations and users.
 
@@ -87,17 +84,38 @@ RPOs define the amount of data that can be lost during a disruption and set the 
 
 ---
 
-# Azure-Customer Shared Responsibility Model
-- Azure and customers share responsibilities for ensuring infrastructure resilience.
-- Microsoft ensures the reliability of infrastructure, while customers architect reliable solutions.
-- Collaboration in security, compliance, and operational aspects ensures system reliability.
+```mermaid
+graph TD
+    A[Disruption Occurs] --> B[Recovery Time Objective (RTO)]
+    B --> C[Maximum Acceptable Downtime]
+    A --> D[Recovery Point Objective (RPO)]
+    D --> E[Maximum Data Loss]
+    C --> F[Service Restored]
+    E --> F
+```
 
 ---
 
-# Examples of Outages
-- Amazon Web Services (AWS) outage in 2017 that affected major websites and services.
-- Microsoft Azure outage in 2021 that impacted cloud-based applications worldwide.
-- Google Cloud Platform (GCP) outage in 2020 causing disruptions for users and businesses.
+# Understanding SLAs, SLOs, and SLIs
+
+## Service Level Agreements (SLAs)
+SLAs are contractual agreements that define the level of service and performance expected from a service provider, such as Azure, ensuring reliability and accountability.
+
+## Service Level Objectives (SLOs)
+SLOs are specific measurable characteristics of the SLA, such as availability, throughput, frequency, response time, or quality.
+
+## Service Level Indicators (SLIs)
+SLIs are metrics used to measure the performance of the service against the SLOs.
+
+---
+
+# Azure-Customer Shared Responsibility Model
+
+<div align=center>
+
+![width:1000px](./img/shared-responsibility.svg)
+
+</div>
 
 ---
 
@@ -472,3 +490,10 @@ Enhancing the performance of Azure workloads requires adherence to best practice
 ---
 
 ![bg](./img/feeback.png)
+
+
+<!-- Needed for mermaid, can be anywhere in file except frontmatter -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.min.js';
+  mermaid.initialize({ startOnLoad: true });
+</script>
