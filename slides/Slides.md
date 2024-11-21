@@ -173,10 +173,10 @@ table {
 
 | Approach | Description |
 | --- | --- |
-| **Quantify Success** | Set targets for components, flows, and the system. |
-| **Compliance** | Ensure predictable outcomes for sensitive flows. |
-| **Platform Commitments** | Understand SLAs, limits, and regional constraints. |
-| **Dependencies** | Track dependencies and implement resilient design patterns. |
+| Quantify Success | Set targets for components, flows, and the system. |
+| Compliance | Ensure predictable outcomes for sensitive flows. |
+| Platform Commitments | Understand SLAs, limits, and regional constraints. |
+| Dependencies | Track dependencies and implement resilient design patterns. |
 
 ---
 
@@ -270,6 +270,8 @@ table {
 ---
 
 # Tradeoffs with Other Azure WAF Pillars
+
+![bg right fit](./img/scales.png)
 
 ---
 
