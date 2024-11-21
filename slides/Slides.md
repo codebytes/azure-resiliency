@@ -404,6 +404,19 @@ Understanding and mitigating the potential impacts of risks is crucial for maint
 
 ---
 
+# Single Points of Failure (SPOFs)
+
+- A Single Point of Failure (SPOF) is a part of a system that, if it fails, will stop the entire system from working.
+- Identifying SPOFs is crucial for enhancing system reliability and availability.
+
+## Mitigating SPOFs
+
+- **Redundancy**: Implement redundant components to ensure system continuity.
+- **Failover Mechanisms**: Use failover strategies to switch to backup systems seamlessly.
+- **Load Balancing**: Distribute workloads across multiple systems to avoid over-reliance on a single component.
+
+---
+
 # Failure Examples
 
 [Failure Examples](https://learn.microsoft.com/en-us/azure/well-architected/reliability/failure-mode-analysis#example)
@@ -501,15 +514,31 @@ Customer Responsibilities:
 
 # Multi-Region Deployments
 
-## Active-Active and Active-Passive
+---
+
+# Active-Active and Active-Passive
 
 - Active-Active: Multiple instances process requests simultaneously.
 - Active-Passive: Primary instance processes traffic, secondary instances serve as failover.
 
-## Data Replication
+<div class="columns">
+<div>
 
-- Asynchronous: Data written to one location, replicated later.
-- Synchronous: Data written and committed to multiple locations simultaneously.
+![width:500px](img/active-active.png)
+
+</div>
+<div>
+
+![width:500px](img/active-passive.png)
+
+</div>
+</div>
+
+---
+
+# Data Replication: Storage Options
+
+![](img/storage-options.png)
 
 ---
 
@@ -607,23 +636,16 @@ Implementing Azure Landing Zones effectively provides a reliable structure for y
 
 ---
 
-# Reference Architectures for Compute, AKS, Storage, and Databases
+# Reference Architectures
 
 ## Streamlining Workload Design
 
-Utilizing reference architectures can streamline the design and deployment of reliable workloads, ensuring efficiency and scalability in cloud computing environments.
+Use reference architectures to design and deploy reliable, efficient, and scalable workloads in Azure.
 
-## Compute Architecture
-
-Explore reference architectures for compute in Azure to optimize performance and resource allocation for computational tasks in cloud environments.
-
-## AKS Architecture
-
-Discover reference architectures for Azure Kubernetes Service (AKS) to effectively manage containerized applications and microservices in the cloud.
-
-## Storage and Databases Design
-
-Learn about reference architectures for storage and databases in Azure to ensure data reliability, scalability, and performance in cloud-based applications.
+- Compute Architecture
+- Data and Analytics Architecture
+- AKS Architecture
+- Storage and Databases Design
 
 ---
 
@@ -632,6 +654,35 @@ Learn about reference architectures for storage and databases in Azure to ensure
 Learn about designing and implementing mission-critical applications on Azure. This guide provides best practices for achieving high reliability, availability, and performance for your applications.
 
 [Mission-Critical Workloads](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/mission-critical-overview)
+
+---
+
+# Enterprise Web App Patterns
+
+Enterprise Web App patterns guide developers and architects through the cloud journey, focusing on web apps. They provide prescriptive architecture, code, and configuration guidance aligned with the Well-Architected Framework.
+
+[Enterprise Web App Patterns](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/overview)
+
+---
+
+# Reliable Web App Pattern
+
+- Designed for transitioning on-premises web apps to the cloud.
+- Emphasizes crucial changes for swift cloud adoption.
+- Focuses on high-value updates with minimal code changes.
+- Assumes an established landing zone for deployment.
+
+[Reliable Web App Pattern](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/reliable-web-app/dotnet/guidance)
+
+---
+
+# Modern Web App Pattern
+
+- For cloud-based web apps seeking performance and cost optimizations.
+- Offers guidance for targeted modernization.
+- Focuses on refactoring high-demand areas into standalone services.
+- Facilitates independent development and flexible deployments.
+[Modern Web App Pattern](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/modern-web-app/dotnet/guidance)
 
 ---
 
@@ -644,6 +695,13 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # APRL: Azure Platform Resiliency Library
+
+This provides a curated catalog of resiliency recommendations for Azure workloads, including Azure Resource Graph (ARG) queries to identify non-compliant resources.
+
+- **Azure Resources**: Recommendations by resource provider and type.
+- **Specialized Workloads**: Guidance for popular workload types.
+- **Well-Architected Framework**: Resiliency recommendations from the framework.
+- **Tools**: Automation scripts for workload evaluation.
 
 [APRL: Azure Platform Resiliency Library](https://github.com/Azure/Azure-Proactive-Resiliency-Library-v2)
 
@@ -749,9 +807,13 @@ Use the Azure Review Checklists to ensure your architecture meets best practices
 
 # Conclusion
 
-## Strategic Approach for Reliability
+1. **Design Principles**: Learn the principles for designing reliable workloads, including resilience, recovery, and simplicity.
 
-Achieving reliability in Azure workloads necessitates a strategic approach that aligns with best practices to ensure consistency and dependability.
+2. **Tradeoffs**: Recognize the tradeoffs between reliability and other Azure pillars such as security, cost optimization, operational excellence, and performance efficiency.
+
+3. **Failure Mode Analysis (FMA)**: Implement proactive strategies to identify and mitigate potential failures.
+
+4. **Reference Architectures**: Use reference architectures to streamline workload design and ensure reliability, efficiency, and scalability.
 
 ---
 
