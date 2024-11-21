@@ -148,6 +148,8 @@ table {
 - Provides best practices and guidance for building high-quality Azure solutions.
 - Ensure workloads are reliable, secure, efficient, and cost-effective.
 
+![bg right fit](img/waf.png)
+
 ---
 
 ## Microsoft Azure Well-Architected Framework Pillars
