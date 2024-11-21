@@ -67,14 +67,7 @@ Chris Ayers
 - Failures are ***inevitable*** in distributed systems.
 - Workloads must **detect**, **withstand**, and **recover** from failures within ***acceptable*** timeframes.
 - Ensuring availability for users to access workloads as promised.
-
----
-
-# Impact on Business Goals and SLAs
-
-- Outages can compromise user experience and business objectives.
-- Meeting SLAs, RTOs, and RPOs is vital for reliability.
-- Shared Responsibility Model ensures accountability and collaboration.
+- Failutes have an impact on ***revenue***, ***reputation***, and ***customer trust***.
 
 ---
 
@@ -85,20 +78,6 @@ Chris Ayers
 - **Legal Liabilities**: Potential lawsuits from customers or clients affected by downtime, leading to legal fees and settlements.
 - **Insurance Challenges**: Downtime can affect insurance coverage and premiums, especially if it leads to data breaches or other significant issues.
 - **Operational Costs**: Additional costs for restoring systems, data recovery, and implementing preventive measures to avoid future downtime.
-
----
-
-# Understanding RPOs and RTOs
-
-- **Recovery Time Objectives (RTOs)**: RTOs specify the maximum acceptable downtime for restoring services after a disruption.
-
-- **Recovery Point Objectives (RPOs)**: RPOs define the amount of data that can be lost during a disruption.
-
-<div align="center">
-
-![width:900px](./img/rpo-rto.drawio.png)
-
-</div>
 
 ---
 
@@ -136,6 +115,20 @@ table {
 ---
 
 ![SLA Pyramid](./img/sla-slo-sli.png)
+
+---
+
+# Understanding RPOs and RTOs
+
+- **Recovery Time Objectives (RTOs)**: RTOs specify the maximum acceptable downtime for restoring services after a disruption.
+
+- **Recovery Point Objectives (RPOs)**: RPOs define the amount of data that can be lost during a disruption.
+
+<div align="center">
+
+![width:900px](./img/rpo-rto.drawio.png)
+
+</div>
 
 ---
 
