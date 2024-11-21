@@ -609,18 +609,6 @@ Deploying workloads across zones results in increased availability, ensuring tha
 
 ---
 
-# Best Practices
-
-## Leveraging Azure Availability Zones
-
-Learning from best practices and real-world case studies can provide valuable insights into leveraging Azure Availability Zones effectively, ensuring high availability and fault tolerance for workloads.
-
-## Deploying Workloads Across Zones
-
-Explore best practices and case studies for deploying workloads across availability zones, optimizing performance and resiliency in cloud environments.
-
----
-
 # Architecting for Reliability
 
 ---
@@ -655,6 +643,8 @@ Use reference architectures to design and deploy reliable, efficient, and scalab
 Learn about designing and implementing mission-critical applications on Azure. This guide provides best practices for achieving high reliability, availability, and performance for your applications.
 
 [Mission-Critical Workloads](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/mission-critical-overview)
+
+![bg right fit](./img/mission-critical.png)
 
 ---
 
