@@ -47,30 +47,31 @@ Chris Ayers
 <div>
 
 - Architecting for Reliability
-- Design Review Checklist
-- Mission-Critical Reliability
-- Azure Verified Modules
-- Choosing the Right SKUs
+- Azure Landing Zones
+- Reference Architectures for Compute, AKS, Storage, and Databases
+- Resources
 
 </div>
 </div>
 
 ---
 
-# Reliability 
-![bg right fit](./img/arch.png)
+# Reliability
 
+![bg right fit](./img/arch.png)
 
 ---
 
 # Understanding Reliability and Resiliency
-* Failures are ***inevitable*** in distributed systems.
-* Workloads must **detect**, **withstand**, and **recover** from failures within ***acceptable*** timeframes.
-* Ensuring availability for users to access workloads as promised.
+
+- Failures are ***inevitable*** in distributed systems.
+- Workloads must **detect**, **withstand**, and **recover** from failures within ***acceptable*** timeframes.
+- Ensuring availability for users to access workloads as promised.
 
 ---
 
 # Impact on Business Goals and SLAs
+
 - Outages can compromise user experience and business objectives.
 - Meeting SLAs, RTOs, and RPOs is vital for reliability.
 - Shared Responsibility Model ensures accountability and collaboration.
@@ -109,6 +110,7 @@ table {
   width: 100%;
 }
 </style>
+
 # Reliability
 
 | Level       | Monthly Downtime  | Annual Downtime | Cost  |
@@ -119,11 +121,12 @@ table {
 | **99.995%** | 2.19 minutes      | 26.3 minutes    | $$$$  |
 | **99.999%** | 26 seconds        | 5.25 minutes    | $$$$$ |
 
->https://uptime.is/five-nines
+>[https://uptime.is/five-nines](https://uptime.is/five-nines)
 
 ---
 
 # Service Level Objectives
+
 | SLI | SLO | SLA |
 |---|---|---|
 | Service Level Indicator | Service Level Objective | Service Level Agreement |
@@ -240,7 +243,6 @@ table {
 | Predict potential malfunctions and anomalous behavior. | Use prioritized and actionable alerts for active reliability failures. |
 | Invest in reliable processes and infrastructure. | Enable quicker triage and proactive mitigation of potential failures. |
 
-
 ---
 
 # Design for Operations
@@ -281,6 +283,7 @@ table {
 # Reliability Tradeoffs with Security
 
 ## Tradeoff: Increased Workload Surface Area
+
 - **Security**: Prioritizes a reduced and contained surface area to minimize attack vectors.
 - **Reliability**: Often obtained through replication, which increases the surface area.
 - **Disaster Recovery**: Solutions like backups increase surface area and require additional security controls.
@@ -291,6 +294,7 @@ table {
 # Reliability Tradeoffs with Security
 
 ## Tradeoff: Security Control Bypass
+
 - **Security**: All controls should remain active in both normal and stressed systems.
 - **Reliability Events**: Urgency might pressure teams to bypass security controls.
 - **Troubleshooting**: Disabling security protocols can expose the system to risks.
@@ -301,6 +305,7 @@ table {
 # Reliability Tradeoffs with Security
 
 ## Tradeoff: Old Software Versions
+
 - **Security**: Encourages "get current, stay current" for security patches.
 - **Reliability**: Patching can disrupt components, causing unavailability.
 - **Delaying Patches**: Avoids reliability risks but leaves the system unprotected.
@@ -311,6 +316,7 @@ table {
 # Reliability Tradeoffs with Cost Optimization
 
 ## Tradeoff: Increased Implementation Redundancy or Waste
+
 - **Cost Optimization**: Minimize underutilized resources and avoid over-provisioning.
 - **Reliability**: Requires replication to handle node failures, leading to increased costs.
 - **Over-Provisioning**: Absorbs unexpected load but can be wasteful.
@@ -322,6 +328,7 @@ table {
 # Reliability Tradeoffs with Cost Optimization
 
 ## Tradeoff: Increased Investment in Operations
+
 - **Cost Optimization**: Evaluate the value provided by deployed solutions.
 - **Observability**: Increased monitoring capabilities lead to higher data transfer and collection costs.
 - **Testing and Drills**: Designing and running tests incur costs.
@@ -333,6 +340,7 @@ table {
 # Reliability Tradeoffs with Operational Excellence
 
 ## Tradeoff: Increased Operational Complexity
+
 - **Operational Excellence**: Prioritizes simplicity.
 - **Reliability**: Increases workload complexity.
 - **Monitoring**: More components lead to more data sources and complexity in distributed tracing and observability.
@@ -343,6 +351,7 @@ table {
 # Reliability Tradeoffs with Operational Excellence
 
 ## Tradeoff: Increased Effort to Generate Team Knowledge and Awareness
+
 - **Documentation**: More reliability components require extensive documentation.
 - **Training**: Increased components lead to more complex training and onboarding.
 - **Knowledge Maintenance**: More time needed to track product roadmaps and service-level guidance.
@@ -352,6 +361,7 @@ table {
 # Reliability Tradeoffs with Performance Efficiency
 
 ## Tradeoff: Increased Latency
+
 - **Performance Efficiency**: Achieve performance targets for user and data flows.
 - **Reliability**: Data replication introduces latency for write operations.
 - **Resource Balancing**: Balancing load to healthy replicas affects performance.
@@ -363,6 +373,7 @@ table {
 # Reliability Tradeoffs with Performance Efficiency
 
 ## Tradeoff: Increased Over-Provisioning
+
 - **Performance Efficiency**: Use just enough resources to satisfy demand.
 - **Reliability**: Over-provisioning handles sudden demand spikes.
 - **Automatic Scaling**: Lag between demand signal and supply creation requires over-provisioning.
@@ -375,30 +386,37 @@ table {
 ---
 
 # Identifying and Mitigating Failures
+
 ## Proactive Failure Identification
+
 Proactive identification of potential failures is crucial for maintaining system reliability and preventing costly downtime.
 
 ## Mitigating Strategies
+
 Implementing effective strategies to mitigate failures can enhance system performance and minimize operational risks.
 
 ---
 
 # Prioritizing Risks and Impacts
+
 ## Risk Prioritization
+
 Prioritizing risks is essential for effective reliability management. Identify high-impact risks and allocate resources efficiently to mitigate them.
 
 ## Impact Mitigation
+
 Understanding and mitigating the potential impacts of risks is crucial for maintaining operational reliability. Implement strategies to minimize the consequences of identified risks.
 
 ---
 
-# Failure Examples:
+# Failure Examples
 
 [Failure Examples](https://learn.microsoft.com/en-us/azure/well-architected/reliability/failure-mode-analysis#example)
 
 ---
 
 # Azure Availability Zones
+
 ![bg right:69% fit](./img/availability-zones.png)
 
 ---
@@ -412,6 +430,7 @@ Understanding and mitigating the potential impacts of risks is crucial for maint
 ---
 
 ## Azure Availability Zones Infrastructure
+
 - Independent power, cooling, and networking.
 - Designed to support regional services, capacity, and high availability even if one zone experiences an outage.
 - Help keep data synchronized and accessible during failures.
@@ -424,8 +443,8 @@ Understanding and mitigating the potential impacts of risks is crucial for maint
 - Use multiple availability zones to keep separate copies of your application and data.
 - [Region Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-region-support)
 
-
 ## Service Support
+
 - PaaS services typically support zone-redundant deployments.
 - IaaS services typically support zonal deployments.
 - [Services Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support)
@@ -444,6 +463,7 @@ Understanding and mitigating the potential impacts of risks is crucial for maint
 # Zonal Resources
 
 Customer Responsibilities:
+
 - Deploy and manage resources in each availability zone.
 - Configure and manage data replication between zones.
 - Distribute requests using a load balancer
@@ -467,6 +487,7 @@ Customer Responsibilities:
 # Availability Zones and Azure Updates
 
 ## Update Deployment
+
 - Microsoft deploys updates to a single availability zone at a time.
 - Reduces impact on active workloads.
 - Run workloads across multiple zones to benefit from this approach.
@@ -476,6 +497,7 @@ Customer Responsibilities:
 # Paired and Unpaired Regions
 
 ## Overview
+
 - Many regions have a paired region for multi-region deployment.
 - Newer regions with multiple availability zones may not have a paired region.
 - Multi-region solutions can still be deployed with different approaches.
@@ -485,10 +507,12 @@ Customer Responsibilities:
 # Multi-Region Deployments
 
 ## Active-Active and Active-Passive
+
 - Active-Active: Multiple instances process requests simultaneously.
 - Active-Passive: Primary instance processes traffic, secondary instances serve as failover.
 
 ## Data Replication
+
 - Asynchronous: Data written to one location, replicated later.
 - Synchronous: Data written and committed to multiple locations simultaneously.
 
@@ -497,10 +521,12 @@ Customer Responsibilities:
 # Example Scenarios
 
 ## Line-of-Business Application
+
 - **Requirements**: High reliability, minimal downtime, high performance, cost efficiency.
 - **Approach**: Zone-redundant deployment with backup across regions.
 
 ## Internal Application
+
 - **Requirements**: Cost efficiency, acceptable risk of downtime.
 - **Approach**: Locally redundant deployment with backups across regions or zone-redundant deployment.
 
@@ -509,10 +535,12 @@ Customer Responsibilities:
 # Example Scenarios
 
 ## Legacy Application Migration
+
 - **Requirements**: High performance, resiliency.
 - **Approach**: Zone-redundant deployment or zonal (pinned) deployment with passive deployments.
 
 ## Healthcare Application
+
 - **Requirements**: Data residency, regulatory compliance.
 - **Approach**: Multi-zone multi-region deployment or zone-redundant deployment.
 
@@ -521,38 +549,49 @@ Customer Responsibilities:
 # Example Scenarios
 
 ## Banking System
+
 - **Requirements**: Mission-critical, highest reliability.
 - **Approach**: Multi-zone multi-region deployment.
 
 ## Software as a Service (SaaS)
+
 - **Requirements**: Geographically distributed user base, data residency.
 - **Approach**: Multi-zone multi-region deployment or single-region zone-redundant deployment with global traffic acceleration.
 
 ---
 
 # Enhancing Resiliency with Fault Isolation
+
 ## Fault Isolation Importance
+
 Fault isolation is crucial for maintaining resiliency in Azure workloads as it helps prevent cascading failures and ensures high availability of services.
 
 ## Azure Availability Zones
+
 Azure Availability Zones provide geographic fault isolation within an Azure region, ensuring resiliency by distributing workloads across multiple data centers.
 
 ---
 
 # Deploying Across Zones for Higher Availability
+
 ## Azure Availability Zones
+
 Deploying across Azure Availability Zones can enhance availability and provide protection against failures by distributing workloads across multiple geographically isolated locations.
 
 ## Increased Availability
+
 Deploying workloads across zones results in increased availability, ensuring that your services remain accessible even in the event of failures or outages in a single zone.
 
 ---
 
 # Best Practices
+
 ## Leveraging Azure Availability Zones
+
 Learning from best practices and real-world case studies can provide valuable insights into leveraging Azure Availability Zones effectively, ensuring high availability and fault tolerance for workloads.
 
 ## Deploying Workloads Across Zones
+
 Explore best practices and case studies for deploying workloads across availability zones, optimizing performance and resiliency in cloud environments.
 
 ---
@@ -562,36 +601,39 @@ Explore best practices and case studies for deploying workloads across availabil
 ---
 
 # Azure Landing Zones
+
 ## Secure Structure
+
 Azure Landing Zones offer a secure foundation for organizing your Azure environment, ensuring robust security measures are in place to protect your data and resources.
 
 ## Reliable Implementation
+
 Implementing Azure Landing Zones effectively provides a reliable structure for your Azure environment, enabling smooth operations and better resource management.
 
 ---
 
 # Reference Architectures for Compute, AKS, Storage, and Databases
+
 ## Streamlining Workload Design
+
 Utilizing reference architectures can streamline the design and deployment of reliable workloads, ensuring efficiency and scalability in cloud computing environments.
 
 ## Compute Architecture
+
 Explore reference architectures for compute in Azure to optimize performance and resource allocation for computational tasks in cloud environments.
 
 ## AKS Architecture
+
 Discover reference architectures for Azure Kubernetes Service (AKS) to effectively manage containerized applications and microservices in the cloud.
 
 ## Storage and Databases Design
+
 Learn about reference architectures for storage and databases in Azure to ensure data reliability, scalability, and performance in cloud-based applications.
-
----
-# Azure Review Checklists
-Use the Azure Review Checklists to ensure your architecture meets best practices and standards. These checklists cover various aspects of Azure services and can help identify potential issues before they become critical.
-
-[Azure Review Checklists](https://github.com/Azure/review-checklists)
 
 ---
 
 # Mission-Critical Workloads
+
 Learn about designing and implementing mission-critical applications on Azure. This guide provides best practices for achieving high reliability, availability, and performance for your applications.
 
 [Mission-Critical Workloads](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/mission-critical-overview)
@@ -599,9 +641,24 @@ Learn about designing and implementing mission-critical applications on Azure. T
 ---
 
 # Azure Verified Modules
+
 Explore Azure Verified Modules to find pre-built, tested, and verified modules that can help accelerate your development process. These modules ensure compliance with Azure's best practices and standards.
 
 [Azure Verified Modules](https://azure.github.io/Azure-Verified-Modules/)
+
+---
+
+# APRL: Azure Platform Resiliency Library
+
+[APRL: Azure Platform Resiliency Library](https://github.com/Azure/Azure-Proactive-Resiliency-Library-v2)
+
+---
+
+# Azure Review Checklists
+
+Use the Azure Review Checklists to ensure your architecture meets best practices and standards. These checklists cover various aspects of Azure services and can help identify potential issues before they become critical.
+
+[Azure Review Checklists](https://github.com/Azure/review-checklists)
 
 ---
 
@@ -610,6 +667,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Introduction to Load Testing
+
 - Load testing assesses system performance under expected user loads.
 - It helps identify bottlenecks and determine system behavior during peak usage.
 - Load testing ensures systems can handle high traffic without degradation.
@@ -617,6 +675,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Benefits of Load Testing
+
 - Improves application reliability and user experience.
 - Helps in determining scalability for future growth.
 - Identifies issues that could lead to system failures.
@@ -624,6 +683,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Load Testing Strategies
+
 - Determine key performance indicators (KPIs) for testing.
 - Use real-world scenarios to simulate user behavior.
 - Analyze results to optimize application performance.
@@ -631,6 +691,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Types of Load Tests
+
 - Soak test
 - Spike test
 - Stress test
@@ -639,6 +700,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Tools for Load Testing
+
 - Popular tools include JMeter, LoadRunner, Locust, and Gatling.
 - Azure Load Testing Service uses Jmeter and Locust.
 - These tools help simulate heavy loads and analyze performance.
@@ -651,6 +713,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Introduction to Chaos Engineering
+
 - Chaos Engineering is the practice of experimenting on a system to build confidence.
 - It helps identify weaknesses by introducing failures in a controlled environment.
 - The goal is to improve system resilience and reliability.
@@ -658,6 +721,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Principles of Chaos Engineering
+
 - Start small and gradually increase the scope of experiments.
 - Limit the blast radius to minimize impact on users.
 - Run experiments in production to gain true insights.
@@ -665,6 +729,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Benefits of Chaos Engineering
+
 - Increases system resilience and reduces downtime.
 - Enhances team collaboration and fosters a culture of experimentation.
 - Encourages proactive identification of weaknesses.
@@ -672,6 +737,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Tools for Chaos Engineering
+
 - Popular tools include Gremlin, Chaos Monkey, and LitmusChaos.
 - These tools help automate chaos experiments and monitor system behavior.
 - Choose tools based on the specific needs of your organization.
@@ -679,6 +745,7 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Challenges in Chaos Engineering
+
 - Cultural resistance to introducing failures.
 - Difficulty in measuring the impact of experiments.
 - Ensuring safety and minimizing user disruption.
@@ -686,7 +753,9 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 ---
 
 # Conclusion
+
 ## Strategic Approach for Reliability
+
 Achieving reliability in Azure workloads necessitates a strategic approach that aligns with best practices to ensure consistency and dependability.
 
 ---
