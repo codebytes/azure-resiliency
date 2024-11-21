@@ -16,7 +16,7 @@ footer: 'https://chris-ayers.com'
 
 ## Chris Ayers
 
-### Senior Customer Engineer<br>Microsoft
+### Senior Risk SRE<br>Azure CXP AzRel<br>Microsoft
 
 <i class="fa-brands fa-twitter"></i> Twitter: @Chris\_L\_Ayers
 <i class="fa-brands fa-mastodon"></i> Mastodon: [@Chrisayers@hachyderm.io](https://hachyderm.io/@Chrisayers)
@@ -57,7 +57,9 @@ Chris Ayers
 
 ---
 
-# Why Reliability Matters
+# Reliability 
+![bg right fit](./img/arch.png)
+
 
 ---
 
@@ -276,35 +278,95 @@ table {
 
 ---
 
-# Security
-## Balancing Reliability and Security
-Achieving a balance between reliability and security is essential to safeguard Azure workloads effectively. Understanding the tradeoffs and implementing best practices are key to ensuring data protection.
+# Reliability Tradeoffs with Security
 
-## Tradeoffs in Security Measures
-Exploring the tradeoffs in security measures helps in making informed decisions to enhance data security and reliability in Azure workloads. Identifying the right balance is crucial for effective protection.
-
----
-
-# Cost
-The impact of cost considerations on the reliability of Azure workloads is crucial. Understanding how to manage tradeoffs between cost and reliability is key to optimizing performance.
+## Tradeoff: Increased Workload Surface Area
+- **Security**: Prioritizes a reduced and contained surface area to minimize attack vectors.
+- **Reliability**: Often obtained through replication, which increases the surface area.
+- **Disaster Recovery**: Solutions like backups increase surface area and require additional security controls.
+- **Additional Components**: Needed for reliability, increasing complexity and surface area.
 
 ---
 
-# Operational Excellence
-## Reliable Azure Workloads
-Operational excellence is essential for maintaining reliable Azure workloads, ensuring consistent performance and availability for cloud-based services.
+# Reliability Tradeoffs with Security
 
-## Achieving Operational Excellence
-Explore strategies and best practices to achieve operational excellence in managing Azure workloads while prioritizing reliability and efficiency.
+## Tradeoff: Security Control Bypass
+- **Security**: All controls should remain active in both normal and stressed systems.
+- **Reliability Events**: Urgency might pressure teams to bypass security controls.
+- **Troubleshooting**: Disabling security protocols can expose the system to risks.
+- **Granular Controls**: Increase configuration complexity and risk of misconfiguration.
 
 ---
 
-# Performance Efficiency
-## Optimal Azure Workloads
-Balancing performance and reliability is crucial for achieving optimal Azure workloads. Learn how to maintain this delicate balance.
+# Reliability Tradeoffs with Security
 
-## Performance Efficiency Strategies
-Discover effective strategies for enhancing performance efficiency in Azure workloads while ensuring reliability remains intact.
+## Tradeoff: Old Software Versions
+- **Security**: Encourages "get current, stay current" for security patches.
+- **Reliability**: Patching can disrupt components, causing unavailability.
+- **Delaying Patches**: Avoids reliability risks but leaves the system unprotected.
+- **Old Code**: Using outdated libraries and base images exposes the application to security risks.
+
+---
+
+# Reliability Tradeoffs with Cost Optimization
+
+## Tradeoff: Increased Implementation Redundancy or Waste
+- **Cost Optimization**: Minimize underutilized resources and avoid over-provisioning.
+- **Reliability**: Requires replication to handle node failures, leading to increased costs.
+- **Over-Provisioning**: Absorbs unexpected load but can be wasteful.
+- **Disaster Recovery**: Excessive solutions increase costs.
+- **Deployment Strategies**: Techniques like blue/green increase costs during deployment periods.
+
+---
+
+# Reliability Tradeoffs with Cost Optimization
+
+## Tradeoff: Increased Investment in Operations
+- **Cost Optimization**: Evaluate the value provided by deployed solutions.
+- **Observability**: Increased monitoring capabilities lead to higher data transfer and collection costs.
+- **Testing and Drills**: Designing and running tests incur costs.
+- **On-Call Rotation**: Rapid response processes increase personnel and tooling costs.
+- **Support Contracts**: Over-provisioned support contracts incur waste.
+
+---
+
+# Reliability Tradeoffs with Operational Excellence
+
+## Tradeoff: Increased Operational Complexity
+- **Operational Excellence**: Prioritizes simplicity.
+- **Reliability**: Increases workload complexity.
+- **Monitoring**: More components lead to more data sources and complexity in distributed tracing and observability.
+- **Multi-Region Management**: Increases complexity in operational management and data replication.
+
+---
+
+# Reliability Tradeoffs with Operational Excellence
+
+## Tradeoff: Increased Effort to Generate Team Knowledge and Awareness
+- **Documentation**: More reliability components require extensive documentation.
+- **Training**: Increased components lead to more complex training and onboarding.
+- **Knowledge Maintenance**: More time needed to track product roadmaps and service-level guidance.
+
+---
+
+# Reliability Tradeoffs with Performance Efficiency
+
+## Tradeoff: Increased Latency
+- **Performance Efficiency**: Achieve performance targets for user and data flows.
+- **Reliability**: Data replication introduces latency for write operations.
+- **Resource Balancing**: Balancing load to healthy replicas affects performance.
+- **Geographical Distribution**: Network latency in communication across boundaries.
+- **Monitoring**: Extensive health observation can decrease performance.
+
+---
+
+# Reliability Tradeoffs with Performance Efficiency
+
+## Tradeoff: Increased Over-Provisioning
+- **Performance Efficiency**: Use just enough resources to satisfy demand.
+- **Reliability**: Over-provisioning handles sudden demand spikes.
+- **Automatic Scaling**: Lag between demand signal and supply creation requires over-provisioning.
+- **Worst Case Scenarios**: Using large instances for unpredictable demand leads to waste.
 
 ---
 
@@ -330,16 +392,141 @@ Understanding and mitigating the potential impacts of risks is crucial for maint
 
 ---
 
-# Using Azure Tools and Case Studies
-## Failure Mode Analysis
-Azure tools offer valuable insights into failure mode analysis, helping businesses identify and mitigate potential risks in their systems.
+# Failure Examples:
 
-## Reliability Strategies
-Learning from real-world case studies can help businesses develop effective reliability strategies using Azure tools, enhancing system performance and minimizing downtime.
+[Failure Examples](https://learn.microsoft.com/en-us/azure/well-architected/reliability/failure-mode-analysis#example)
 
 ---
 
 # Azure Availability Zones
+![bg right:69% fit](./img/availability-zones.png)
+
+---
+
+# Azure Availability Zones
+
+- Availability zones are separated groups of datacenters within a region.
+- They have low-latency connections (<2ms) and are connected by a high-performance network.
+- Zones are far enough apart to reduce the likelihood of simultaneous local outages.
+
+---
+
+## Azure Availability Zones Infrastructure
+- Independent power, cooling, and networking.
+- Designed to support regional services, capacity, and high availability even if one zone experiences an outage.
+- Help keep data synchronized and accessible during failures.
+
+---
+
+# Zonal and Zone-Redundant Services
+
+- Deploy into an Azure region with availability zones.
+- Use multiple availability zones to keep separate copies of your application and data.
+- [Region Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-region-support)
+
+
+## Service Support
+- PaaS services typically support zone-redundant deployments.
+- IaaS services typically support zonal deployments.
+- [Services Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support)
+
+---
+
+# Zonal Resources
+
+- Pinned to a specific availability zone.
+- Combine multiple zonal deployments for high reliability.
+
+![bg right fit](./img/zonal-1.png)
+
+---
+
+# Zonal Resources
+
+Customer Responsibilities:
+- Deploy and manage resources in each availability zone.
+- Configure and manage data replication between zones.
+- Distribute requests using a load balancer
+- Choose between active-passive or active-active models.
+- Handle failover during an availability zone outage.
+
+![bg right fit](./img/zonal-3.png)
+
+---
+
+# Zone-Redundant Resources
+
+- Spread across multiple availability zones.
+- Microsoft manages request distribution and data replication.
+- Automatic failover during an outage.
+
+![bg fit right](./img/zone-redundant.png)
+
+---
+
+# Availability Zones and Azure Updates
+
+## Update Deployment
+- Microsoft deploys updates to a single availability zone at a time.
+- Reduces impact on active workloads.
+- Run workloads across multiple zones to benefit from this approach.
+
+---
+
+# Paired and Unpaired Regions
+
+## Overview
+- Many regions have a paired region for multi-region deployment.
+- Newer regions with multiple availability zones may not have a paired region.
+- Multi-region solutions can still be deployed with different approaches.
+
+---
+
+# Multi-Region Deployments
+
+## Active-Active and Active-Passive
+- Active-Active: Multiple instances process requests simultaneously.
+- Active-Passive: Primary instance processes traffic, secondary instances serve as failover.
+
+## Data Replication
+- Asynchronous: Data written to one location, replicated later.
+- Synchronous: Data written and committed to multiple locations simultaneously.
+
+---
+
+# Example Scenarios
+
+## Line-of-Business Application
+- **Requirements**: High reliability, minimal downtime, high performance, cost efficiency.
+- **Approach**: Zone-redundant deployment with backup across regions.
+
+## Internal Application
+- **Requirements**: Cost efficiency, acceptable risk of downtime.
+- **Approach**: Locally redundant deployment with backups across regions or zone-redundant deployment.
+
+---
+
+# Example Scenarios
+
+## Legacy Application Migration
+- **Requirements**: High performance, resiliency.
+- **Approach**: Zone-redundant deployment or zonal (pinned) deployment with passive deployments.
+
+## Healthcare Application
+- **Requirements**: Data residency, regulatory compliance.
+- **Approach**: Multi-zone multi-region deployment or zone-redundant deployment.
+
+---
+
+# Example Scenarios
+
+## Banking System
+- **Requirements**: Mission-critical, highest reliability.
+- **Approach**: Multi-zone multi-region deployment.
+
+## Software as a Service (SaaS)
+- **Requirements**: Geographically distributed user base, data residency.
+- **Approach**: Multi-zone multi-region deployment or single-region zone-redundant deployment with global traffic acceleration.
 
 ---
 
@@ -361,7 +548,7 @@ Deploying workloads across zones results in increased availability, ensuring tha
 
 ---
 
-# Best Practices and Case Studies
+# Best Practices
 ## Leveraging Azure Availability Zones
 Learning from best practices and real-world case studies can provide valuable insights into leveraging Azure Availability Zones effectively, ensuring high availability and fault tolerance for workloads.
 
@@ -397,110 +584,24 @@ Discover reference architectures for Azure Kubernetes Service (AKS) to effective
 Learn about reference architectures for storage and databases in Azure to ensure data reliability, scalability, and performance in cloud-based applications.
 
 ---
+# Azure Review Checklists
+Use the Azure Review Checklists to ensure your architecture meets best practices and standards. These checklists cover various aspects of Azure services and can help identify potential issues before they become critical.
 
-# Network Topology, Resource Organization, Identity Management, and Governance
-## Network Topology
-Network topology design is crucial for ensuring efficient data flow and communication within Azure workloads. The right configuration can enhance performance and reliability.
-
-## Resource Organization
-Proper organization of resources in Azure workloads is key to optimizing performance and scalability. Effective resource allocation ensures efficient utilization and cost-effectiveness.
-
-## Identity Management
-Identity management protocols are essential for securing access and protecting sensitive data within Azure workloads. Implementing robust identity management practices enhances security and compliance.
-
-## Governance
-Governance frameworks establish policies and procedures for managing Azure workloads effectively. Strong governance practices ensure compliance, risk mitigation, and efficient operations.
+[Azure Review Checklists](https://github.com/Azure/review-checklists)
 
 ---
 
-# Design Review Checklist
+# Mission-Critical Workloads
+Learn about designing and implementing mission-critical applications on Azure. This guide provides best practices for achieving high reliability, availability, and performance for your applications.
 
----
-
-# Key Considerations for Design Reviews
-## Scalability
-Scalability is a key consideration for design reviews to ensure that the system can handle increased workload and growth over time, allowing for flexibility and expansion.
-
-## Security
-Security is a critical aspect to address in design reviews to protect data, prevent unauthorized access, and ensure the confidentiality and integrity of information.
-
-## Performance
-Performance considerations are essential for design reviews to optimize the speed and efficiency of the system, ensuring smooth operation and user satisfaction.
-
----
-
-# Ensuring Alignment with Reliability Principles
-## Robust and Resilient Azure Workloads
-Aligning design reviews with reliability principles is crucial for building robust and resilient Azure workloads that can withstand various challenges and ensure high availability.
-
-## Strategies for Alignment with Reliability Principles
-Discover effective strategies for ensuring alignment with reliability principles during design reviews to enhance the overall reliability and performance of Azure workloads.
-
----
-
-# Mission-Critical Reliability
-
----
-
-# Strategies for Mission-Critical Applications
-## Reliability Strategies for Mission-Critical Apps
-Mission-critical applications demand specialized strategies to guarantee maximum reliability and uptime, ensuring smooth operations and minimal downtime.
-
-## Azure Best Practices
-Discover key strategies and best practices in Azure to maintain mission-critical reliability, including redundancy, disaster recovery, and monitoring.
-
----
-
-# Ensuring Continuous Operation and Minimal Downtime
-## Importance of Continuous Operation
-Continuous operation is crucial for mission-critical workloads to ensure that essential services are available 24/7 without interruption.
-
-## Strategies for Minimal Downtime
-Discover effective strategies for minimizing downtime, such as redundancy, failover systems, and proactive maintenance schedules.
+[Mission-Critical Workloads](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/mission-critical-overview)
 
 ---
 
 # Azure Verified Modules
+Explore Azure Verified Modules to find pre-built, tested, and verified modules that can help accelerate your development process. These modules ensure compliance with Azure's best practices and standards.
 
----
-
-# Utilizing Azure Verified Modules for Reliability
-## Enhancing Workload Reliability
-Azure Verified Modules provide pre-built solutions to enhance the reliability of workloads, ensuring smoother operations and improved performance.
-
-## Effective Module Utilization
-Learn how to effectively leverage Azure Verified Modules to optimize the reliability of your cloud-based applications and services.
-
----
-
-# Selecting the Right Modules for Your Needs
-## Azure Verified Modules Selection
-Choosing the right Azure Verified Modules is crucial to ensure reliability in your cloud computing setup. Select modules that align with your specific workload requirements.
-
-## Best Practices for Module Selection
-Explore best practices to select the most suitable modules for your cloud computing needs. Consider factors like compatibility, performance, and scalability.
-
----
-
-# Choosing the Right SKUs
-
----
-
-# Evaluating SKUs for Reliability and Performance
-## Variability in Reliability and Performance
-Different SKUs offer varying levels of reliability and performance, making it crucial to evaluate them effectively based on your workload requirements.
-
-## Effective Evaluation Techniques
-Learn how to effectively evaluate SKUs to ensure they meet the specific requirements of your workloads, balancing reliability and performance.
-
----
-
-# Aligning SKU Choices with Workload Requirements
-## Optimizing Reliability in Azure
-Aligning SKU choices with workload requirements is crucial to optimizing reliability in Azure. Learn how to select the right SKUs for your specific workload needs.
-
-## Matching SKUs with Workload Demands
-Discover the importance of matching SKUs with the specific demands of your workloads to enhance reliability and performance in Azure.
+[Azure Verified Modules](https://azure.github.io/Azure-Verified-Modules/)
 
 ---
 
@@ -587,9 +688,6 @@ Discover the importance of matching SKUs with the specific demands of your workl
 # Conclusion
 ## Strategic Approach for Reliability
 Achieving reliability in Azure workloads necessitates a strategic approach that aligns with best practices to ensure consistency and dependability.
-
-## Optimal Performance Enhancement
-Enhancing the performance of Azure workloads requires adherence to best practices and efficient strategies to achieve optimal results in cloud computing.
 
 ---
 
