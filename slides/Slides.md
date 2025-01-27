@@ -4,11 +4,9 @@ theme: custom-default
 footer: 'https://chris-ayers.com'
 ---
 
-![bg](./img/intro.png)
+# Ensuring Azure Resiliency
 
----
-
-![bg](./img/feeback.png)
+## Chris Ayers
 
 ---
 
@@ -22,10 +20,11 @@ footer: 'https://chris-ayers.com'
 <i class="fa-brands fa-linkedin"></i> LinkedIn: - [chris\-l\-ayers](https://linkedin.com/in/chris-l-ayers/)
 <i class="fa fa-window-maximize"></i> Blog: [https://chris-ayers\.com/](https://chris-ayers.com/)
 <i class="fa-brands fa-github"></i> GitHub: [Codebytes](https://github.com/codebytes)
-<i class="fa-brands fa-twitter"></i> Twitter: @Chris\_L\_Ayers
-<i class="fa-brands fa-mastodon"></i> Mastodon: [@Chrisayers@hachyderm.io](https://hachyderm.io/@Chrisayers)
+<i class="fa-brands fa-mastodon"></i> Mastodon: @Chrisayers@hachyderm.io
+~~<i class="fa-brands fa-twitter"></i> Twitter: @Chris_L_Ayers~~
 
 ---
+
 <!-- 
 # Ensuring Azure Resiliency:
 ## Strategies and Best Practices
@@ -810,4 +809,29 @@ Use the Azure Review Checklists to ensure your architecture meets best practices
 
 ---
 
-![bg](./img/feeback.png)
+# Resources
+
+<div class="columns">
+<div>
+
+## Links
+
+- [APRL](https://github.com/Azure/Azure-Proactive-Resiliency-Library-v2)
+- [Azure Review Checklists](https://github.com/Azure/review-checklists)
+- [Mission Critical Workloads](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/)
+
+</div>
+<div>
+
+## Follow Chris Ayers
+
+<i class="fa-brands fa-bluesky"></i> BlueSky: [@chris-ayers.com](https://bsky.app/profile/chris-ayers.com)
+<i class="fa-brands fa-linkedin"></i> LinkedIn: - [chris\-l\-ayers](https://linkedin.com/in/chris-l-ayers/)
+<i class="fa fa-window-maximize"></i> Blog: [https://chris-ayers\.com/](https://chris-ayers.com/)
+<i class="fa-brands fa-github"></i> GitHub: [Codebytes](https://github.com/codebytes)
+<i class="fa-brands fa-mastodon"></i> Mastodon: @Chrisayers@hachyderm.io
+~~<i class="fa-brands fa-twitter"></i> Twitter: @Chris_L_Ayers~~
+
+</div>
+
+</div>
