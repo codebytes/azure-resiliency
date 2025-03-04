@@ -14,7 +14,9 @@ footer: 'https://chris-ayers.com'
 
 ## Chris Ayers
 
-### Senior Risk SRE<br>Azure CXP AzRel<br>Microsoft
+_Senior Site Reliability Engineer_  
+_Azure CXP AzRel_  
+_Microsoft_
 
 <i class="fa-brands fa-bluesky"></i> BlueSky: [@chris-ayers.com](https://bsky.app/profile/chris-ayers.com)
 <i class="fa-brands fa-linkedin"></i> LinkedIn: - [chris\-l\-ayers](https://linkedin.com/in/chris-l-ayers/)
@@ -25,31 +27,23 @@ footer: 'https://chris-ayers.com'
 
 ---
 
-<!-- 
-# Ensuring Azure Resiliency:
-## Strategies and Best Practices
-Chris Ayers
-
---- -->
-
 # Agenda Items
 
 <div class="columns">
 <div>
 
-- Why Reliability Matters in Azure
+- Why Reliability Matters
+- Core Reliability Concepts (Downtime Costs, SLA, SLO, RPO, RTO)
 - Design Principles for Reliable Workloads
 - Tradeoffs with Other Azure Pillars
-- Failure Mode Analysis (FMA)
-- Azure Availability Zones
 
 </div>
 <div>
 
-- Architecting for Reliability
-- Azure Landing Zones
-- Reference Architectures for Compute, AKS, Storage, and Databases
-- Resources
+- Failure Mode Analysis (FMA)
+- Azure Availability Zones & Multi-Region Deployments
+- Chaos & Load Testing
+- Reference Architectures & Resources
 
 </div>
 </div>
@@ -62,12 +56,24 @@ Chris Ayers
 
 ---
 
+# Introduction to Reliability
+
+> A system is considered "reliable" if it can consistently serve users under normal or abnormal conditions.
+
+- Reliability in distributed systems involves:
+  - **Consistent performance** despite failures.
+  - **Graceful degradation** when certain components become unavailable.
+  - **Rapid recovery** within acceptable time limits.
+- We'll look at how to ensure reliability in Azure workloads using proven design principles.
+
+---
+
 # Understanding Reliability and Resiliency
 
 - Failures are ***inevitable*** in distributed systems.
 - Workloads must **detect**, **withstand**, and **recover** from failures within ***acceptable*** timeframes.
 - Ensuring availability for users to access workloads as promised.
-- Failutes have an impact on ***revenue***, ***reputation***, and ***customer trust***.
+- Failures have an impact on ***revenue***, ***reputation***, and ***customer trust***.
 
 ---
 
@@ -75,9 +81,9 @@ Chris Ayers
 
 - **Revenue Loss**: Downtime can cost businesses over $1 million per hour, especially for e-commerce and online services.
 - **Increased Expenses**: Includes emergency maintenance, staff overtime, and potential penalties for SLA breaches.
-- **Legal Liabilities**: Potential lawsuits from customers or clients affected by downtime, leading to legal fees and settlements.
-- **Insurance Challenges**: Downtime can affect insurance coverage and premiums, especially if it leads to data breaches or other significant issues.
-- **Operational Costs**: Additional costs for restoring systems, data recovery, and implementing preventive measures to avoid future downtime.
+- **Legal Liabilities**: Potential lawsuits from customers or clients affected by downtime.
+- **Insurance Challenges**: Downtime can affect insurance coverage and premiums.
+- **Operational Costs**: Additional costs for restoring systems, data recovery, and preventive measures to avoid future downtime.
 
 ---
 
@@ -90,7 +96,7 @@ table {
 }
 </style>
 
-# Reliability
+# Reliability Levels
 
 | Level       | Monthly Downtime  | Annual Downtime | Cost  |
 | ----------- | ----------------- | --------------- | ----- |
@@ -120,9 +126,8 @@ table {
 
 # Understanding RPOs and RTOs
 
-- **Recovery Time Objectives (RTOs)**: RTOs specify the maximum acceptable downtime for restoring services after a disruption.
-
-- **Recovery Point Objectives (RPOs)**: RPOs define the amount of data that can be lost during a disruption.
+- **Recovery Time Objectives (RTOs)**: The maximum acceptable downtime before services must be restored.
+- **Recovery Point Objectives (RPOs)**: The amount of data that can be lost during a disruption.
 
 <div align="center">
 
@@ -136,7 +141,7 @@ table {
 
 <div align=center>
 
-![width:1000px](./img/shared-responsibility.svg)
+![width:850px](./img/shared-responsibility.svg)
 
 </div>
 
@@ -145,7 +150,7 @@ table {
 # Azure Well-Architected Framework
 
 - Provides best practices and guidance for building high-quality Azure solutions.
-- Ensure workloads are reliable, secure, efficient, and cost-effective.
+- Ensures workloads are reliable, secure, efficient, and cost-effective.
 
 ![bg right fit](img/waf.png)
 
@@ -161,117 +166,109 @@ table {
 
 # Design Principles for Reliable Workloads
 
+> Next, let's explore fundamental design principles that drive reliability in Azure workloads.
+
 ---
 
 # Design for Business Requirements
 
 - Gather business requirements focusing on the workload's intended utility.
-- Cover user experience, data, workflows, and unique characteristics.
-- Clearly state expectations and ensure goals are achievable and documented.
+- Cover user experience, data, workflows, and unique constraints or sensitivities.
+- Clearly state expectations and confirm goals are feasible and documented.
 
 ---
 
 # Design for Business Requirements
 
-| Approach | Description |
-| --- | --- |
-| Quantify Success | Set targets for components, flows, and the system. |
-| Compliance | Ensure predictable outcomes for sensitive flows. |
-| Platform Commitments | Understand SLAs, limits, and regional constraints. |
-| Dependencies | Track dependencies and implement resilient design patterns. |
+| Approach           | Description                                                     |
+|--------------------|-----------------------------------------------------------------|
+| Quantify Success   | Set targets for components, flows, and the system.             |
+| Compliance         | Ensure predictable outcomes for sensitive flows.               |
+| Platform Commitments | Understand SLAs, limits, and regional constraints.           |
+| Dependencies       | Track dependencies and implement resilient design patterns.    |
 
 ---
 
 # Design for Resilience
 
-- The workload must continue to operate with full or reduced functionality.
-- Expect component malfunctions, platform outages, performance degradations, limited resource availability, and other faults.
+- The workload must continue to operate (fully or partially) despite failures.
+- Expect platform outages, resource shortages, and other faults.
 - Build resiliency to ensure fault tolerance and graceful degradation.
 
 ---
 
 # Design for Resilience
 
-| Approach | Description |
-| --- | --- |
-| Distinguish critical components from those that can degrade. | Design according to criticality, avoiding overengineering. |
-| Identify potential failure points and their effects. | Analyze failure cases to influence error handling design. |
-| Build self-preservation capabilities. | Isolate faults and mitigate failures. |
-| Add scalability for critical components. | Handle capacity spikes and regional issues. |
-| Build redundancy in layers and tiers. | Minimize single points of failure. |
+| Approach                                                  | Description                                                   |
+|-----------------------------------------------------------|---------------------------------------------------------------|
+| Distinguish critical vs. degradable components            | Design according to criticality, avoiding overengineering.    |
+| Identify potential failure points                          | Analyze failure cases to influence error handling design.     |
+| Build self-preservation capabilities                      | Isolate faults and mitigate failures.                         |
+| Add scalability for critical components                   | Handle capacity spikes and regional issues.                   |
+| Build redundancy in layers and tiers                      | Minimize single points of failure.                            |
 
 ---
 
 # Design for Recovery
 
-- The workload must be able to anticipate and recover from most failures, of all magnitudes, with minimal disruption to the user experience and business objectives.
-- Even highly resilient systems need disaster preparedness approaches, in both architecture design and workload operations.
-- On the data layer, you should have strategies that can repair workload state in case of corruption.
+- The workload must recover gracefully from failures of any magnitude.
+- Even highly resilient systems need disaster preparedness.
+- On the data layer, plan to repair or restore state if corruption occurs.
 
 ---
 
 # Design for Recovery
 
-| Approach | Description |
-| --- | --- |
-| Structured recovery plans | Cover all components and the system as a whole. Regular drills test recovery processes. |
-| Data repair for stateful components | Use backups to restore to a trusted recovery point. Ensure data integrity with immutable, consistent backups. |
-| Automated self-healing | Reduce risks and shorten the break-fix cycle. |
-| Immutable ephemeral units | Spin up and destroy on demand for consistency. Use side-by-side deployment to minimize disruptions. |
+| Approach                   | Description                                                                                      |
+|----------------------------|--------------------------------------------------------------------------------------------------|
+| Structured recovery plans  | Cover all components. Regular drills test recovery processes.                                    |
+| Data repair for stateful components | Use backups to restore to a trusted recovery point. Ensure data integrity with immutable backups. |
+| Automated self-healing     | Reduce risks and shorten break-fix cycles.                                                      |
+| Immutable ephemeral units  | Spin up/destroy on demand. Use side-by-side deployments to minimize disruptions.                |
 
 ---
 
 # Design for Operations
 
-- Shift left in operations to anticipate failure conditions.
-- Test failures early and often in the development lifecycle.
-- Ensure shared visibility across teams for dependency status and ongoing failures.
-- Use insights, diagnostics, and alerts from observable systems for effective incident management and continuous improvement.
+- Shift left in operations to anticipate failures early.
+- Test failures frequently in development.
+- Ensure shared visibility across teams for dependency status.
+- Use diagnostics and alerts from observable systems for rapid incident management.
 
 ---
 
 # Design for Operations
 
-| Approach | Description |
-| --- | --- |
-| Build observable systems that can correlate telemetry. | Monitoring and diagnostics are crucial. Aggregated observability provides a holistic view of health status. |
-| Predict potential malfunctions and anomalous behavior. | Use prioritized and actionable alerts for active reliability failures. |
-| Invest in reliable processes and infrastructure. | Enable quicker triage and proactive mitigation of potential failures. |
+| Approach                                                | Description                                                                                |
+|---------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| Build observable systems                                | Aggregated telemetry provides a holistic view of health status.                            |
+| Predict malfunctions and anomalies                      | Use prioritized, actionable alerts for active reliability failures.                        |
+| Invest in reliable processes and infrastructure         | Enable quicker triage and proactive mitigation of potential failures.                      |
 
 ---
 
 # Design for Operations
 
-| Approach | Description |
-| --- | --- |
-| Simulate failures and run tests. | Set realistic recovery expectations and test metrics. |
-| Automate components. | Minimize human error and ensure consistency. |
-| Scrutinize routine operations. | Ensure system stability. |
-| Learn from production incidents. | Drive improvements based on real incidents. |
+| Approach                                 | Description                                         |
+|------------------------------------------|-----------------------------------------------------|
+| Simulate failures and run tests          | Validate real recovery expectations and metrics.    |
+| Automate components                      | Minimize human error and ensure consistency.        |
+| Scrutinize routine operations            | Spot hidden risks, maintain system stability.       |
+| Learn from production incidents          | Incorporate improvements from real incident data.   |
 
 ---
 
 # Keep It Simple
 
-- Avoid overengineering the architecture design, application code, and operations.
-- Simplicity reduces inefficiencies and potential misconfigurations.
+- Avoid overengineering architecture, code, and ops.
+- Simplicity reduces inefficiencies and misconfigurations.
 - Maintain a balanced approach to avoid single points of failure.
 
 ---
 
-# Keep It Simple
-
-| Approach | Benefit |
-| --- | --- |
-| Add components only if necessary. | Keep the critical path lean. |
-| Establish and document standards. | Minimize errors and maintain quality. |
-| Evaluate pragmatic design. | Avoid unnecessary interdependence. |
-| Develop just enough code. | Ensure code resilience and efficiency. |
-| Use platform features and prebuilt assets. | Save time and use tested practices. |
-
----
-
 # Tradeoffs with Other Azure WAF Pillars
+
+> Once we've established design principles, we must also recognize how reliability can come into conflict with other priorities in the Well-Architected Framework.
 
 ![bg right fit](./img/scales.png)
 
@@ -281,10 +278,10 @@ table {
 
 ## Tradeoff: Increased Workload Surface Area
 
-- **Security**: Prioritizes a reduced and contained surface area to minimize attack vectors.
-- **Reliability**: Often obtained through replication, which increases the surface area.
-- **Disaster Recovery**: Solutions like backups increase surface area and require additional security controls.
-- **Additional Components**: Needed for reliability, increasing complexity and surface area.
+- **Security**: Prefers a reduced, contained surface area to minimize attack vectors.
+- **Reliability**: Often relies on replication, which increases surface area.
+- **Disaster Recovery**: Backups and redundancy expand the environment.
+- **Added Complexity**: Each new component requires security controls and oversight.
 
 ---
 
@@ -292,10 +289,10 @@ table {
 
 ## Tradeoff: Security Control Bypass
 
-- **Security**: All controls should remain active in both normal and stressed systems.
-- **Reliability Events**: Urgency might pressure teams to bypass security controls.
-- **Troubleshooting**: Disabling security protocols can expose the system to risks.
-- **Granular Controls**: Increase configuration complexity and risk of misconfiguration.
+- **Security**: All controls should remain active, even under stress.
+- **Reliability Events**: Urgency might pressure teams to bypass controls.
+- **Troubleshooting**: Temporarily disabling security can expose new risks.
+- **Granular Controls**: Increases the complexity of configuration.
 
 ---
 
@@ -303,22 +300,21 @@ table {
 
 ## Tradeoff: Old Software Versions
 
-- **Security**: Encourages "get current, stay current" for security patches.
-- **Reliability**: Patching can disrupt components, causing unavailability.
-- **Delaying Patches**: Avoids reliability risks but leaves the system unprotected.
-- **Old Code**: Using outdated libraries and base images exposes the application to security risks.
+- **Security**: "Get current, stay current" for timely patches.
+- **Reliability**: Patch processes can temporarily cause unavailability.
+- **Delaying Patches**: Avoids disruption but leaves systems at risk.
+- **Old Libraries**: Heighten vulnerability exposure.
 
 ---
 
 # Reliability Tradeoffs with Cost Optimization
 
-## Tradeoff: Increased Implementation Redundancy or Waste
+## Tradeoff: Increased Implementation Redundancy
 
-- **Cost Optimization**: Minimize underutilized resources and avoid over-provisioning.
-- **Reliability**: Requires replication to handle node failures, leading to increased costs.
-- **Over-Provisioning**: Absorbs unexpected load but can be wasteful.
-- **Disaster Recovery**: Excessive solutions increase costs.
-- **Deployment Strategies**: Techniques like blue/green increase costs during deployment periods.
+- **Cost Optimization**: Minimize underutilized or over-provisioned resources.
+- **Reliability**: Requires replication and failover capacity.
+- **Disaster Recovery**: Additional solutions and resource duplication.
+- **Blue/Green Deployments**: Extra overhead during rollout phases.
 
 ---
 
@@ -326,11 +322,10 @@ table {
 
 ## Tradeoff: Increased Investment in Operations
 
-- **Cost Optimization**: Evaluate the value provided by deployed solutions.
-- **Observability**: Increased monitoring capabilities lead to higher data transfer and collection costs.
-- **Testing and Drills**: Designing and running tests incur costs.
-- **On-Call Rotation**: Rapid response processes increase personnel and tooling costs.
-- **Support Contracts**: Over-provisioned support contracts incur waste.
+- **Observability**: Enhanced monitoring can raise storage and data transfer costs.
+- **Testing and Drills**: Designing realistic tests involves added effort.
+- **On-Call Rotation**: More robust coverage = more personnel/tooling expense.
+- **Support Contracts**: Over-provisioning can lead to resource waste.
 
 ---
 
@@ -338,20 +333,20 @@ table {
 
 ## Tradeoff: Increased Operational Complexity
 
-- **Operational Excellence**: Prioritizes simplicity.
-- **Reliability**: Increases workload complexity.
-- **Monitoring**: More components lead to more data sources and complexity in distributed tracing and observability.
-- **Multi-Region Management**: Increases complexity in operational management and data replication.
+- **Operational Excellence**: Emphasizes simpler operations.
+- **Reliability**: Often involves multiple regions, more components, and added complexity.
+- **Monitoring**: Each additional component means more telemetry data.
+- **Multi-Region**: Complexity in data replication and management across regions.
 
 ---
 
 # Reliability Tradeoffs with Operational Excellence
 
-## Tradeoff: Increased Effort to Generate Team Knowledge and Awareness
+## Tradeoff: More Team Knowledge & Awareness
 
-- **Documentation**: More reliability components require extensive documentation.
-- **Training**: Increased components lead to more complex training and onboarding.
-- **Knowledge Maintenance**: More time needed to track product roadmaps and service-level guidance.
+- **Documentation**: Reliability components require extensive documentation.
+- **Training**: Complex setups demand advanced staff skills.
+- **Knowledge Maintenance**: Teams must track evolving service-level guidance.
 
 ---
 
@@ -359,63 +354,63 @@ table {
 
 ## Tradeoff: Increased Latency
 
-- **Performance Efficiency**: Achieve performance targets for user and data flows.
-- **Reliability**: Data replication introduces latency for write operations.
-- **Resource Balancing**: Balancing load to healthy replicas affects performance.
-- **Geographical Distribution**: Network latency in communication across boundaries.
-- **Monitoring**: Extensive health observation can decrease performance.
+- **Performance Efficiency**: Aims for minimal latency, high throughput.
+- **Reliability**: Data replication can slow write operations.
+- **Resource Balancing**: Shifting load to healthy replicas can add overhead.
+- **Geographical Distribution**: Network latency across regions or zones.
 
 ---
 
 # Reliability Tradeoffs with Performance Efficiency
 
-## Tradeoff: Increased Over-Provisioning
+## Tradeoff: Over-Provisioning
 
-- **Performance Efficiency**: Use just enough resources to satisfy demand.
-- **Reliability**: Over-provisioning handles sudden demand spikes.
-- **Automatic Scaling**: Lag between demand signal and supply creation requires over-provisioning.
-- **Worst Case Scenarios**: Using large instances for unpredictable demand leads to waste.
+- **Performance Efficiency**: Allocate just enough resources to meet demand.
+- **Reliability**: Over-provisioning helps handle sudden spikes or failover needs.
+- **Autoscaling Lag**: Demand signals may lag, necessitating a larger buffer.
+- **Worst Case Sizing**: Using large instances for sporadic peaks can waste resources.
 
 ---
 
 # Failure Mode Analysis (FMA)
+
+> We've explored design principles and tradeoffs. Next, let's discuss a crucial activity: proactively identifying and mitigating possible failure modes.
 
 ---
 
 # Identifying and Mitigating Failures
 
 ## Proactive Failure Identification
-
-Proactive identification of potential failures is crucial for maintaining system reliability and preventing costly downtime.
+- Recognize potential weaknesses before they cause outages.
+- Tools like checklists, incident post-mortems, and dependency mapping can help.
 
 ## Mitigating Strategies
-
-Implementing effective strategies to mitigate failures can enhance system performance and minimize operational risks.
+- Architect for graceful degradation, fallback strategies, and clear failover mechanisms.
+- Enhance observability to detect issues quickly.
 
 ---
 
 # Prioritizing Risks and Impacts
 
 ## Risk Prioritization
-
-Prioritizing risks is essential for effective reliability management. Identify high-impact risks and allocate resources efficiently to mitigate them.
+- Identify high-impact risks and allocate resources efficiently.
+- Distinguish between low-probability/high-impact events and daily minor failures.
 
 ## Impact Mitigation
-
-Understanding and mitigating the potential impacts of risks is crucial for maintaining operational reliability. Implement strategies to minimize the consequences of identified risks.
+- Implement strategies to minimize consequences (e.g., immediate failover, data replication).
+- Document potential risks to guide quick resolution.
 
 ---
 
 # Single Points of Failure (SPOFs)
 
-- A Single Point of Failure (SPOF) is a part of a system that, if it fails, will stop the entire system from working.
-- Identifying SPOFs is crucial for enhancing system reliability and availability.
+- An SPOF is a system part that, if it fails, disrupts the entire workload.
+- Identifying SPOFs is critical for improving reliability and availability.
 
 ## Mitigating SPOFs
-
-- **Redundancy**: Implement redundant components to ensure system continuity.
-- **Failover Mechanisms**: Use failover strategies to switch to backup systems seamlessly.
-- **Load Balancing**: Distribute workloads across multiple systems to avoid over-reliance on a single component.
+- **Redundancy**: Duplicate components or services.
+- **Failover Mechanisms**: Seamlessly switch to backups.
+- **Load Balancing**: Distribute traffic across multiple instances.
 
 ---
 
@@ -425,38 +420,35 @@ Understanding and mitigating the potential impacts of risks is crucial for maint
 
 ---
 
-# Azure Availability Zones
+# Bridging to Azure-Specific Strategies
 
-![bg right:69% fit](./img/availability-zones.png)
+> Now that we've covered Failure Mode Analysis and reliability fundamentals, let's see how Azure Availability Zones and multi-region deployments reduce risk and enhance reliability at scale.
 
 ---
 
 # Azure Availability Zones
 
-- Availability zones are separated groups of datacenters within a region.
-- They have low-latency connections (<2ms) and are connected by a high-performance network.
-- Zones are far enough apart to reduce the likelihood of simultaneous local outages.
+![bg right:55% fit](./img/availability-zones.png)
+
+- Availability Zones (AZs) are physically separate datacenters within an Azure region.
+- They are connected by low-latency (<2ms) networks.
+- AZs minimize simultaneous local outages by providing isolated power, cooling, and networking.
 
 ---
 
 ## Azure Availability Zones Infrastructure
 
-- Independent power, cooling, and networking.
-- Designed to support regional services, capacity, and high availability even if one zone experiences an outage.
-- Help keep data synchronized and accessible during failures.
+- Each zone has independent power, cooling, and networking.
+- Designed for high availability even if one zone experiences an outage.
+- Helps keep data synchronized and accessible during failures.
 
 ---
 
 # Zonal and Zone-Redundant Services
 
-- Deploy into an Azure region with availability zones.
-- Use multiple availability zones to keep separate copies of your application and data.
-- [Region Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-region-support)
-
-## Service Support
-
-- PaaS services typically support zone-redundant deployments.
-- IaaS services typically support zonal deployments.
+- Choose a region that supports availability zones.
+- Use **zonal** deployments (resources pinned to specific AZs) or **zone-redundant** services (Microsoft automates replication across AZs).
+- [Region Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-region-support)  
 - [Services Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support)
 
 ---
@@ -472,13 +464,12 @@ Understanding and mitigating the potential impacts of risks is crucial for maint
 
 # Zonal Resources
 
-Customer Responsibilities:
-
+**Customer Responsibilities**:
 - Deploy and manage resources in each availability zone.
-- Configure and manage data replication between zones.
-- Distribute requests using a load balancer
-- Choose between active-passive or active-active models.
-- Handle failover during an availability zone outage.
+- Configure and manage data replication.
+- Use a load balancer to distribute requests.
+- Choose active-passive or active-active models.
+- Handle failover when an AZ is unavailable.
 
 ![bg right fit](./img/zonal-3.png)
 
@@ -486,9 +477,9 @@ Customer Responsibilities:
 
 # Zone-Redundant Resources
 
-- Spread across multiple availability zones.
+- Spread automatically across multiple availability zones.
 - Microsoft manages request distribution and data replication.
-- Automatic failover during an outage.
+- Automatic failover if a zone goes down.
 
 ![bg fit right](./img/zone-redundant.png)
 
@@ -498,9 +489,9 @@ Customer Responsibilities:
 
 ## Update Deployment
 
-- Microsoft deploys updates to a single availability zone at a time.
-- Reduces impact on active workloads.
-- Run workloads across multiple zones to benefit from this approach.
+- Microsoft deploys updates to a single AZ at a time.
+- Minimizes impact on active workloads.
+- Running across multiple zones allows continuous service during updates.
 
 ---
 
@@ -508,20 +499,23 @@ Customer Responsibilities:
 
 ## Overview
 
-- Many regions have a paired region for multi-region deployment.
-- Newer regions with multiple availability zones may not have a paired region.
-- Multi-region solutions can still be deployed with different approaches.
+- Many Azure regions are paired for multi-region continuity.
+- Some newer multi-AZ regions may not have a designated paired region.
+- You can still design multi-region solutions using any region combination.
 
 ---
 
 # Multi-Region Deployments
 
+- Deploy workloads across multiple Azure regions for geo-redundancy.
+- Consider **Active-Active** or **Active-Passive** topologies.
+
 ---
 
-# Active-Active and Active-Passive
+# Active-Active vs. Active-Passive
 
-- Active-Active: Multiple instances process requests simultaneously.
-- Active-Passive: Primary instance processes traffic, secondary instances serve as failover.
+- **Active-Active**: Multiple instances process requests simultaneously.
+- **Active-Passive**: Primary instance processes traffic; secondary is on standby.
 
 <div class="columns">
 <div>
@@ -547,101 +541,86 @@ Customer Responsibilities:
 # Example Scenarios
 
 ## Line-of-Business Application
-
-- **Requirements**: High reliability, minimal downtime, high performance, cost efficiency.
-- **Approach**: Zone-redundant deployment with backup across regions.
+- **Requirements**: High reliability, minimal downtime, strong performance, cost efficiency.
+- **Approach**: Zone-redundant deployment with regional backups.
 
 ## Internal Application
-
-- **Requirements**: Cost efficiency, acceptable risk of downtime.
-- **Approach**: Locally redundant deployment with backups across regions or zone-redundant deployment.
+- **Requirements**: Cost sensitivity, acceptable downtime risk.
+- **Approach**: Locally redundant deployment plus cross-region backups (or zone-redundant).
 
 ---
 
 # Example Scenarios
 
 ## Legacy Application Migration
-
 - **Requirements**: High performance, resiliency.
-- **Approach**: Zone-redundant deployment or zonal (pinned) deployment with passive deployments.
+- **Approach**: Zone-redundant or zonal pinned deployments, possibly with passive failover.
 
 ## Healthcare Application
-
 - **Requirements**: Data residency, regulatory compliance.
-- **Approach**: Multi-zone multi-region deployment or zone-redundant deployment.
+- **Approach**: Multi-zone, multi-region with strict compliance considerations.
 
 ---
 
 # Example Scenarios
 
 ## Banking System
-
-- **Requirements**: Mission-critical, highest reliability.
-- **Approach**: Multi-zone multi-region deployment.
+- **Requirements**: Mission-critical, extremely high reliability.
+- **Approach**: Multi-zone and multi-region deployment (Active-Active).
 
 ## Software as a Service (SaaS)
-
-- **Requirements**: Geographically distributed user base, data residency.
-- **Approach**: Multi-zone multi-region deployment or single-region zone-redundant deployment with global traffic acceleration.
+- **Requirements**: Geographically distributed users, data residency constraints.
+- **Approach**: Multi-zone, multi-region or zone-redundant single-region with global traffic distribution.
 
 ---
 
 # Enhancing Resiliency with Fault Isolation
 
-## Fault Isolation Importance
-
-Fault isolation is crucial for maintaining resiliency in Azure workloads as it helps prevent cascading failures and ensures high availability of services.
-
-## Azure Availability Zones
-
-Azure Availability Zones provide geographic fault isolation within an Azure region, ensuring resiliency by distributing workloads across multiple data centers.
+- Fault isolation prevents cascading failures and maintains availability.
+- Azure Availability Zones distribute workloads across multiple data centers, reducing outage risks in a single location.
 
 ---
 
 # Deploying Across Zones for Higher Availability
 
-## Azure Availability Zones
-
-Deploying across Azure Availability Zones can enhance availability and provide protection against failures by distributing workloads across multiple geographically isolated locations.
-
-## Increased Availability
-
-Deploying workloads across zones results in increased availability, ensuring that your services remain accessible even in the event of failures or outages in a single zone.
+- Deploying workloads across multiple AZs strengthens availability.
+- Provides built-in fault isolation to handle datacenter-specific failures.
 
 ---
 
 # Architecting for Reliability
+
+- Beyond AZs and multi-region approaches, landing zones, reference architectures, and best practices further ensure resilient workloads in Azure.
 
 ---
 
 # Azure Landing Zones
 
 ## Secure Structure
-
-Azure Landing Zones offer a secure foundation for organizing your Azure environment, ensuring robust security measures are in place to protect your data and resources.
+- Azure Landing Zones create a secure, organized foundation for Azure environments.
+- Enforce identity, network, and governance policies at scale.
 
 ## Reliable Implementation
-
-Implementing Azure Landing Zones effectively provides a reliable structure for your Azure environment, enabling smooth operations and better resource management.
+- A standardized environment supports consistent deployments.
+- Simplifies resource management and reduces misconfigurations.
 
 ---
 
 # Reference Architectures
 
 ## Streamlining Workload Design
-
-Use reference architectures to design and deploy reliable, efficient, and scalable workloads in Azure.
-
-- Compute Architecture
-- Data and Analytics Architecture
-- AKS Architecture
-- Storage and Databases Design
+- Microsoft provides reference architectures to fast-track reliable, efficient, and scalable workloads.
+- Examples:
+  - Compute Architecture
+  - Data and Analytics
+  - AKS Architecture
+  - Storage and Database Design
 
 ---
 
 # Mission-Critical Workloads
 
-Learn about designing and implementing mission-critical applications on Azure. This guide provides best practices for achieving high reliability, availability, and performance for your applications.
+Learn about designing mission-critical applications on Azure for high availability, reliability, and performance:
 
 [Mission-Critical Workloads](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/mission-critical-overview)
 
@@ -651,18 +630,23 @@ Learn about designing and implementing mission-critical applications on Azure. T
 
 # Enterprise Web App Patterns
 
-Enterprise Web App patterns guide developers and architects through the cloud journey, focusing on web apps. They provide prescriptive architecture, code, and configuration guidance aligned with the Well-Architected Framework.
+Guidance for web apps on Azure, offering prescriptive architecture, code, and configuration aligned with the Well-Architected Framework:
 
 [Enterprise Web App Patterns](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/overview)
+
+<div align="center">
+
+![width:900px](img/enterprise-app.png)
+
+</div>
 
 ---
 
 # Reliable Web App Pattern
 
-- Designed for transitioning on-premises web apps to the cloud.
-- Emphasizes crucial changes for swift cloud adoption.
-- Focuses on high-value updates with minimal code changes.
-- Assumes an established landing zone for deployment.
+- Focused on migrating on-premises web apps to the cloud with minimal code changes.
+- Emphasizes high-value, low-friction updates for quick adoption.
+- Assumes an established landing zone.
 
 [Reliable Web App Pattern](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/reliable-web-app/dotnet/guidance)
 
@@ -670,17 +654,18 @@ Enterprise Web App patterns guide developers and architects through the cloud jo
 
 # Modern Web App Pattern
 
-- For cloud-based web apps seeking performance and cost optimizations.
-- Offers guidance for targeted modernization.
-- Focuses on refactoring high-demand areas into standalone services.
-- Facilitates independent development and flexible deployments.
+- For existing or new cloud-based web apps aiming for top performance and cost efficiency.
+- Encourages refactoring critical areas into standalone services.
+- Facilitates agile development and flexible deployments.
+
 [Modern Web App Pattern](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/modern-web-app/dotnet/guidance)
 
 ---
 
 # Azure Verified Modules
 
-Explore Azure Verified Modules to find pre-built, tested, and verified modules that can help accelerate your development process. These modules ensure compliance with Azure's best practices and standards.
+- Pre-built, tested, and Azure-verified modules that accelerate development.
+- Ensures compliance with best practices and standards.
 
 [Azure Verified Modules](https://azure.github.io/Azure-Verified-Modules/)
 
@@ -688,12 +673,8 @@ Explore Azure Verified Modules to find pre-built, tested, and verified modules t
 
 # APRL: Azure Platform Resiliency Library
 
-This provides a curated catalog of resiliency recommendations for Azure workloads, including Azure Resource Graph (ARG) queries to identify non-compliant resources.
-
-- **Azure Resources**: Recommendations by resource provider and type.
-- **Specialized Workloads**: Guidance for popular workload types.
-- **Well-Architected Framework**: Resiliency recommendations from the framework.
-- **Tools**: Automation scripts for workload evaluation.
+- Curated catalog of resiliency recommendations, plus Azure Resource Graph queries for identifying non-compliant resources.
+- Guidance by resource type, specialized workloads, WAF best practices, and automation scripts.
 
 [APRL: Azure Platform Resiliency Library](https://github.com/Azure/Azure-Proactive-Resiliency-Library-v2)
 
@@ -701,111 +682,111 @@ This provides a curated catalog of resiliency recommendations for Azure workload
 
 # Azure Review Checklists
 
-Use the Azure Review Checklists to ensure your architecture meets best practices and standards. These checklists cover various aspects of Azure services and can help identify potential issues before they become critical.
+- Use these to ensure your architecture aligns with best practices.
+- Covers diverse Azure services to catch issues before they become critical.
 
 [Azure Review Checklists](https://github.com/Azure/review-checklists)
 
 ---
 
-# Load Testing
-
----
-
 # Introduction to Load Testing
 
-- Load testing assesses system performance under expected user loads.
-- It helps identify bottlenecks and determine system behavior during peak usage.
-- Load testing ensures systems can handle high traffic without degradation.
+> Evaluating system performance under expected and extreme user loads.
+
+- Identifies bottlenecks and capacity limits.
+- Ensures systems maintain acceptable performance at peak usage.
+- Guides scalability planning and proactive optimization.
 
 ---
 
 # Benefits of Load Testing
 
 - Improves application reliability and user experience.
-- Helps in determining scalability for future growth.
-- Identifies issues that could lead to system failures.
+- Validates scalability for future growth.
+- Identifies issues that could degrade or break the system under load.
 
 ---
 
 # Load Testing Strategies
 
-- Determine key performance indicators (KPIs) for testing.
-- Use real-world scenarios to simulate user behavior.
-- Analyze results to optimize application performance.
+- Determine KPIs (e.g., response times, throughput).
+- Simulate realistic user patterns.
+- Analyze results to fine-tune the application and infrastructure.
 
 ---
 
 # Types of Load Tests
 
-- Soak test
-- Spike test
-- Stress test
-- Load test
+- **Soak**: Prolonged testing under steady load.  
+- **Spike**: Rapid load increase to test burst resilience.  
+- **Stress**: Exceed normal capacity to find breaking points.  
+- **Load**: Typical peak user scenarios.
 
 ---
 
 # Tools for Load Testing
 
-- Popular tools include JMeter, LoadRunner, Locust, and Gatling.
-- Azure Load Testing Service uses Jmeter and Locust.
-- These tools help simulate heavy loads and analyze performance.
-- Choose a tool based on specific project needs and budget.
+- Popular choices: **JMeter**, **LoadRunner**, **Locust**, **Gatling**.
+- Azure Load Testing leverages JMeter and Locust.
+- Choose a tool based on your needs and budget.
 
 ---
 
 # Chaos Engineering
 
----
+> After validating performance, we can further strengthen resilience by deliberately introducing controlled failures.
 
-# Introduction to Chaos Engineering
-
-- Chaos Engineering is the practice of experimenting on a system to build confidence.
-- It helps identify weaknesses by introducing failures in a controlled environment.
-- The goal is to improve system resilience and reliability.
+- Chaos Engineering tests how systems behave under unexpected conditions.
+- Identifies weak points in architecture and processes.
+- Fosters a culture of experimentation and continuous improvement.
 
 ---
 
 # Principles of Chaos Engineering
 
-- Start small and gradually increase the scope of experiments.
-- Limit the blast radius to minimize impact on users.
-- Run experiments in production to gain true insights.
+- Start small and gradually increase experiment scope.
+- Minimize blast radius to reduce user impact.
+- Testing in production yields the most realistic results (if safety and guardrails are in place).
 
 ---
 
 # Benefits of Chaos Engineering
 
-- Increases system resilience and reduces downtime.
-- Enhances team collaboration and fosters a culture of experimentation.
+- Improves system resilience and reduces downtime.
 - Encourages proactive identification of weaknesses.
+- Strengthens cross-team collaboration and learning.
 
 ---
 
 # Tools for Chaos Engineering
 
-- Popular tools include Gremlin, Chaos Monkey, and LitmusChaos.
-- These tools help automate chaos experiments and monitor system behavior.
-- Choose tools based on the specific needs of your organization.
+- Examples: **Gremlin**, **Chaos Monkey**, **LitmusChaos**.
+- Automate chaos experiments and monitoring.
+- Align tooling with your platform and org needs.
 
 ---
 
 # Challenges in Chaos Engineering
 
-- Cultural resistance to introducing failures.
-- Difficulty in measuring the impact of experiments.
-- Ensuring safety and minimizing user disruption.
+- Cultural resistance to "breaking" things intentionally.
+- Difficulty measuring chaos experiments' impact on real KPIs.
+- Ensuring user impact is contained and minimal.
 
 ---
 
 # Conclusion
 
-1. **Design Principles**: Learn the principles for designing reliable workloads, including resilience, recovery, and simplicity.
+1. **Design Principles**: Apply resilience, recovery, and simplicity when building workloads.  
+2. **Tradeoffs**: Each design decision may conflict with cost, security, ops, or performance.  
+3. **Failure Mode Analysis**: Proactively identify and mitigate potential failures.  
+4. **Azure Solutions**: Use Availability Zones, multi-region deployments, and reference architectures to improve reliability.  
 
-2. **Tradeoffs**: Recognize the tradeoffs between reliability and other Azure pillars such as security, cost optimization, operational excellence, and performance efficiency.
+---
 
-3. **Failure Mode Analysis (FMA)**: Implement proactive strategies to identify and mitigate potential failures.
-
-4. **Reference Architectures**: Use reference architectures to streamline workload design and ensure reliability, efficiency, and scalability.
+**Next Steps**  
+- Review your current environment using [Azure Review Checklists](https://github.com/Azure/review-checklists).  
+- Align critical workloads with proven [Reference Architectures](https://learn.microsoft.com/en-us/azure/architecture/).  
+- Incorporate chaos engineering and load testing to detect and fix hidden weaknesses.
 
 ---
 
@@ -817,20 +798,25 @@ Use the Azure Review Checklists to ensure your architecture meets best practices
 ## Links
 
 - [APRL](https://github.com/Azure/Azure-Proactive-Resiliency-Library-v2)
+- [Azure Verified Modules](https://azure.github.io/Azure-Verified-Modules/)
 - [Azure Review Checklists](https://github.com/Azure/review-checklists)
-- [Mission Critical Workloads](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/)
+- [Enterprise Web Apps](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/overview)
 
 </div>
 <div>
 
-## Follow Chris Ayers
+## Chris Ayers
 
-<i class="fa-brands fa-bluesky"></i> BlueSky: [@chris-ayers.com](https://bsky.app/profile/chris-ayers.com)
-<i class="fa-brands fa-linkedin"></i> LinkedIn: - [chris\-l\-ayers](https://linkedin.com/in/chris-l-ayers/)
-<i class="fa fa-window-maximize"></i> Blog: [https://chris-ayers\.com/](https://chris-ayers.com/)
-<i class="fa-brands fa-github"></i> GitHub: [Codebytes](https://github.com/codebytes)
-<i class="fa-brands fa-mastodon"></i> Mastodon: @Chrisayers@hachyderm.io
-~~<i class="fa-brands fa-twitter"></i> Twitter: @Chris_L_Ayers~~
+_Senior Site Reliability Engineer_
+_Azure CXP AzRel_
+_Microsoft_
+
+<i class="fa-brands fa-bluesky"></i> BlueSky: [@chris-ayers.com](https://bsky.app/profile/chris-ayers.com)  
+<i class="fa-brands fa-linkedin"></i> LinkedIn: - [chris\-l\-ayers](https://linkedin.com/in/chris-l-ayers/)  
+<i class="fa fa-window-maximize"></i> Blog: [https://chris-ayers\.com/](https://chris-ayers.com/)  
+<i class="fa-brands fa-github"></i> GitHub: [Codebytes](https://github.com/codebytes)  
+<i class="fa-brands fa-mastodon"></i> Mastodon: [@Chrisayers@hachyderm.io](https://hachyderm.io/@Chrisayers)
+~~<i class="fa-brands fa-twitter"></i> Twitter: [@Chris_L_Ayers](https://twitter.com/Chris_L_Ayers)~~  
 
 </div>
 
