@@ -4,6 +4,10 @@ theme: custom-default
 footer: 'https://chris-ayers.com'
 ---
 
+![bg](./img/title-image.png)
+
+---
+
 # Ensuring Azure Resiliency
 
 ## Chris Ayers
@@ -22,7 +26,7 @@ _Microsoft_
 <i class="fa-brands fa-linkedin"></i> LinkedIn: - [chris\-l\-ayers](https://linkedin.com/in/chris-l-ayers/)
 <i class="fa fa-window-maximize"></i> Blog: [https://chris-ayers\.com/](https://chris-ayers.com/)
 <i class="fa-brands fa-github"></i> GitHub: [Codebytes](https://github.com/codebytes)
-<i class="fa-brands fa-mastodon"></i> Mastodon: @Chrisayers@hachyderm.io
+<i class="fa-brands fa-mastodon"></i> Mastodon: [@Chrisayers@hachyderm.io](https://hachyderm.io/@Chrisayers)
 ~~<i class="fa-brands fa-twitter"></i> Twitter: @Chris_L_Ayers~~
 
 ---
@@ -56,7 +60,7 @@ _Microsoft_
 
 ---
 
-# Introduction to Reliability
+# Why Reliability Matters
 
 > A system is considered "reliable" if it can consistently serve users under normal or abnormal conditions.
 
@@ -64,16 +68,19 @@ _Microsoft_
   - **Consistent performance** despite failures.
   - **Graceful degradation** when certain components become unavailable.
   - **Rapid recovery** within acceptable time limits.
-- We'll look at how to ensure reliability in Azure workloads using proven design principles.
 
 ---
 
 # Understanding Reliability and Resiliency
 
-- Failures are ***inevitable*** in distributed systems.
-- Workloads must **detect**, **withstand**, and **recover** from failures within ***acceptable*** timeframes.
+- Failures are **inevitable** in distributed systems.
+- Workloads must **detect**, **withstand**, and **recover** from failures within _**acceptable**_ timeframes.
 - Ensuring availability for users to access workloads as promised.
-- Failures have an impact on ***revenue***, ***reputation***, and ***customer trust***.
+- Failures have an impact on _**revenue**_, _**reputation**_, and _**customer trust**_.
+
+---
+
+# <!-- fit --> FAILURE IS ALWAYS AN OPTION
 
 ---
 
@@ -381,10 +388,12 @@ table {
 # Identifying and Mitigating Failures
 
 ## Proactive Failure Identification
+
 - Recognize potential weaknesses before they cause outages.
 - Tools like checklists, incident post-mortems, and dependency mapping can help.
 
 ## Mitigating Strategies
+
 - Architect for graceful degradation, fallback strategies, and clear failover mechanisms.
 - Enhance observability to detect issues quickly.
 
@@ -393,10 +402,12 @@ table {
 # Prioritizing Risks and Impacts
 
 ## Risk Prioritization
+
 - Identify high-impact risks and allocate resources efficiently.
 - Distinguish between low-probability/high-impact events and daily minor failures.
 
 ## Impact Mitigation
+
 - Implement strategies to minimize consequences (e.g., immediate failover, data replication).
 - Document potential risks to guide quick resolution.
 
@@ -408,6 +419,7 @@ table {
 - Identifying SPOFs is critical for improving reliability and availability.
 
 ## Mitigating SPOFs
+
 - **Redundancy**: Duplicate components or services.
 - **Failover Mechanisms**: Seamlessly switch to backups.
 - **Load Balancing**: Distribute traffic across multiple instances.
@@ -465,6 +477,7 @@ table {
 # Zonal Resources
 
 **Customer Responsibilities**:
+
 - Deploy and manage resources in each availability zone.
 - Configure and manage data replication.
 - Use a load balancer to distribute requests.
@@ -534,17 +547,19 @@ table {
 
 # Data Replication: Storage Options
 
-![](img/storage-options.png)
+![storage options](img/storage-options.png)
 
 ---
 
 # Example Scenarios
 
 ## Line-of-Business Application
+
 - **Requirements**: High reliability, minimal downtime, strong performance, cost efficiency.
 - **Approach**: Zone-redundant deployment with regional backups.
 
 ## Internal Application
+
 - **Requirements**: Cost sensitivity, acceptable downtime risk.
 - **Approach**: Locally redundant deployment plus cross-region backups (or zone-redundant).
 
@@ -553,10 +568,12 @@ table {
 # Example Scenarios
 
 ## Legacy Application Migration
+
 - **Requirements**: High performance, resiliency.
 - **Approach**: Zone-redundant or zonal pinned deployments, possibly with passive failover.
 
 ## Healthcare Application
+
 - **Requirements**: Data residency, regulatory compliance.
 - **Approach**: Multi-zone, multi-region with strict compliance considerations.
 
@@ -565,10 +582,12 @@ table {
 # Example Scenarios
 
 ## Banking System
+
 - **Requirements**: Mission-critical, extremely high reliability.
 - **Approach**: Multi-zone and multi-region deployment (Active-Active).
 
 ## Software as a Service (SaaS)
+
 - **Requirements**: Geographically distributed users, data residency constraints.
 - **Approach**: Multi-zone, multi-region or zone-redundant single-region with global traffic distribution.
 
@@ -597,10 +616,12 @@ table {
 # Azure Landing Zones
 
 ## Secure Structure
+
 - Azure Landing Zones create a secure, organized foundation for Azure environments.
 - Enforce identity, network, and governance policies at scale.
 
 ## Reliable Implementation
+
 - A standardized environment supports consistent deployments.
 - Simplifies resource management and reduces misconfigurations.
 
@@ -609,6 +630,7 @@ table {
 # Reference Architectures
 
 ## Streamlining Workload Design
+
 - Microsoft provides reference architectures to fast-track reliable, efficient, and scalable workloads.
 - Examples:
   - Compute Architecture
@@ -783,10 +805,15 @@ Guidance for web apps on Azure, offering prescriptive architecture, code, and co
 
 ---
 
-**Next Steps**  
-- Review your current environment using [Azure Review Checklists](https://github.com/Azure/review-checklists).  
+## Next Steps
+
+- Review your current environment using [Azure Review Checklists](https://github.com/Azure/review-checklists).
 - Align critical workloads with proven [Reference Architectures](https://learn.microsoft.com/en-us/azure/architecture/).  
 - Incorporate chaos engineering and load testing to detect and fix hidden weaknesses.
+
+---
+
+![bg](./img/feedback.png)
 
 ---
 
