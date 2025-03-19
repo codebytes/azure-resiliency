@@ -4,10 +4,6 @@ theme: custom-default
 footer: 'https://chris-ayers.com'
 ---
 
-![bg](./img/title-image.png)
-
----
-
 # Ensuring Azure Resiliency
 
 ## Chris Ayers
@@ -853,10 +849,6 @@ Guidance for web apps on Azure, offering prescriptive architecture, code, and co
 - Validate designs against Microsoft's established [Reference Architectures](https://learn.microsoft.com/en-us/azure/architecture/).  
 - Implement regular chaos engineering and load testing practices.
 - Stay informed on reliability best practices and continuously refine your approach.
-
----
-
-![bg](./img/feedback.png)
 
 ---
 
