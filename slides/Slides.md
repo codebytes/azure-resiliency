@@ -4,6 +4,8 @@ theme: custom-default
 footer: 'https://chris-ayers.com'
 ---
 
+![bg right fit](./img/arch.png)
+
 # Ensuring Azure Resiliency
 
 ## Chris Ayers
@@ -33,23 +35,18 @@ _Microsoft_
 <div>
 
 - **Introduction & Why Reliability Matters**
-- **Reliability Fundamentals**  
-  (Downtime costs, SLA, SLO, RPO, RTO)
+- **Reliability Fundamentals**
 - **Design Principles**  
-  (Business Requirements, Resilience, Recovery, Operations, Simplicity)
 - **Trade-Offs with Other Azure Pillars**  
-  (Security, Cost, Operational Excellence, Performance)
 
 </div>
 <div>
 
-- **Failure Mode Analysis (FMA)**  
-  & Single Points of Failure
+- **Failure Mode Analysis (FMA)**
+- **Single Points of Failure**
 - **Azure Regions & Availability Zones**  
-  (Region pairs, active-active vs. active-passive)
 - **Load Testing & Chaos Engineering**
 - **Reference Architectures & Next Steps**  
-  (Azure Landing Zones, APRL, review checklists)
 
 </div>
 </div>
@@ -58,7 +55,7 @@ _Microsoft_
 
 # Reliability
 
-![bg right fit](./img/arch.png)
+![bg right:65%](./img/sb-reliability.jpg)
 
 ---
 
@@ -96,6 +93,21 @@ _Microsoft_
 
 ---
 
+## Real-World Downtime Costs
+
+- **77 hours** (≈3 days) median annual downtime for high-impact outages
+- **$146 million** median annual cost of outages
+- **30%** of engineering time spent addressing disruptions
+  - Equates to **12 hours** per engineer weekly (based on 40-hour week)
+
+> Source: New Relic 2024 Observability Forecast
+
+---
+
+![bg fit](./img/reliability.jpg)
+
+---
+
 <style scoped>
 table { display: table; }
 tr { display: table-row; }
@@ -119,7 +131,11 @@ table {
 
 ---
 
-# Service Level Objectives
+![bg fit](./img/one-does-not-simply.jpg)
+
+---
+
+# How do we measure reliability?
 
 | SLI | SLO | SLA |
 |---|---|---|
@@ -189,10 +205,6 @@ table {
 - Cover user experience, data, workflows, and unique constraints or sensitivities.
 - Clearly state expectations and confirm goals are feasible and documented.
 
----
-
-# Design for Business Requirements
-
 | Approach           | Description                                                     |
 |--------------------|-----------------------------------------------------------------|
 | Quantify Success   | Set targets for components, flows, and the system.             |
@@ -204,70 +216,76 @@ table {
 
 # Design for Resilience
 
-- The workload must continue to operate (fully or partially) despite failures.
-- Expect platform outages, resource shortages, and other faults.
-- Build resiliency to ensure fault tolerance and graceful degradation.
+<div class="columns">
+<div>
 
----
+- Continue operating despite failures
+- Prepare for outages and resource shortages
+- Enable graceful degradation
 
-# Design for Resilience
+</div>
+<div>
 
-| Approach                                                  | Description                                                   |
-|-----------------------------------------------------------|---------------------------------------------------------------|
-| Distinguish critical vs. degradable components            | Design according to criticality, avoiding overengineering.    |
-| Identify potential failure points                          | Analyze failure cases to influence error handling design.     |
-| Build self-preservation capabilities                      | Isolate faults and mitigate failures.                         |
-| Add scalability for critical components                   | Handle capacity spikes and regional issues.                   |
-| Build redundancy in layers and tiers                      | Minimize single points of failure.                            |
+| Strategy                | Implementation                     |
+|-------------------------|-----------------------------------|
+| Critical vs. Degradable | Prioritize by impact              |
+| Failure Points          | Design for error handling         |
+| Self-Preservation       | Isolate faults, mitigate failures |
+| Scalability             | Handle spikes and regional issues |
+| Redundancy              | Eliminate single points of failure|
+
+</div>
+</div>
 
 ---
 
 # Design for Recovery
 
-- The workload must recover gracefully from failures of any magnitude.
-- Even highly resilient systems need disaster preparedness.
-- On the data layer, plan to repair or restore state if corruption occurs.
+<div class="columns">
+<div>
 
----
+- Recover gracefully from all failure types
+- Plan for disaster even in resilient systems
+- Prepare for data layer corruption
 
-# Design for Recovery
+</div>
+<div>
 
-| Approach                   | Description                                                                                      |
-|----------------------------|--------------------------------------------------------------------------------------------------|
-| Structured recovery plans  | Cover all components. Regular drills test recovery processes.                                    |
-| Data repair for stateful components | Use backups to restore to a trusted recovery point. Ensure data integrity with immutable backups. |
-| Automated self-healing     | Reduce risks and shorten break-fix cycles.                                                      |
-| Immutable ephemeral units  | Spin up/destroy on demand. Use side-by-side deployments to minimize disruptions.                |
+| Strategy | Implementation |
+|----------|----------------|
+| Recovery Plans | Component coverage with regular drills |
+| Data Repair | Trusted backups with immutable copies |
+| Self-Healing | Automated detection and remediation |
+| Ephemeral Units | Side-by-side deployments with zero downtime |
 
----
-
-# Design for Operations
-
-- Shift left in operations to anticipate failures early.
-- Test failures frequently in development.
-- Ensure shared visibility across teams for dependency status.
-- Use diagnostics and alerts from observable systems for rapid incident management.
+</div>
+</div>
 
 ---
 
 # Design for Operations
 
-| Approach                                                | Description                                                                                |
-|---------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| Build observable systems                                | Aggregated telemetry provides a holistic view of health status.                            |
-| Predict malfunctions and anomalies                      | Use prioritized, actionable alerts for active reliability failures.                        |
-| Invest in reliable processes and infrastructure         | Enable quicker triage and proactive mitigation of potential failures.                      |
+<div class="columns">
+<div>
 
----
+- Shift left to anticipate failures early
+- Test failures in development
+- Ensure cross-team visibility
+- Use observability for rapid remediation
 
-# Design for Operations
+</div>
+<div>
 
-| Approach                                 | Description                                         |
-|------------------------------------------|-----------------------------------------------------|
-| Simulate failures and run tests          | Validate real recovery expectations and metrics.    |
-| Automate components                      | Minimize human error and ensure consistency.        |
-| Scrutinize routine operations            | Spot hidden risks, maintain system stability.       |
-| Learn from production incidents          | Incorporate improvements from real incident data.   |
+| Strategy | Implementation |
+|----------|----------------|
+| Observable Systems | Aggregated telemetry for holistic health views |
+| Failure Simulation | Validate recovery metrics with realistic tests |
+| Automation | Minimize human error and ensure consistency |
+| Continuous Learning | Improve from real production incidents |
+| Proactive Monitoring | Prioritized alerts for active failures |
+
+</div>
+</div>
 
 ---
 
@@ -297,150 +315,74 @@ table {
 
 ---
 
-# Trade-Off: Reliability vs. Cost Optimization
+# Reliability Trade-Offs with Other Pillars
 
-<div class="columns">
-<div>
-
-## Prioritizing Reliability
-
-- **Implementation Redundancy** (multi-region, failover environments)  
-- **Extensive Monitoring & Drills** (increased ops investment)  
-- **Over-Provisioning** for handling unexpected spikes
-
-</div>
-<div>
-
-## Prioritizing Cost Optimization
-
-- **Single-Region/Environment** setups with minimal redundancy  
-- **Reduced Operational Costs** (less frequent drills, simpler monitoring)  
-- **Right-Sizing** or under-provisioning to save on resource expenses
-
-</div>
-</div>
+| Pillar | Prioritizing Reliability | Prioritizing Other Pillar |
+|--------|--------------------------|---------------------------|
+| **Cost Optimization** | • **Implementation Redundancy** (multi-region)<br>• **Extensive Monitoring & Drills**<br>• **Over-Provisioning** for unexpected spikes | • **Single-Region** setups with minimal redundancy<br>• **Reduced Operational Costs** (simpler monitoring)<br>• **Right-Sizing** resources to save expenses |
+| **Security** | • **Replication & Backups** expand footprint<br>• **Faster Recovery** may bypass security controls<br>• **Delaying Patches** to reduce downtime | • **Minimized Attack Surface**<br>• **Strict Controls** remain active under stress<br>• **Frequent Patching** even with disruptions |
 
 ---
 
-# Trade-Off: Reliability vs. Security
+# Reliability Trade-Offs with Other Pillars (Continued)
 
-<div class="columns">
-<div>
-
-## Prioritizing Reliability
-
-- **Replication & Backups** expand the footprint  
-- **Faster Recovery** may involve temporarily bypassing certain security controls  
-- **Delaying Patches** can reduce downtime risks for mission-critical systems
-
-</div>
-<div>
-
-## Prioritizing Security
-
-- **Minimized Attack Surface** with fewer components and less replication  
-- **Strict Controls** always remain active, even under stress or incident response  
-- **Frequent Patching** to fix vulnerabilities, even if it causes short disruptions
-
-</div>
-</div>
-
----
-
-# Trade-Off: Reliability vs. Operational Excellence
-
-<div class="columns">
-<div>
-
-## Prioritizing Reliability
-
-- **Complex Architectures** (multi-region, multiple layers of failover)  
-- **Extensive Documentation & Training** for DR processes  
-- **Continuous Testing** adds operational overhead
-
-</div>
-<div>
-
-## Prioritizing Operational Excellence
-
-- **Simplicity in Architecture** to reduce confusion and manual effort  
-- **Streamlined Knowledge Base** with fewer moving parts  
-- **Less Overhead** in day-to-day operations and maintenance
-
-</div>
-</div>
-
----
-
-# Trade-Off: Reliability vs. Performance Efficiency
-
-<div class="columns">
-<div>
-
-## Prioritizing Reliability
-
-- **Redundant Writes & Replication** can add latency overhead  
-- **Failover Logic** and health checks can slow requests slightly  
-- **Over-Provisioning** handles sudden spikes but may reduce performance tuning
-
-</div>
-<div>
-
-## Prioritizing Performance Efficiency
-
-- **Lean Deployments** to maximize throughput and minimize latency  
-- **On-Demand Scaling** with minimal buffer capacity  
-- **Focus on Speed** over robust recovery measures
-
-</div>
-</div>
+| Pillar | Prioritizing Reliability | Prioritizing Other Pillar |
+|--------|--------------------------|---------------------------|
+| **Operational Excellence** | • **Complex Architectures** (multi-region, failover)<br>• **Extensive Documentation & Training** for DR<br>• **Continuous Testing** adds overhead | • **Simplicity in Architecture**<br>• **Streamlined Knowledge Base**<br>• **Less Overhead** in daily operations |
+| **Performance Efficiency** | • **Redundant Writes & Replication** add latency<br>• **Failover Logic** can slow requests<br>• **Over-Provisioning** may reduce performance tuning | • **Lean Deployments** maximize throughput<br>• **On-Demand Scaling** with minimal buffer<br>• **Focus on Speed** over recovery measures |
 
 ---
 
 # Failure Mode Analysis (FMA)
 
-> We've explored design principles and tradeoffs. Next, let's discuss a crucial activity: proactively identifying and mitigating possible failure modes.
+<div class="columns">
+<div>
 
----
+## Proactive Identification
 
-# Identifying and Mitigating Failures
+- Recognize potential weaknesses before outages occur
+- Use checklists, post-mortems, and dependency mapping
+- Identify high-impact risks and allocate resources efficiently
+- Distinguish between rare/high-impact and common/low-impact failures
 
-## Proactive Failure Identification
+</div>
+<div>
 
-- Recognize potential weaknesses before they cause outages.
-- Tools like checklists, incident post-mortems, and dependency mapping can help.
+## Effective Mitigation
 
-## Mitigating Strategies
+- Architect for graceful degradation and fallback strategies
+- Enhance observability for quick detection
+- Implement immediate failover and data replication
+- Document potential risks to guide resolution
 
-- Architect for graceful degradation, fallback strategies, and clear failover mechanisms.
-- Enhance observability to detect issues quickly.
-
----
-
-# Prioritizing Risks and Impacts
-
-## Risk Prioritization
-
-- Identify high-impact risks and allocate resources efficiently.
-- Distinguish between low-probability/high-impact events and daily minor failures.
-
-## Impact Mitigation
-
-- Implement strategies to minimize consequences (e.g., immediate failover, data replication).
-- Document potential risks to guide quick resolution.
+</div>
+</div>
 
 ---
 
 # Single Points of Failure (SPOFs)
 
-- An SPOF is a system part that, if it fails, disrupts the entire workload.
-- Identifying SPOFs is critical for improving reliability and availability.
+<div class="columns">
+<div>
 
-## Mitigating SPOFs
+## Understanding SPOFs
 
-- **Redundancy**: Duplicate components or services.
-- **Failover Mechanisms**: Seamlessly switch to backups.
-- **Load Balancing**: Distribute traffic across multiple instances.
+- A system part that, if it fails, disrupts the entire workload
+- Critical to identify for improving reliability and availability
+- Can exist in infrastructure, code, data, or operations
+
+</div>
+<div>
+
+## Mitigation Strategies
+
+- **Redundancy**: Duplicate components or services
+- **Failover Mechanisms**: Seamless switching to backups
+- **Load Balancing**: Distribute traffic across instances
+- **Design Reviews**: Regular identification and elimination
+
+</div>
+</div>
 
 ---
 
@@ -450,32 +392,32 @@ table {
 
 ---
 
-# Azure Regions and Availability Zones
+# Azure Regions and Regional Strategy
 
-- Azure has 60+ regions worldwide, each in a specific geography with defined data residency boundaries.  
-- Regions are groups of datacenters connected by low-latency, high-capacity networks.  
-- Some regions are sovereign clouds with limited feature availability (e.g., Azure Government).  
+<div class="columns">
+<div>
+
+## Azure Regions
+
+- 60+ regions worldwide with defined data residency boundaries
+- Datacenters connected by low-latency, high-capacity networks
+- Some regions are sovereign clouds (e.g., Azure Government)
 - [Region Map](https://datacenters.microsoft.com/globe/explore/)
 
----
+</div>
+<div>
 
-# Azure Region Pairs and Nonpaired Regions
+## Region Pairs & Alternatives
 
-## Region Pairs
+- **Region Pairs**: Built-in geo-redundancy (East US ⟷ West US)
+  - Support **sequential updates** and **prioritized recovery**
+  - Note: pairing doesn't guarantee automatic failover
+- **Nonpaired Regions**: Rely on availability zones
+  - Services can replicate across any region combination
+  - Choose regions based on business needs and compliance
 
-- Some Azure regions are paired for built-in geo-redundancy (e.g., East US <=> West US).  
-- Certain services (like geo-redundant storage) rely on these pairs to replicate data.  
-- Region pairs help with **sequential updates**, **prioritized recovery**, and **physical isolation**.  
-- However, you still must design your own disaster recovery; pairing alone doesn't guarantee automatic failover.
-
----
-
-# Nonpaired Regions
-
-- Many newer regions don't have a paired counterpart.  
-- Often, they rely on **availability zones** for redundancy.  
-- Azure services can still replicate data across any region combination.  
-- **Choose any set of regions** to meet your business, latency, and compliance needs.
+</div>
+</div>
 
 ---
 
@@ -594,147 +536,124 @@ table {
 
 # Data Replication: Storage Options
 
-![storage options](img/storage-options.png)
+![storage options center](img/storage-options.png)
 
 ---
 
-# Example Scenarios
+# Example Scenarios: Applying Availability Zone Patterns
 
-## Line-of-Business Application
-
-- **Requirements**: High reliability, minimal downtime, strong performance, cost efficiency.
-- **Approach**: Zone-redundant deployment with regional backups.
-
-## Internal Application
-
-- **Requirements**: Cost sensitivity, acceptable downtime risk.
-- **Approach**: Locally redundant deployment plus cross-region backups (or zone-redundant).
-
----
-
-# Example Scenarios
-
-## Legacy Application Migration
-
-- **Requirements**: High performance, resiliency.
-- **Approach**: Zone-redundant or zonal pinned deployments, possibly with passive failover.
-
-## Healthcare Application
-
-- **Requirements**: Data residency, regulatory compliance.
-- **Approach**: Multi-zone, multi-region with strict compliance considerations.
+| Scenario | Requirements | Approach |
+|---------|--------------|----------|
+| **Line-of-Business App** | High reliability, minimal downtime | Zone-redundant with regional backups |
+| **Internal App** | Cost sensitivity, acceptable downtime | Locally redundant + cross-region backups |
+| **Legacy Migration** | High performance, resiliency | Zonal deployments with passive failover |
+| **Healthcare** | Data residency, regulatory compliance | Multi-zone/region with compliance focus |
+| **Banking** | Mission-critical, extreme reliability | Multi-zone/region (Active-Active) |
+| **SaaS** | Distributed users, data residency | Zone-redundant with global traffic distribution |
 
 ---
 
-# Example Scenarios
+# Enhancing Resiliency through Architecture
 
-## Banking System
+<div class="columns">
+<div>
 
-- **Requirements**: Mission-critical, extremely high reliability.
-- **Approach**: Multi-zone and multi-region deployment (Active-Active).
+## Fault Isolation
 
-## Software as a Service (SaaS)
+- Prevents cascading failures and maintains availability
+- Distributes workloads across multiple data centers
+- Handles datacenter-specific failures with built-in mechanisms
 
-- **Requirements**: Geographically distributed users, data residency constraints.
-- **Approach**: Multi-zone, multi-region or zone-redundant single-region with global traffic distribution.
+</div>
+<div>
 
----
+## Reliability Best Practices
 
-# Enhancing Resiliency with Fault Isolation
+- Deploy across multiple Availability Zones
+- Leverage multi-region approaches when necessary
+- Use landing zones and reference architectures
+- Apply design patterns appropriate to your workload
 
-- Fault isolation prevents cascading failures and maintains availability.
-- Azure Availability Zones distribute workloads across multiple data centers, reducing outage risks in a single location.
-
----
-
-# Deploying Across Zones for Higher Availability
-
-- Deploying workloads across multiple AZs strengthens availability.
-- Provides built-in fault isolation to handle datacenter-specific failures.
-
----
-
-# Architecting for Reliability
-
-- Beyond AZs and multi-region approaches, landing zones, reference architectures, and best practices further ensure resilient workloads in Azure.
-
----
-
-# Load Testing and Chaos Engineering
+</div>
+</div>
 
 ---
 
 # Load Testing
 
-## Ensuring Performance and Scalability
+<div class="columns">
+<div>
 
-- Evaluates system behavior under peak conditions.
-- Identifies performance bottlenecks.
-- Guides infrastructure and capacity planning.
-- Ensures reliable performance under heavy workloads.
+## Key Benefits
 
----
+- **Prevents Surprises**: Identify capacity issues before production
+- **Validates Scaling**: Ensure your auto-scaling works properly
+- **Finds Weaknesses**: Spot resource exhaustion and memory leaks
 
-# Load Testing Strategies
+</div>
+<div>
 
-| Strategy | Description |
-| --- | --- |
-| Load | Simulates typical peak usage scenarios. |
-| Stress | Tests beyond limits to identify breaking points. |
-| Spike | Tests system reactions to sudden traffic surges|
-| Endurance | Assesses long-term system stability under sustained load. |
+## Implementation
 
----
+- **Cost-Effective**: Much cheaper than emergency scaling during incidents
+- **Azure Tools**: Azure Load Testing service with JMeter support
+- **Best Practice**: Test with realistic user patterns and data volumes
 
-# Tools for Load Testing
-
-- Popular choices: **JMeter**, **LoadRunner**, **Locust**, **Gatling**.
-- Azure Load Testing leverages JMeter and Locust.
-- Choose a tool based on your needs and budget.
+</div>
+</div>
 
 ---
 
 # Chaos Engineering
 
-> After validating performance, we can further strengthen resilience by deliberately introducing controlled failures.
+<div class="columns">
+<div>
 
-- Chaos Engineering tests how systems behave under unexpected conditions.
-- Identifies weak points in architecture and processes.
-- Fosters a culture of experimentation and continuous improvement.
+## Core Principles
 
----
+- **Controlled Failure**: Introduce failures in controlled environments
+- **Best Practice**: Start small with clear abort conditions
+- **Continuous Process**: Build complexity as confidence increases
 
-# Principles of Chaos Engineering
+</div>
+<div>
 
-- Simulate real-world failures to validate resilience.
-- Conduct controlled experiments, preferably in production with safety measures.
-- Ensure minimal user impact through strict guardrails.
+## Key Azure Scenarios
 
----
+- **Availability Zone Outages**: Test region resiliency
+- **Network Latency**: Simulate connectivity issues
+- **Service Throttling**: Test quota and limit handling
+- **Identity Failures**: Test credential expiration response
 
-# Benefits of Chaos Engineering
-
-- Uncovers unforeseen issues before they affect customers.
-- Encourages proactive system improvements and learning.
-- Strengthens organizational readiness for incident response.
-
----
-
-# Tools for Chaos Engineering
-
-- Azure Chaos Studio for Azure workloads.
-- Other tools:
-  - Gremlin
-  - Chaos Monkey
-  - LitmusChaos
+</div>
+</div>
 
 ---
 
-# Integrating Testing into Operations
+# Implementing Reliability Testing
 
-- Combine load testing and chaos engineering into continuous practices.
+<div class="columns">
+<div>
 
-- Validate system resilience comprehensively and frequently.
+## Business Benefits
+
+- **Early Issue Detection**: Find problems before customers do
+- **Increased Confidence**: Better team preparedness for incidents
+- **Reduced Recovery Time**: Faster MTTR during real outages
+- **Trust Building**: Demonstrate resilience to stakeholders
+
+</div>
+<div>
+
+## Practical Implementation
+
+- **Start Simple**: Begin with critical paths and core functions
+- **Game Days**: Schedule cross-team incident response exercises
+- **Continuous Process**: Iterate on tests as your architecture evolves
+- **Documentation**: Track findings and improvements
+
+</div>
+</div>
 
 ---
 
@@ -840,15 +759,6 @@ Guidance for web apps on Azure, offering prescriptive architecture, code, and co
 - **Tradeoffs**: Every decision impacts cost, security, operational excellence, and performance.
 - **Proactive Reliability**: Utilize Failure Mode Analysis to anticipate and mitigate failures.
 - **Continuous Improvement**: Leverage Availability Zones, multi-region deployments, chaos engineering, and load testing to enhance reliability.
-
----
-
-## Next Steps
-
-- Review your architecture with [Azure Review Checklists](https://github.com/Azure/review-checklists).
-- Validate designs against Microsoft's established [Reference Architectures](https://learn.microsoft.com/en-us/azure/architecture/).  
-- Implement regular chaos engineering and load testing practices.
-- Stay informed on reliability best practices and continuously refine your approach.
 
 ---
 
