@@ -424,13 +424,13 @@ table {
 <div>
 
 **Active-Active**: Multiple instances process requests simultaneously.
-![width:500px](img/active-active.png)
+![width:500px center](img/active-active.png)
 
 </div>
 <div>
 
 **Active-Passive**: Primary instance processes traffic; secondary is on standby.
-![width:500px](img/active-passive.png)
+![width:500px center](img/active-passive.png)
 
 </div>
 </div>
@@ -439,7 +439,7 @@ table {
 
 # Azure Availability Zones
 
-![width:800px](img/az-diagram.png)
+![width:800px center](img/az-diagram.png)
 
 ---
 
