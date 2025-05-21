@@ -184,6 +184,10 @@ table {
 
 ---
 
+![bg fit](./img/well-architected-hub.png)
+
+---
+
 ## Microsoft Azure Well-Architected Framework Pillars
 
 | Reliability                        | Security                            | Cost Optimization                  | Operational Excellence                  | Performance Efficiency                  |
