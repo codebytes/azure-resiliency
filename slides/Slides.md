@@ -6,7 +6,9 @@ footer: 'https://chris-ayers.com'
 
 ![bg right fit](./img/arch.png)
 
-# Ensuring Azure Resiliency
+# Reslient by Design
+
+## Ensuring Azure Resiliency
 
 ## Chris Ayers
 
