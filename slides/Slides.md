@@ -170,11 +170,7 @@ table {
 
 # Azure-Customer Shared Responsibility Model
 
-<div align=center>
-
-![width:850px](./img/shared-responsibility.svg)
-
-</div>
+![width:850px center](./img/shared-responsibility.svg)
 
 ---
 
@@ -182,7 +178,8 @@ table {
 
 - Provides best practices and guidance for building high-quality Azure solutions.
 - Ensures workloads are reliable, secure, efficient, and cost-effective.
-
+- [Azure Well-Architected Framework](https://learn.microsoft.com/en-us/azure/well-architected/)
+ 
 ![bg right fit](img/waf.png)
 
 ---
@@ -299,7 +296,7 @@ table {
 
 # Trade-Offs
 
-![w:960px](img/tug-of-war.png)
+![w:960px center](img/tug-of-war.png)
 
 ---
 
