@@ -4,10 +4,6 @@ theme: custom-default
 footer: 'https://chris-ayers.com'
 ---
 
-![bg](./img/techorama-resilient-slide.png)
-
----
-
 ![bg right fit](./img/arch.png)
 
 # Reslient by Design
@@ -22,7 +18,7 @@ footer: 'https://chris-ayers.com'
 
 ## Chris Ayers
 
-_Senior Site Reliability Engineer_  
+_Senior Software Engineer_  
 _Azure CXP AzRel_  
 _Microsoft_
 
@@ -971,37 +967,7 @@ table { font-size: 0.8em; }
 
 ## Chris Ayers
 
-_Senior Site Reliability Engineer_
-_Azure CXP AzRel_
-_Microsoft_
-
-<i class="fa-brands fa-bluesky"></i> BlueSky: [@chris-ayers.com](https://bsky.app/profile/chris-ayers.com)  
-<i class="fa-brands fa-linkedin"></i> LinkedIn: - [chris\-l\-ayers](https://linkedin.com/in/chris-l-ayers/)  
-<i class="fa fa-window-maximize"></i> Blog: [https://chris-ayers\.com/](https://chris-ayers.com/)  
-<i class="fa-brands fa-github"></i> GitHub: [Codebytes](https://github.com/codebytes)  
-<i class="fa-brands fa-mastodon"></i> Mastodon: [@Chrisayers@hachyderm.io](https://hachyderm.io/@Chrisayers)
-~~<i class="fa-brands fa-twitter"></i> Twitter: [@Chris_L_Ayers](https://twitter.com/Chris_L_Ayers)~~  
-
-</div>
-
-</div>
-
----
-
-
-# Feedback
-
-<div class="columns">
-<div>
-
-![fit](./img/resilient_by_design-qr-code.png)
-
-</div>
-<div>
-
-## Chris Ayers
-
-_Senior Site Reliability Engineer_
+_Senior Software Engineer_
 _Azure CXP AzRel_
 _Microsoft_
 
