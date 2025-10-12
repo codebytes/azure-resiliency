@@ -8,11 +8,7 @@ footer: 'https://chris-ayers.com'
 
 ---
 
-<style>
-h1, h2 {
-  fontcolor: white;
-}
-</style>
+<!-- _color: white -->
 
 ![bg](./img/ads-background.png)
 
@@ -22,6 +18,8 @@ h1, h2 {
 # Crafting Resilient and Unbreakable Azure Solutions
 
 ## Chris Ayers
+Senior Software Engineer
+Microsoft 
 
 </div>
 <div>
