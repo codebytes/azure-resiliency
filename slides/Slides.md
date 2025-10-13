@@ -55,34 +55,22 @@ _Microsoft_
 <div>
 
 - **Context & Why Reliability Matters**
-- **Business & Non-Functional Requirements** (critical journeys, SLOs, RTO/RPO, classification)
-- **Architecture** (failure domains, regions & zones strategy, topology patterns)
-- **Infrastructure / Platform** (AZ models, deployment models, fault isolation)
+- **Business & Non-Functional Requirements** 
+- **Architecture** 
+- **Infrastructure / Platform** 
 
 </div>
 <div>
 
-- **Software / Workload Resilience** (patterns, load & chaos, SDK best practices)
-- **Operations & Observability** (metrics, error budgets, anti‑patterns)
-- **Governance & Enablement** (AVM, APRL, service groups, review checklists)
+- **Software / Workload Resilience** 
+- **Operations & Observability** 
+- **Governance & Enablement** 
 - **Conclusion & Q&A**
 
 </div>
 </div>
 
----
-
-# Resiliency Layer Taxonomy
-- Business & Non-Functional Requirements
-- Architecture
-- Infrastructure / Platform
-- Software / Workload
-- Operations & Observability
-- Governance & Enablement
-
----
-
-# Roles & Layer Alignment
+<!-- # Roles & Layer Alignment
 
 | Role | Layer | Core Focus (Concise) |
 |------|-------|----------------------|
@@ -94,7 +82,7 @@ _Microsoft_
 | Security/Compliance | Governance | Guardrails, compliance, risk alignment |
 | Data Eng / DBA | Arch & Infra | Replication, consistency, restore drills |
 
-> Clear ownership → fewer gaps, faster decisions, measurable reliability.
+> Clear ownership → fewer gaps, faster decisions, measurable reliability. -->
 
 ---
 
@@ -706,35 +694,17 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 
 ---
 
-# Resilience Patterns (Software Layer)
-
-| Pattern | Problem Solved | Key Considerations | Azure Example |
-|---------|----------------|--------------------|---------------|
+# Resilience Patterns
+| Pattern | Problem Solved | Key Considerations |
+|---------|----------------|--------------------|
 | Timeout | Prevent hanging on slow dependency | Set < expected p95 latency; combine with retries | HTTP client / SDK timeout settings |
-| Retry + Exponential Backoff + Jitter | Transient faults (throttling, brief network blips) | Cap attempts; respect idempotency | Storage / Service Bus transient errors |
-| Circuit Breaker | Failing dependency causing cascading latency | Trip on error rate/latency; half-open probes | Polly / DAPR resiliency policies |
-| Bulkhead Isolation | One noisy component starving others | Resource partitioning (threads, pools) | Separate App Service plan / AKS node pool |
-| Idempotency Key | Safe retried operations | Persist operation state; expire keys | Queue-triggered Function processing |
-| Dead Letter Queue | Poison messages blocking progress | Monitor & replay with alerting | Service Bus DLQ |
-| Hedging Request | Long-tail latency outliers | Use sparingly; increases load | Parallel reads from replicated store |
-| Graceful Degradation | Maintain partial service | Feature flags, fallback data | Read-only catalog mode |
+| Retry + Exponential Backoff + Jitter | Transient faults (throttling, brief network blips) | Cap attempts; respect idempotency |
+| Circuit Breaker | Failing dependency causing cascading latency | Trip on error rate/latency; half-open probes |
+| Bulkhead Isolation | One noisy component  | Resource partitioning |
+| Dead Letter Queue | Bad messages blocking progress | Monitor & replay with alerting |
+| Graceful Degradation | Maintain partial service | Feature flags, fallback data |
 
 > Select patterns based on observed failure modes; measure impact via SLIs & error budget consumption.
-
----
-
-# Resiliency Anti-Patterns
-
-| Anti-Pattern | Risk Introduced | Better Practice |
-|--------------|-----------------|-----------------|
-| Infinite / unbounded retries | Cascading load amplification | Bounded retries + jitter + overall timeout |
-| No global timeout | Thread/connection exhaustion | Layered (per attempt + overall) deadlines |
-| Single region by default | Regional outage = total downtime | Evaluate multi-AZ then multi-region for critical flows |
-| Synchronous fan-out to many services | Latency & failure amplification | Bulkhead & async queue fan-out |
-| Hidden coupling via shared database | Coordinated failures & lock contention | Explicit service contracts + data segregation |
-| Ignoring throttling signals | Wasted budget, longer recovery | Respect Retry-After & implement backoff |
-| Over-provision without observability | Cost drain, false sense of safety | Rightsize with capacity metrics + auto-scale |
-| Manual failover only | Slow recovery & human error | Automate failover + rehearse game days |
 
 ---
 
@@ -747,6 +717,13 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 | Timeouts | Combine per-attempt timeout + overall deadline | Use CancellationToken / request context to abort quickly |
 | Throttling (429 / 503) | Honor Retry-After; escalate if sustained | Log retry reason & emit metric for throttled calls |
 | Circuit Breaking | Wrap high-risk dependencies with Polly / resilience lib | Trip on error rate/latency. Half-open probes restore flow |
+
+---
+
+# Azure SDK Resiliency Best Practices Continued
+
+| Concern | Guidance | Notes / Azure SDK Features |
+|---------|----------|-----------------------------|
 | Connection Reuse | Reuse client instances (thread-safe) | Avoid per-request instantiation to prevent socket exhaustion |
 | Observability | Correlate Request-Id / Traceparent; record retry count | Enable SDK logging + OpenTelemetry exporters |
 | Partial Failure | Process successes; isolate & retry failed items | Batch ops return per-item status; implement granular retry |
@@ -761,6 +738,31 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 ## Detect, Respond, Learn
 
 Emphasize fast detection, validated recovery paths, and continuous improvement through data & drills.
+
+---
+
+# OpenTelemetry
+
+- Open standard for generating, collecting, and exporting telemetry data (traces, metrics, logs)
+- Supported by major cloud providers, including Azure Monitor, AWS CloudWatch, and Google Cloud Operations
+- Enables vendor-neutral instrumentation and observability across distributed systems
+
+---
+
+# Metrics & Error Budgets
+
+| Concept | Formula / Definition | Example |
+|---------|----------------------|---------|
+| Availability SLI | (Successful Requests) / (Total Requests) | 99,950 / 100,000 = 99.95% |
+| Latency SLI | % of requests under threshold | 95% < 250ms (p95), 99% < 400ms |
+| Error Budget  | 1 - SLO | SLO 99.9% => 0.1% budget |
+| Burn Rate | Budget consumed / Time elapsed fraction | 2× burn -> intervene early |
+| MTTR | Avg restore time for incidents | Track trend downwards |
+
+Error Budget Response Guide:
+- Burn Rate > 4× for 1h: Freeze risky deploys; incident review.
+- Burn Rate 2× sustained: Reduce change volume; add mitigations.
+- Burn Rate nominal (<1×): Continue roadmap; schedule chaos tests.
 
 ---
 
@@ -811,23 +813,6 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 
 </div>
 </div>
-
----
-
-# Metrics & Error Budgets
-
-| Concept | Formula / Definition | Example |
-|---------|----------------------|---------|
-| Availability SLI | (Successful Requests) / (Total Requests) | 99,950 / 100,000 = 99.95% |
-| Latency SLI | % of requests under threshold | 95% < 250ms (p95), 99% < 400ms |
-| Error Budget  | 1 - SLO | SLO 99.9% => 0.1% budget |
-| Burn Rate | Budget consumed / Time elapsed fraction | 2× burn -> intervene early |
-| MTTR | Avg restore time for incidents | Track trend downwards |
-
-Error Budget Response Guide:
-- Burn Rate > 4× for 1h: Freeze risky deploys; incident review.
-- Burn Rate 2× sustained: Reduce change volume; add mitigations.
-- Burn Rate nominal (<1×): Continue roadmap; schedule chaos tests.
 
 ---
 
