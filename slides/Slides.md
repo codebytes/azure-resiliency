@@ -231,7 +231,7 @@ Establish resilience expectations before selecting technology:
 
 ---
 
-# Resilience Requiremens
+# Resilience Requirements
 
 <div class="columns">
 <div>
