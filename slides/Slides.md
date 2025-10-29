@@ -4,13 +4,9 @@ theme: custom-default
 footer: 'https://chris-ayers.com'
 ---
 
-![bg](./img/AzureDevSummit.png)
+![bg](./img/techorama-resilient-slide.png)
 
 ---
-
-<!-- _color: white -->
-
-![bg](./img/ads-background.png)
 
 <div class="columns">
 <div>
@@ -1121,3 +1117,9 @@ _Microsoft_
 </div>
 
 </div>
+
+---
+
+# Feedback
+
+![bg fit](./img/resilient_by_design-qr-code.png)
