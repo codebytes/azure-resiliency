@@ -4,10 +4,6 @@ theme: custom-default
 footer: 'https://chris-ayers.com'
 ---
 
-![bg](./img/techorama-resilient-slide.png)
-
----
-
 <div class="columns">
 <div>
 
@@ -1081,9 +1077,3 @@ _Microsoft_
 </div>
 
 </div>
-
----
-
-# Feedback
-
-![bg fit](./img/resilient_by_design-qr-code.png)
