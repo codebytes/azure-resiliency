@@ -14,8 +14,9 @@ footer: 'https://chris-ayers.com'
 # Crafting Resilient and Unbreakable Azure Solutions
 
 ## Chris Ayers
+
 Senior Software Engineer
-Microsoft 
+Microsoft
 
 </div>
 <div>
@@ -42,43 +43,6 @@ _Microsoft_
 <i class="fa-brands fa-github"></i> GitHub: [Codebytes](https://github.com/codebytes)
 <i class="fa-brands fa-mastodon"></i> Mastodon: [@Chrisayers@hachyderm.io](https://hachyderm.io/@Chrisayers)
 ~~<i class="fa-brands fa-twitter"></i> Twitter: @Chris_L_Ayers~~
-
----
-
-# Agenda
-
-<div class="columns">
-<div>
-
-- **Context & Why Reliability Matters**
-- **Business & Non-Functional Requirements** 
-- **Architecture** 
-- **Infrastructure / Platform** 
-
-</div>
-<div>
-
-- **Software / Workload Resilience** 
-- **Operations & Observability** 
-- **Governance & Enablement** 
-- **Conclusion & Q&A**
-
-</div>
-</div>
-
-<!-- # Roles & Layer Alignment
-
-| Role | Layer | Core Focus (Concise) |
-|------|-------|----------------------|
-| Product Owner | Business/NFR | Journeys, SLO/RTO/RPO, trade-offs |
-| Architect | Architecture | Topology, SPOF removal, patterns |
-| Platform Eng | Infra/Platform | Landing zones, policy, capacity, failover |
-| Software Eng | Software | Resilience patterns, degradation, telemetry |
-| SRE | Operations | SLIs/SLOs, error budget, failure drills |
-| Security/Compliance | Governance | Guardrails, compliance, risk alignment |
-| Data Eng / DBA | Arch & Infra | Replication, consistency, restore drills |
-
-> Clear ownership → fewer gaps, faster decisions, measurable reliability. -->
 
 ---
 
