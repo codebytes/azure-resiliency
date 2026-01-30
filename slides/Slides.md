@@ -7,7 +7,7 @@ footer: 'https://chris-ayers.com'
 <div class="columns">
 <div>
 
-# Crafting Resilient and Unbreakable Azure Solutions
+# Resilient by 
 
 ## Chris Ayers
 
@@ -126,16 +126,14 @@ table {
 
 # How Do We Measure Reliability?
 
-| SLI (Measure) | SLO (Target) | Error Budget (Allowable Failure) | SLA (External Commitment) |
+![bg right:20% fit](./img/sla-slo-sli.png)
+
+| SLI | SLO | Error Budget | SLA |
 |---------------|--------------|----------------------------------|----------------------------|
 | Service Level Indicator | Service Level Objective | 1 - SLO (consumable failure/time) | Service Level Agreement |
 | Metric of user experience (e.g., success %, p95 latency) | Reliability goal over window (e.g., 99.9% / 30d) | Remaining time/requests that may fail before action | Contract / credits / penalties |
 | Assess actual service quality | Define acceptable reliability | Govern release pace & risk appetite | Formalize promises & remedies |
 | API success rate per request | 99.95% successful responses (30d) | 0.05% errors ≈21.9 min @ 99.95% | 99.9% monthly availability w/ credits |
-
----
-
-![SLA Pyramid](./img/sla-slo-sli.png)
 
 ---
 
@@ -367,11 +365,7 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 </div>
 </div>
 
----
-
-# Failure Examples
-
-[Failure Examples](https://learn.microsoft.com/en-us/azure/well-architected/reliability/failure-mode-analysis#example)
+> [Failure Examples](https://learn.microsoft.com/en-us/azure/well-architected/reliability/failure-mode-analysis#example)
 
 ---
 
@@ -458,7 +452,29 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 # Azure-Customer Shared Responsibility Model
 
-![width:850px center](./img/shared-responsibility.svg)
+<div class="columns">
+<div>
+
+![width:500px](./img/shared-responsibility.svg)
+
+
+> Azure guarantees platform SLA; you own workload SLA
+
+</div>
+<div>
+
+## Your Reliability Responsibilities
+
+| Layer | Customer Owns |
+|-------|---------------|
+| **Data** | Backup strategy, replication, encryption |
+| **Application** | Retry logic, circuit breakers, health probes |
+| **Identity** | MFA, conditional access, break-glass accounts |
+| **Network** | Redundant paths, ExpressRoute resilience |
+| **Infra Config** | Zone/region selection, scaling rules |
+
+</div>
+</div>
 
 ---
 
@@ -467,24 +483,27 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 <div class="columns">
 <div>
 
-## Azure Regions
+## Region Selection Criteria
 
-- 60+ regions worldwide with defined data residency boundaries
-- Datacenters connected by low-latency, high-capacity networks
-- Some regions are sovereign clouds (e.g., Azure Government)
-- [Explore Regions](https://datacenters.microsoft.com/globe/explore/)
+- **Latency**: Proximity to users (measure with [Azure Speed Test](https://www.azurespeed.com/))
+- **Compliance**: Data residency, sovereignty requirements
+- **Service Availability**: Not all services in all regions
+- **Capacity**: Some regions have quota constraints
+- **Cost**: Pricing varies by region
 
 </div>
 <div>
 
-## Region Pairs & Alternatives
+## Multi-Region Considerations
 
-- **Region Pairs**: Built-in geo-redundancy (e.g., East US ⟷ West US)
-  - Support **sequential updates** and **prioritized recovery**
-  - Note: Pairing doesn't guarantee automatic failover
-- **Non-paired Regions**: Rely on availability zones
-  - Services can replicate across any region combination
-  - Choose regions based on business needs and compliance
+| Factor | Impact on Design |
+|--------|------------------|
+| Region Pairs | Sequential updates, prioritized recovery |
+| Non-paired | Flexible, but plan your own DR |
+| Sovereign Clouds | Isolated (Gov, China, Germany) |
+| Distance | Affects replication lag & latency |
+
+> Pairing ≠ automatic failover—you must design for it
 
 </div>
 </div>
@@ -502,6 +521,7 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 - AZs are physically separate datacenters within an Azure region
 - Each zone has independent power, cooling, and networking
 - Low-latency (<2ms) connections reduce local outage impact
+- Azure deploys updates one AZ at a time for continuous service
 - Not all regions have AZs; verify availability
 - [View Region Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-region-support)  
 
@@ -575,19 +595,31 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 ---
 
-# Availability Zones and Azure Updates
-
-## Update Deployment Strategy
-
-- Microsoft deploys updates to one AZ at a time
-- Minimizes impact on active workloads
-- Running across multiple zones ensures continuous service during updates
-
----
-
 # Data Replication: Storage Options
 
-![storage options center](img/storage-options.png)
+<div class="columns">
+<div>
+
+![width:500px](img/storage-options.png)
+
+</div>
+<div>
+
+## Choosing the Right Option
+
+| Option | RPO | Use Case |
+|--------|-----|----------|
+| **LRS** | 0 (sync) | Dev/test, easily reconstructed data |
+| **ZRS** | 0 (sync) | Production, zone-level protection |
+| **GRS/GZRS** | ~15 min | DR across regions, read-access optional |
+
+**Key Decisions**:
+- Hot vs. Cool vs. Archive affects recovery time
+- RA-GRS enables read from secondary during outage
+- Immutable storage for ransomware protection
+
+</div>
+</div>
 
 ---
 
