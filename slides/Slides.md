@@ -7,7 +7,7 @@ footer: 'https://chris-ayers.com'
 <div class="columns">
 <div>
 
-# Resilient by 
+# Resilient by Design: Building Reliable Workloads on Azure
 
 ## Chris Ayers
 
