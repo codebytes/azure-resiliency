@@ -11,7 +11,7 @@ footer: 'https://chris-ayers.com'
 
 ## Chris Ayers
 
-Senior Software Engineer
+Principal Software Engineer
 Microsoft
 
 </div>
@@ -29,7 +29,7 @@ Microsoft
 
 ## Chris Ayers
 
-_Senior Software Engineer_  
+_Principal Software Engineer_  
 _Azure CXP AzRel_  
 _Microsoft_
 
@@ -1095,7 +1095,7 @@ table { font-size: 0.8em; }
 
 ## Chris Ayers
 
-_Senior Software Engineer_
+_Principal Software Engineer_
 _Azure CXP AzRel_
 _Microsoft_
 
