@@ -30,7 +30,7 @@ Microsoft
 ## Chris Ayers
 
 _Principal Software Engineer_  
-_Azure CXP AzRel_  
+_Azure EngOps AzRel_  
 _Microsoft_
 
 <i class="fa-brands fa-bluesky"></i> BlueSky: [@chris-ayers.com](https://bsky.app/profile/chris-ayers.com)
