@@ -126,27 +126,23 @@ table {
 
 # How Do We Measure Reliability?
 
-![bg right:20% fit](./img/sla-slo-sli.png)
+![bg right:30% fit](./img/sla-slo-sli.png)
 
-| SLI | SLO | Error Budget | SLA |
-|---------------|--------------|----------------------------------|----------------------------|
-| Service Level Indicator | Service Level Objective | 1 - SLO (consumable failure/time) | Service Level Agreement |
-| Metric of user experience (e.g., success %, p95 latency) | Reliability goal over window (e.g., 99.9% / 30d) | Remaining time/requests that may fail before action | Contract / credits / penalties |
-| Assess actual service quality | Define acceptable reliability | Govern release pace & risk appetite | Formalize promises & remedies |
-| API success rate per request | 99.95% successful responses (30d) | 0.05% errors ≈21.9 min @ 99.95% | 99.9% monthly availability w/ credits |
+| | Definition | Example |
+|-----|-----------|--------|
+| **SLI** | Metric of user experience | API success rate per request |
+| **SLO** | Reliability target over window | 99.95% successful responses (30d) |
+| **Error Budget** | 1 − SLO (consumable failure) | 0.05% ≈ 21.9 min @ 99.95% |
+| **SLA** | Contract with penalties | 99.9% monthly w/ credits |
 
 ---
 
 # Understanding RPOs and RTOs
 
-- **Recovery Time Objective (RTO)**: Maximum acceptable downtime before services must be restored
-- **Recovery Point Objective (RPO)**: Maximum acceptable data loss during a disruption
+- **RTO**: Max acceptable **downtime** before services must be restored
+- **RPO**: Max acceptable **data loss** measured in time
 
-<div align="center">
-
-![width:900px](./img/rpo-rto.drawio.png)
-
-</div>
+![width:850px center](./img/rpo-rto.drawio.png)
 
 ---
 
@@ -231,6 +227,41 @@ Establish resilience expectations before selecting technology:
 
 </div>
 </div>
+
+---
+
+# Identify & Rate User and System Flows
+
+<div class="columns">
+<div>
+
+## Flow Identification
+
+- Map **critical user journeys** end-to-end
+- Identify all **system flows** (background jobs, sync, integrations)
+- Rate each flow on a **criticality scale** tied to business impact
+
+</div>
+<div>
+
+## Criticality Classification
+
+| Tier | Reliability Target |
+|------|--------------------|
+| **Critical** | 99.99%, RTO < 5 min |
+| **Important** | 99.9%, RTO < 30 min |
+| **Non-Critical** | 99.5%, RTO < 4 hours |
+
+> Set SLOs and RTO/RPO **per flow**, not per system
+</div>
+
+---
+
+![bg fit](./img/user-flow-criticality.drawio.png)
+
+---
+
+![bg fit](./img/composite-sla.drawio.png)
 
 ---
 
@@ -336,6 +367,41 @@ Establish resilience expectations before selecting technology:
 ## Structuring for Failure Containment
 
 Focus on failure domains, redundancy strategy, and dependency design before implementation.
+
+---
+
+![bg fit](./img/dependency-map.drawio.png)
+
+---
+
+# Dependency Management
+
+<div class="columns">
+<div>
+
+## Map Your Dependencies
+
+- Identify all **upstream** and **downstream** dependencies
+- Document each dependency's **SLA and failure modes**
+- Classify: **strong** (required) vs. **weak** (degradable)
+
+</div>
+<div>
+
+## Mitigation Strategies
+
+| Strategy | When to Use |
+|----------|-------------|
+| **Caching** | Tolerate downtime for reads |
+| **Async messaging** | Decouple from unreliable services |
+| **Fallback values** | Defaults when dependency fails |
+| **Circuit breaker** | Prevent cascading failures |
+| **Timeout + retry** | Handle transient issues |
+
+</div>
+</div>
+
+> SLO cannot exceed composite SLA of critical-path dependencies
 
 ---
 
@@ -485,10 +551,9 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 ## Region Selection Criteria
 
-- **Latency**: Proximity to users (measure with [Azure Speed Test](https://www.azurespeed.com/))
-- **Compliance**: Data residency, sovereignty requirements
+- **Latency**: Proximity to users
+- **Compliance**: Data residency, sovereignty
 - **Service Availability**: Not all services in all regions
-- **Capacity**: Some regions have quota constraints
 - **Cost**: Pricing varies by region
 
 </div>
@@ -550,10 +615,9 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 **Customer Responsibilities**:
 
-- Deploy and manage resources in each availability zone
+- Deploy and manage resources in each zone
 - Configure and manage data replication
 - Use a load balancer to distribute requests
-- Choose active-passive or active-active models
 - Handle failover when an AZ becomes unavailable
 
 ![bg right fit](./img/zonal-3.png)
@@ -597,26 +661,79 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 # Data Replication: Storage Options
 
+| Option | Scope | RPO | Use Case |
+|--------|-------|-----|----------|
+| **LRS** | Single datacenter | 0 (sync) | Dev/test, easily reconstructed data |
+| **ZRS** | Across AZs | 0 (sync) | Production, zone-level protection |
+| **GRS** | Cross-region | ~15 min | DR across regions |
+| **GZRS** | AZs + cross-region | ~15 min | Best durability |
+| **RA-GRS/RA-GZRS** | + read access | ~15 min | Read from secondary during outage |
+
+- Hot vs. Cool vs. Archive affects **recovery time**
+- **Immutable storage** for ransomware protection
+
+---
+
+![bg fit](./img/scaling-strategies.drawio.png)
+
+---
+
+# Scaling Strategy
+
 <div class="columns">
 <div>
 
-![width:500px](img/storage-options.png)
+## Scale Up vs. Scale Out
+
+| Approach | Description |
+|----------|-------------|
+| **Scale Up** | Bigger instances (more CPU/RAM) |
+| **Scale Out** | More instances behind load balancer |
+
+- Scale out provides **better resilience** but needs stateless design
+- Scale up is simpler but has **ceiling limits**
 
 </div>
 <div>
 
-## Choosing the Right Option
+## Auto-Scaling Best Practices
 
-| Option | RPO | Use Case |
-|--------|-----|----------|
-| **LRS** | 0 (sync) | Dev/test, easily reconstructed data |
-| **ZRS** | 0 (sync) | Production, zone-level protection |
-| **GRS/GZRS** | ~15 min | DR across regions, read-access optional |
+- Base on **actual or predicted** usage patterns
+- Use **multiple signals**: CPU, memory, queue depth
+- **Overprovision headroom** — failures don't wait
+- Set **minimum instance counts** for critical workloads
 
-**Key Decisions**:
-- Hot vs. Cool vs. Archive affects recovery time
-- RA-GRS enables read from secondary during outage
-- Immutable storage for ransomware protection
+</div>
+</div>
+
+---
+
+# Azure Reliability Services
+
+<div class="columns">
+<div>
+
+## Traffic & Load Balancing
+
+| Service | Purpose |
+|---------|---------|
+| **Azure Front Door** | Global HTTP load balancing, failover, WAF |
+| **Traffic Manager** | DNS-based global traffic routing |
+| **Load Balancer** | Regional L4 load balancing |
+| **Application Gateway** | Regional L7 load balancing, WAF |
+
+</div>
+<div>
+
+## Backup & Recovery
+
+| Service | Purpose |
+|---------|---------|
+| **Azure Site Recovery** | DR replication & orchestrated failover |
+| **Azure Backup** | Managed backup for VMs, SQL, files |
+| **Service Health** | Platform outage awareness & alerts |
+| **Resource Health** | Individual resource health status |
+| **Azure Advisor** | Proactive reliability recommendations |
 
 </div>
 </div>
@@ -682,17 +799,132 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 
 ---
 
+![bg fit](./img/safe-deployment.drawio.png)
+
+---
+
+# Safe Deployment Practices
+
+<div class="columns">
+<div>
+
+## Deployment Strategies
+
+| Strategy | Description |
+|----------|-------------|
+| **Blue-Green** | Two identical environments; instant swap |
+| **Canary** | Route small % of traffic to new version |
+| **Progressive Rollout** | Ring-based expansion (internal → canary → all) |
+| **Feature Flags** | Toggle features without redeploying |
+
+</div>
+<div>
+
+## Health Gates & Rollback
+
+- **Automated health checks** at each deployment stage
+- Monitor **error rate, latency, SLIs** during bake time
+- **Auto-rollback** if thresholds are breached
+- **Never skip health gates** — bad deploys cause outages
+- Use **deployment slots** for zero-downtime swaps
+
+</div>
+</div>
+
+---
+
+![bg fit](./img/dr-strategies.drawio.png)
+
+---
+
+# Disaster Recovery Strategies
+
+<div class="columns">
+<div>
+
+| Strategy | RTO | RPO | Cost |
+|----------|-----|-----|------|
+| **Backup & Restore** | Hours–Days | Hours | $ |
+| **Pilot Light** | 30 min–Hours | Minutes | $$ |
+| **Warm Standby** | Minutes | Seconds–Min | $$$ |
+| **Multi-Site Active** | Near-zero | Near-zero | $$$$ |
+
+</div>
+<div>
+
+## DR Plan Essentials
+
+- **Document** failover/failback procedures
+- **Test regularly** — untested plans are not plans
+- **Automate** failover (Azure Site Recovery)
+- **Include data layer** — backup, replication
+
+</div>
+</div>
+
+---
+
 # Resilience Patterns
 | Pattern | Problem Solved | Key Considerations |
 |---------|----------------|--------------------|
-| Timeout | Prevent hanging on slow dependency | Set < expected p95 latency; combine with retries | HTTP client / SDK timeout settings |
-| Retry + Exponential Backoff + Jitter | Transient faults (throttling, brief network blips) | Cap attempts; respect idempotency |
-| Circuit Breaker | Failing dependency causing cascading latency | Trip on error rate/latency; half-open probes |
+| Timeout | Prevent hanging on slow dependency | Set < expected p95 latency; combine with retries |
+| Retry + Backoff + Jitter | Transient faults (throttling, blips) | Cap attempts; respect idempotency |
+| Circuit Breaker | Failing dependency cascading | Trip on error rate/latency; half-open probes |
 | Bulkhead Isolation | One noisy component  | Resource partitioning |
 | Dead Letter Queue | Bad messages blocking progress | Monitor & replay with alerting |
 | Graceful Degradation | Maintain partial service | Feature flags, fallback data |
 
-> Select patterns based on observed failure modes; measure impact via SLIs & error budget consumption.
+---
+
+# Additional Resilience Patterns
+
+| Pattern | Problem Solved | Key Considerations |
+|---------|----------------|--------------------|
+| Queue-Based Load Leveling | Traffic spikes overwhelming backend | Buffer with queue; consumers process at steady pace |
+| Throttling / Rate Limiting | Resource exhaustion from excess demand | Protect services; return 429 with Retry-After |
+| Saga / Compensating Transaction | Distributed transaction failures | Automatic rollback via compensation steps |
+| Cache-Aside | Dependency downtime for read-heavy data | Serve from cache; fall back to origin |
+| Health Endpoint Monitoring | Unknown service state | Expose `/health` endpoints for probes & routing |
+| Gateway Routing / Geode | Unhealthy backends; multi-geo | Route to healthy nodes; active-active across regions |
+
+---
+
+![bg fit](./img/async-patterns.drawio.png)
+
+---
+
+# Async & Event-Driven Patterns
+
+<div class="columns">
+<div>
+
+## Queue-Based Load Leveling
+
+- **Queue** absorbs spikes; consumers process at steady pace
+
+## Competing Consumers
+
+- Multiple workers — if one fails, **others continue**
+
+## Publisher / Subscriber
+
+- **Decouples** producers from consumers
+
+</div>
+<div>
+
+## Saga Pattern
+
+- **Distributed transactions** with compensating rollback
+
+## Azure Services
+
+- **Service Bus** — Queues & Topics
+- **Event Grid** — Event routing
+- **Event Hubs** — Streaming
+
+</div>
+</div>
 
 ---
 
@@ -747,10 +979,9 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 | Burn Rate | Budget consumed / Time elapsed fraction | 2× burn -> intervene early |
 | MTTR | Avg restore time for incidents | Track trend downwards |
 
-Error Budget Response Guide:
-- Burn Rate > 4× for 1h: Freeze risky deploys; incident review.
-- Burn Rate 2× sustained: Reduce change volume; add mitigations.
-- Burn Rate nominal (<1×): Continue roadmap; schedule chaos tests.
+- Burn Rate **> 4×** for 1h: Freeze deploys; incident review
+- Burn Rate **2×** sustained: Reduce change volume
+- Burn Rate **< 1×**: Continue roadmap; schedule chaos tests
 
 ---
 
@@ -823,6 +1054,40 @@ Error Budget Response Guide:
 - **Game Days**: Schedule cross-team incident response exercises
 - **Continuous Process**: Iterate on tests as your architecture evolves
 - **Documentation**: Track findings and improvements
+
+</div>
+</div>
+
+---
+
+![bg fit](./img/incident-lifecycle.drawio.png)
+
+---
+
+# Incident Response & Continuous Learning
+
+<div class="columns">
+<div>
+
+## Incident Response Process
+
+| Phase | Key Actions |
+|-------|-------------|
+| **Detect** | Alerts, health probes, anomaly detection |
+| **Triage** | Severity, blast radius, assign owner |
+| **Mitigate** | Runbooks, failover, rollback |
+| **Communicate** | Status page, stakeholder updates |
+| **Review** | Blameless postmortem, action items |
+
+</div>
+<div>
+
+## Continuous Learning
+
+- Conduct **blameless postmortems** after incidents
+- Document **root cause**, timeline, **action items**
+- Track **MTTR trends** — reduce over time
+- Share learnings **across teams**
 
 </div>
 </div>
@@ -1070,10 +1335,11 @@ table { font-size: 0.8em; }
 
 # Conclusion
 
-- **Design Principles**: Focus on resilience, recovery, and simplicity for robust workloads
+- **Design Principles**: Focus on resilience, recovery, operations, and simplicity
+- **Know Your Flows**: Identify critical user journeys, set per-flow SLOs, and understand composite SLAs
 - **Trade-offs**: Every decision impacts cost, security, operational excellence, and performance
-- **Proactive Reliability**: Use Failure Mode Analysis to anticipate and mitigate failures
-- **Continuous Improvement**: Leverage Availability Zones, multi-region deployments, chaos engineering, and load testing
+- **Proactive Reliability**: Use FMA, dependency mapping, safe deployments, and tested DR plans
+- **Continuous Improvement**: Chaos engineering, load testing, incident response, and blameless postmortems
 
 ---
 
