@@ -72,27 +72,6 @@ _Microsoft_
 
 ---
 
-## Financial Impact of Downtime
-
-- **Revenue Loss**: Downtime can cost businesses over $1 million per hour, especially for e-commerce and online services.
-- **Increased Expenses**: Includes emergency maintenance, staff overtime, and potential penalties for SLA breaches.
-- **Legal Liabilities**: Potential lawsuits from customers or clients affected by downtime.
-- **Insurance Challenges**: Downtime can affect insurance coverage and premiums.
-- **Operational Costs**: Additional costs for restoring systems, data recovery, and preventive measures to avoid future downtime.
-
----
-
-## Real-World Downtime Costs
-
-- **77 hours** (≈3 days) median annual downtime for high-impact outages
-- **$146 million** median annual cost of outages
-- **30%** of engineering time spent addressing disruptions
-  - Equals **12 hours** per engineer weekly (based on 40-hour week)
-
-> Source: New Relic 2024 Observability Forecast
-
----
-
 ![bg fit](./img/reliability.jpg)
 
 ---
@@ -157,73 +136,35 @@ Establish resilience expectations before selecting technology:
 
 ---
 
-# Business Requirements
+# Requirements: Resilience & Recovery
 
 <div class="columns">
 <div>
 
-- Gather business requirements focusing on the workload's intended utility
-- Cover user experience, data, workflows, and unique constraints or sensitivities
-- Clearly state expectations and confirm goals are feasible and documented
+### Business
+
+- Quantify success targets for flows
+- Understand platform SLAs, limits, constraints
+
+
+### Key Principle
+
+> Design for **how you respond**, not just prevention
 
 </div>
 <div>
 
-| Approach           | Description                                                     |
-|--------------------|-----------------------------------------------------------------|
-| Quantify Success   | Set targets for components, flows, and the system              |
-| Compliance         | Ensure predictable outcomes for sensitive flows                |
-| Platform Commitments | Understand SLAs, limits, and regional constraints            |
-| Dependencies       | Track dependencies and implement resilient design patterns     |
+### Recovery
+- Recovery plans with regular drills
+- Trusted backups & immutable copies
+- Automated detection & self-healing
 
-</div>
-</div>
 
----
+### Resilience
 
-# Resilience Requirements
-
-<div class="columns">
-<div>
-
-- Continue operating despite failures
-- Prepare for outages and resource shortages
-- Enable graceful degradation
-
-</div>
-<div>
-
-| Strategy                | Implementation                     |
-|-------------------------|-----------------------------------|
-| Critical vs. Degradable | Prioritize by impact              |
-| Failure Points          | Design for error handling         |
-| Self-Preservation       | Isolate faults, mitigate failures |
-| Scalability             | Handle spikes and regional issues |
-| Redundancy              | Eliminate single points of failure|
-
-</div>
-</div>
-
----
-
-# Recovery Requirement
-
-<div class="columns">
-<div>
-
-- Recover gracefully from all failure types
-- Plan for disaster even in resilient systems
-- Prepare for data layer corruption
-
-</div>
-<div>
-
-| Strategy | Implementation |
-|----------|----------------|
-| Recovery Plans | Component coverage with regular drills |
-| Data Repair | Trusted backups with immutable copies |
-| Self-Healing | Automated detection and remediation |
-| Ephemeral Units | Side-by-side deployments with zero downtime |
+- Classify **critical** vs. **degradable** components
+- Design for fault isolation & graceful degradation
+- Eliminate single points of failure
 
 </div>
 </div>
@@ -346,19 +287,12 @@ Establish resilience expectations before selecting technology:
 
 # Reliability Trade-Offs with Other Pillars
 
-| Pillar | Prioritizing Reliability | Prioritizing Other Pillar |
+| Pillar | More Reliability Means... | Less Reliability Means... |
 |--------|--------------------------|---------------------------|
-| **Cost Optimization** | • **Implement Redundancy** (multi-region)<br>• **Extensive Monitoring & Drills**<br>• **Over-Provision** for unexpected spikes | • **Single-Region** setups with minimal redundancy<br>• **Reduce Operational Costs** (simpler monitoring)<br>• **Right-Size** resources to save expenses |
-| **Security** | • **Replication & Backups** expand attack surface<br>• **Faster Recovery** may bypass security controls<br>• **Delay Patches** to reduce downtime | • **Minimize Attack Surface**<br>• **Strict Controls** remain active under stress<br>• **Frequent Patching** even with disruptions |
-
----
-
-# Reliability Trade-Offs with Other Pillars (Continued)
-
-| Pillar | Prioritizing Reliability | Prioritizing Other Pillar |
-|--------|--------------------------|---------------------------|
-| **Operational Excellence** | • **Complex Architectures** (multi-region, failover)<br>• **Extensive Documentation & Training** for DR<br>• **Continuous Testing** adds overhead | • **Simple Architecture**<br>• **Streamlined Knowledge Base**<br>• **Less Overhead** in daily operations |
-| **Performance Efficiency** | • **Redundant Writes & Replication** add latency<br>• **Failover Logic** can slow requests<br>• **Over-Provision** may reduce performance tuning | • **Lean Deployments** maximize throughput<br>• **On-Demand Scaling** with minimal buffer<br>• **Focus on Speed** over recovery measures |
+| **Cost** | Redundancy, monitoring, over-provisioning | Right-sized, single-region, simpler ops |
+| **Security** | Larger attack surface, may delay patches | Strict controls, frequent patching |
+| **Ops Excellence** | Complex architecture, extensive DR testing | Simpler systems, less overhead |
+| **Performance** | Replication latency, failover overhead | Lean deployments, speed-focused |
 
 ---
 
@@ -401,10 +335,7 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 </div>
 </div>
 
-> SLO cannot exceed composite SLA of critical-path dependencies
-
 ---
-
 
 # Failure Mode Analysis (FMA)
 
@@ -416,7 +347,6 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 - Recognize potential weaknesses before outages occur
 - Use checklists, post-mortems, dependency mapping
 - Prioritize by user impact & blast radius
-- Separate rare/high-impact from frequent/low-impact
 
 </div>
 <div>
@@ -426,7 +356,6 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 - Architect graceful degradation & fallbacks
 - Instrument for fast anomaly detection
 - Automate failover & data replication where feasible
-- Document hypotheses & validate via game days
 
 </div>
 </div>
@@ -461,7 +390,6 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 ---
 
-
 # Active-Active vs. Active-Passive
 
 <div class="columns">
@@ -475,33 +403,6 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 **Active-Passive**: Primary instance processes traffic; secondary is on standby.
 ![width:500px center](img/active-passive.png)
-
-</div>
-</div>
-
----
-
-
-# Enhancing Resiliency through Architecture
-
-<div class="columns">
-<div>
-
-## Fault Isolation
-
-- Prevents cascading failures and maintains availability
-- Distributes workloads across multiple data centers
-- Handles datacenter-specific failures with built-in mechanisms
-
-</div>
-<div>
-
-## Reliability Best Practices
-
-- Deploy across multiple Availability Zones
-- Leverage multi-region approaches when necessary
-- Use landing zones and reference architectures
-- Apply design patterns appropriate to your workload
 
 </div>
 </div>
@@ -577,48 +478,35 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 # Azure Availability Zones
 
-![width:800px center](img/az-diagram.png)
+- Physically separate datacenters within a region
+- Independent power, cooling, and networking
+- Low-latency (<2ms) connections between zones
+- Updates deployed one AZ at a time
+- [View Region Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-region-support)
 
----
-
-# Azure Availability Zones Infrastructure
-
-- AZs are physically separate datacenters within an Azure region
-- Each zone has independent power, cooling, and networking
-- Low-latency (<2ms) connections reduce local outage impact
-- Azure deploys updates one AZ at a time for continuous service
-- Not all regions have AZs; verify availability
-- [View Region Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-region-support)  
+![bg right fit](img/az-diagram.png)
 
 ---
 
 # Types of Availability Zone Support
 
-- **Zone-Redundant**: Automatically distributed across zones
-- **Zonal**: Pinned to a specific zone
-- **Zone-Resilient**: Designed to survive zone failures
-- **Non-Zonal (Regional)**: No zone-specific deployment
+| Type | Deployment | Failover | Who Manages |
+|------|-----------|----------|-------------|
+| **Zonal** | Pinned to one zone | You handle failover | Customer |
+| **Zone-Redundant** | Spread across zones | Automatic | Microsoft |
+| **Zone-Resilient** | Zonal or zone-redundant | Survives zone outage | Varies |
+| **Non-Zonal (Regional)** | No zone affinity | May go down with zone | Neither |
+
 - [View Services Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-service-support)
 
 ---
 
 # Zonal Resources
 
-- Pinned to a specific availability zone.
-- Combine multiple zonal deployments for high reliability.
-
-![bg right fit](./img/zonal-1.png)
-
----
-
-# Zonal Resources
-
-**Customer Responsibilities**:
-
-- Deploy and manage resources in each zone
-- Configure and manage data replication
-- Use a load balancer to distribute requests
-- Handle failover when an AZ becomes unavailable
+- Pinned to a specific availability zone
+- Combine multiple zonal deployments for high reliability
+- **You** manage replication, load balancing, and failover
+- Deploy across zones for zone-level protection
 
 ![bg right fit](./img/zonal-3.png)
 
@@ -631,31 +519,6 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 - Automatic failover if a zone goes down.
 
 ![bg fit right](./img/zone-redundant.png)
-
----
-
-# Zone-Resilient vs. Non-Zonal (Regional)
-
-<div class="columns">
-<div>
-
-## Zone-Resilient
-
-- Created as **zone-redundant** or deployed **zonally** across multiple zones  
-- Survives a single zone outage by design  
-- Minimizes downtime as data and services continue in healthy zones  
-
-</div>
-<div>
-
-## Non-Zonal (Regional)
-
-- Not explicitly configured for zone redundancy  
-- May be placed in any zone and moved automatically  
-- Resources may go down if that zone experiences an outage  
-
-</div>
-</div>
 
 ---
 
@@ -674,37 +537,9 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 ---
 
-![bg fit](./img/scaling-strategies.drawio.png)
+# Scaling Strategies
 
----
-
-# Scaling Strategy
-
-<div class="columns">
-<div>
-
-## Scale Up vs. Scale Out
-
-| Approach | Description |
-|----------|-------------|
-| **Scale Up** | Bigger instances (more CPU/RAM) |
-| **Scale Out** | More instances behind load balancer |
-
-- Scale out provides **better resilience** but needs stateless design
-- Scale up is simpler but has **ceiling limits**
-
-</div>
-<div>
-
-## Auto-Scaling Best Practices
-
-- Base on **actual or predicted** usage patterns
-- Use **multiple signals**: CPU, memory, queue depth
-- **Overprovision headroom** — failures don't wait
-- Set **minimum instance counts** for critical workloads
-
-</div>
-</div>
+![width:1080px](./img/scaling-strategies.drawio.png)
 
 ---
 
@@ -717,10 +552,10 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 | Service | Purpose |
 |---------|---------|
-| **Azure Front Door** | Global HTTP load balancing, failover, WAF |
-| **Traffic Manager** | DNS-based global traffic routing |
-| **Load Balancer** | Regional L4 load balancing |
-| **Application Gateway** | Regional L7 load balancing, WAF |
+| **Azure Front Door** | Global HTTP LB, failover, WAF |
+| **Traffic Manager** | DNS-based global routing |
+| **Load Balancer** | Regional L4 LB |
+| **Application Gateway** | Regional L7 LB, WAF |
 
 </div>
 <div>
@@ -729,11 +564,11 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 | Service | Purpose |
 |---------|---------|
-| **Azure Site Recovery** | DR replication & orchestrated failover |
-| **Azure Backup** | Managed backup for VMs, SQL, files |
-| **Service Health** | Platform outage awareness & alerts |
-| **Resource Health** | Individual resource health status |
-| **Azure Advisor** | Proactive reliability recommendations |
+| **Azure Site Recovery** | DR replication & failover |
+| **Azure Backup** | Managed backup (VMs, SQL, files) |
+| **Service Health** | Platform outage alerts |
+| **Resource Health** | Individual resource status |
+| **Azure Advisor** | Proactive recommendations |
 
 </div>
 </div>
@@ -745,6 +580,87 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 ## Runtime Resilience Behaviors
 
 Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breakers, idempotency, hedging.
+
+---
+
+# Resilience Patterns
+| Pattern | Problem Solved | Key Considerations |
+|---------|----------------|--------------------|
+| Timeout | Prevent hanging on slow dependency | Set < expected p95 latency; combine with retries |
+| Retry + Backoff + Jitter | Transient faults (throttling, blips) | Cap attempts; respect idempotency |
+| Circuit Breaker | Failing dependency cascading | Trip on error rate/latency; half-open probes |
+| Bulkhead Isolation | One noisy component  | Resource partitioning |
+| Dead Letter Queue | Bad messages blocking progress | Monitor & replay with alerting |
+| Graceful Degradation | Maintain partial service | Feature flags, fallback data |
+
+---
+
+# Async & Event-Driven Patterns
+
+![width:1080px](./img/async-patterns.drawio.png)
+
+---
+
+# Azure SDK Resiliency Best Practices
+
+<div class="columns">
+<div>
+
+## Built-in SDK Features
+- **Retry** — Exponential backoff + jitter
+- **Timeouts** — Per-attempt + overall deadline
+- **Throttling** — Honor `Retry-After`
+- **Idempotency** — Keys/message IDs to dedupe
+
+</div>
+<div>
+
+## Your Responsibilities
+- **Circuit Breaking** — Polly / resilience libs
+- **Connection Reuse** — Reuse clients (thread-safe)
+- **Backpressure** — Bounded channels, fail fast
+- **Observability** — Correlate traces, log retries
+
+</div>
+</div>
+
+---
+
+# Operations & Observability Layer
+
+## Detect, Respond, Learn
+
+Emphasize fast detection, validated recovery paths, and continuous improvement through data & drills.
+
+---
+
+# Safe Deployment Practices
+
+![w:1080px](./img/safe-deployment.drawio.png)
+
+---
+
+# OpenTelemetry
+
+- Open standard for generating, collecting, and exporting telemetry data (traces, metrics, logs)
+- Supported by major cloud providers, including Azure Monitor, AWS CloudWatch, and Google Cloud Operations
+- Enables vendor-neutral instrumentation and observability across distributed systems
+
+---
+
+# Metrics & Error Budgets
+
+| Concept | Formula / Definition | Example |
+|---------|----------------------|---------|
+| Availability SLI | (Successful Requests) / (Total Requests) | 99,950 / 100,000 = 99.95% |
+| Latency SLI | % of requests under threshold | 95% < 250ms (p95), 99% < 400ms |
+| Error Budget  | 1 - SLO | SLO 99.9% => 0.1% budget |
+| Burn Rate | Budget consumed / Time elapsed fraction | 2× burn -> intervene early |
+| MTTR | Avg restore time for incidents | Track trend downwards |
+
+- Burn Rate **> 4×** for 1h: Freeze deploys; incident review
+- Burn Rate **2×** sustained: Reduce change volume
+- Burn Rate **< 1×**: Continue roadmap; schedule chaos tests
 
 ---
 
@@ -799,189 +715,9 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 
 ---
 
-![bg fit](./img/safe-deployment.drawio.png)
-
----
-
-# Safe Deployment Practices
-
-<div class="columns">
-<div>
-
-## Deployment Strategies
-
-| Strategy | Description |
-|----------|-------------|
-| **Blue-Green** | Two identical environments; instant swap |
-| **Canary** | Route small % of traffic to new version |
-| **Progressive Rollout** | Ring-based expansion (internal → canary → all) |
-| **Feature Flags** | Toggle features without redeploying |
-
-</div>
-<div>
-
-## Health Gates & Rollback
-
-- **Automated health checks** at each deployment stage
-- Monitor **error rate, latency, SLIs** during bake time
-- **Auto-rollback** if thresholds are breached
-- **Never skip health gates** — bad deploys cause outages
-- Use **deployment slots** for zero-downtime swaps
-
-</div>
-</div>
-
----
-
-![bg fit](./img/dr-strategies.drawio.png)
-
----
-
 # Disaster Recovery Strategies
 
-<div class="columns">
-<div>
-
-| Strategy | RTO | RPO | Cost |
-|----------|-----|-----|------|
-| **Backup & Restore** | Hours–Days | Hours | $ |
-| **Pilot Light** | 30 min–Hours | Minutes | $$ |
-| **Warm Standby** | Minutes | Seconds–Min | $$$ |
-| **Multi-Site Active** | Near-zero | Near-zero | $$$$ |
-
-</div>
-<div>
-
-## DR Plan Essentials
-
-- **Document** failover/failback procedures
-- **Test regularly** — untested plans are not plans
-- **Automate** failover (Azure Site Recovery)
-- **Include data layer** — backup, replication
-
-</div>
-</div>
-
----
-
-# Resilience Patterns
-| Pattern | Problem Solved | Key Considerations |
-|---------|----------------|--------------------|
-| Timeout | Prevent hanging on slow dependency | Set < expected p95 latency; combine with retries |
-| Retry + Backoff + Jitter | Transient faults (throttling, blips) | Cap attempts; respect idempotency |
-| Circuit Breaker | Failing dependency cascading | Trip on error rate/latency; half-open probes |
-| Bulkhead Isolation | One noisy component  | Resource partitioning |
-| Dead Letter Queue | Bad messages blocking progress | Monitor & replay with alerting |
-| Graceful Degradation | Maintain partial service | Feature flags, fallback data |
-
----
-
-# Additional Resilience Patterns
-
-| Pattern | Problem Solved | Key Considerations |
-|---------|----------------|--------------------|
-| Queue-Based Load Leveling | Traffic spikes overwhelming backend | Buffer with queue; consumers process at steady pace |
-| Throttling / Rate Limiting | Resource exhaustion from excess demand | Protect services; return 429 with Retry-After |
-| Saga / Compensating Transaction | Distributed transaction failures | Automatic rollback via compensation steps |
-| Cache-Aside | Dependency downtime for read-heavy data | Serve from cache; fall back to origin |
-| Health Endpoint Monitoring | Unknown service state | Expose `/health` endpoints for probes & routing |
-| Gateway Routing / Geode | Unhealthy backends; multi-geo | Route to healthy nodes; active-active across regions |
-
----
-
-![bg fit](./img/async-patterns.drawio.png)
-
----
-
-# Async & Event-Driven Patterns
-
-<div class="columns">
-<div>
-
-## Queue-Based Load Leveling
-
-- **Queue** absorbs spikes; consumers process at steady pace
-
-## Competing Consumers
-
-- Multiple workers — if one fails, **others continue**
-
-## Publisher / Subscriber
-
-- **Decouples** producers from consumers
-
-</div>
-<div>
-
-## Saga Pattern
-
-- **Distributed transactions** with compensating rollback
-
-## Azure Services
-
-- **Service Bus** — Queues & Topics
-- **Event Grid** — Event routing
-- **Event Hubs** — Streaming
-
-</div>
-</div>
-
----
-
-# Azure SDK Resiliency Best Practices
-
-| Concern | Guidance | Notes / Azure SDK Features |
-|---------|----------|-----------------------------|
-| Retry Policy | Use built-in exponential backoff + jitter; cap total elapsed time | SDK defaults (3–5 retries). Tune max attempts & overall operation timeout |
-| Idempotency | Make write & queue ops safely repeatable | Use idempotency keys / message IDs to dedupe |
-| Timeouts | Combine per-attempt timeout + overall deadline | Use CancellationToken / request context to abort quickly |
-| Throttling (429 / 503) | Honor Retry-After; escalate if sustained | Log retry reason & emit metric for throttled calls |
-| Circuit Breaking | Wrap high-risk dependencies with Polly / resilience lib | Trip on error rate/latency. Half-open probes restore flow |
-
----
-
-# Azure SDK Resiliency Best Practices Continued
-
-| Concern | Guidance | Notes / Azure SDK Features |
-|---------|----------|-----------------------------|
-| Connection Reuse | Reuse client instances (thread-safe) | Avoid per-request instantiation to prevent socket exhaustion |
-| Observability | Correlate Request-Id / Traceparent; record retry count | Enable SDK logging + OpenTelemetry exporters |
-| Partial Failure | Process successes; isolate & retry failed items | Batch ops return per-item status; implement granular retry |
-| Backpressure | Limit concurrency & queue length; shed excess | Use bounded channels / semaphores; fail fast when saturated |
-
-> Engineer for transient failure as the norm: fast fail, bounded retries, measurable outcomes.
-
----
-
-# Operations & Observability Layer
-
-## Detect, Respond, Learn
-
-Emphasize fast detection, validated recovery paths, and continuous improvement through data & drills.
-
----
-
-# OpenTelemetry
-
-- Open standard for generating, collecting, and exporting telemetry data (traces, metrics, logs)
-- Supported by major cloud providers, including Azure Monitor, AWS CloudWatch, and Google Cloud Operations
-- Enables vendor-neutral instrumentation and observability across distributed systems
-
----
-
-# Metrics & Error Budgets
-
-| Concept | Formula / Definition | Example |
-|---------|----------------------|---------|
-| Availability SLI | (Successful Requests) / (Total Requests) | 99,950 / 100,000 = 99.95% |
-| Latency SLI | % of requests under threshold | 95% < 250ms (p95), 99% < 400ms |
-| Error Budget  | 1 - SLO | SLO 99.9% => 0.1% budget |
-| Burn Rate | Budget consumed / Time elapsed fraction | 2× burn -> intervene early |
-| MTTR | Avg restore time for incidents | Track trend downwards |
-
-- Burn Rate **> 4×** for 1h: Freeze deploys; incident review
-- Burn Rate **2×** sustained: Reduce change volume
-- Burn Rate **< 1×**: Continue roadmap; schedule chaos tests
+![w:1080px](./img/dr-strategies.drawio.png)
 
 ---
 
@@ -1010,35 +746,12 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 
 ---
 
-## [Mission-Critical Health Modeling](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/mission-critical-health-modeling)
+# Validating Resilience
 
 <div class="columns">
 <div>
 
-### Core Concepts
-
-- **Layered health model**: Define health from individual resources to user flows
-- **Business-aligned scoring**: Health reflects business priorities with clear healthy/unhealthy states
-- **Automated calculation**: Use metrics and thresholds for real-time health scores
-
-</div>
-<div>
-
-### Implementation
-
-- **Unified observability**: Aggregate logs, metrics, traces in Log Analytics workspaces
-- **Visual dashboards**: Azure Monitor or Grafana for real-time insights
-- **Proactive response**: Integrate with alerting and automated incident response
-
-</div>
-</div>
-
----
-
-<div class="columns">
-<div>
-
-## Business Benefits
+## Why Validate?
 
 - **Early Issue Detection**: Find problems before customers do
 - **Increased Confidence**: Better team preparedness for incidents
@@ -1048,49 +761,21 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 </div>
 <div>
 
-## Practical Implementation
+## How to Validate
 
 - **Start Simple**: Begin with critical paths and core functions
 - **Game Days**: Schedule cross-team incident response exercises
-- **Continuous Process**: Iterate on tests as your architecture evolves
-- **Documentation**: Track findings and improvements
+- **Iterate**: Evolve tests as your architecture changes
+- **Track**: Document findings and improvements
 
 </div>
 </div>
-
----
-
-![bg fit](./img/incident-lifecycle.drawio.png)
 
 ---
 
 # Incident Response & Continuous Learning
 
-<div class="columns">
-<div>
-
-## Incident Response Process
-
-| Phase | Key Actions |
-|-------|-------------|
-| **Detect** | Alerts, health probes, anomaly detection |
-| **Triage** | Severity, blast radius, assign owner |
-| **Mitigate** | Runbooks, failover, rollback |
-| **Communicate** | Status page, stakeholder updates |
-| **Review** | Blameless postmortem, action items |
-
-</div>
-<div>
-
-## Continuous Learning
-
-- Conduct **blameless postmortems** after incidents
-- Document **root cause**, timeline, **action items**
-- Track **MTTR trends** — reduce over time
-- Share learnings **across teams**
-
-</div>
-</div>
+![width:1080px](./img/incident-lifecycle.drawio.png)
 
 ---
 
@@ -1098,11 +783,8 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 
 ## Guardrails, Standards, Acceleration
 
-Tools & frameworks that reduce variance, enforce policy, and speed safe delivery.
-
-- Utilize established Azure reference architectures for reliability.
-
-- Leverage available documentation and best practices for consistency and effectiveness.
+- Enforce consistency through policy-driven environments
+- Accelerate delivery with proven reference architectures
 
 ---
 
@@ -1124,38 +806,27 @@ Tools & frameworks that reduce variance, enforce policy, and speed safe delivery
 
 ---
 
-# [Azure Architecture Center](https://learn.microsoft.com/azure/architecture/)
+# Reference Architectures & Guidance
 
-- Centralized repository of best practices, reference architectures, and design patterns for Azure solutions.
-- Provides comprehensive guidance on building reliable, scalable, and secure cloud solutions.
-- Offers scenario-specific architectures, recommended practices, and templates to accelerate your workload design.
+<div class="columns">
+<div>
 
----
+## [Azure Architecture Center](https://learn.microsoft.com/azure/architecture/)
+- Best practices, reference architectures, design patterns
 
-# [Well-Architected Workloads](https://learn.microsoft.com/en-us/azure/well-architected/workloads)
+## [Well-Architected Workloads](https://learn.microsoft.com/en-us/azure/well-architected/workloads)
+- Workload-specific WAF guidance & trade-offs
 
-- Align workloads with business outcomes using the Azure Well-Architected Framework  
-- Balancing functional requirements and nonfunctional trade-offs  
-- Integrate design fundamentals, trade-offs, and operational best practices
+</div>
+<div>
 
----
+## [Mission-Critical Workloads](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/mission-critical-overview)
+- Designing for max availability & performance
 
-# [Mission-Critical Workloads](https://learn.microsoft.com/en-us/azure/well-architected/mission-critical/mission-critical-overview)
+## [Enterprise Web App Patterns](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/overview)
+- Prescriptive architecture, code, and configuration
 
-Learn about designing mission-critical applications on Azure for high availability, reliability, and performance:
-
-![bg right fit](./img/mission-critical.png)
-
----
-
-# [Enterprise Web App Patterns](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/overview)
-
-Guidance for web apps on Azure, offering prescriptive architecture, code, and configuration aligned with the Well-Architected Framework:
-
-<div align="center">
-
-![width:900px](img/enterprise-app.png)
-
+</div>
 </div>
 
 ---
@@ -1167,57 +838,20 @@ Guidance for web apps on Azure, offering prescriptive architecture, code, and co
 
 ## What is AVM?
 
-- **Official Microsoft initiative** to consolidate Infrastructure-as-Code standards
-- **Multi-language support** - Bicep, Terraform, and more
-- **WAF-aligned modules** with built-in best practices
-- **Community-driven** with devolved ownership approach
+- **Official Microsoft IaC initiative** — Bicep, Terraform
+- **WAF-aligned** with built-in reliability defaults
+- AZs, monitoring, security hardening out of the box
 
 </div>
 <div>
 
-## Core Value Proposition
+## Module Types
 
-- **Accelerate development** with pre-built, tested modules
-- **Ensure compliance** with Azure best practices
-- **Reduce misconfigurations** through standardized templates
-- **Enhance security** with default secure configurations
+- **🏗️ Resource** — Single resource, secure defaults
+- **🎯 Pattern** — Multi-resource proven architectures
+- **⚙️ Utility** — Reusable helpers (Preview)
 
-</div>
-</div>
-
----
-
-# AVM Module Classifications
-
-| Module Type | Purpose | Key Features |
-|-------------|---------|--------------|
-| **🏗️ Resource** | Single resource deployment | WAF best practices, secure defaults, shared interfaces |
-| **🎯 Pattern** | Multi-resource architectures | Proven designs, composable blocks, enterprise-ready |
-| **⚙️ Utility** (Preview) | Reusable functions | Common helpers, cross-module functionality |
-
----
-
-# AVM and Reliability
-
-<div class="columns">
-<div>
-
-## Built-in Resilience
-
-- **Availability Zones** configured by default where supported
-- **Disaster recovery** patterns in multi-region deployments
-- **Monitoring integration** with Azure Monitor and Application Insights
-- **Security hardening** with least-privilege access
-
-</div>
-<div>
-
-## Enterprise Ready
-
-- **Well-Architected Framework** alignment across all pillars
-- **Production-tested** configurations and patterns
-- **Automated compliance** checks and validation
-- **Continuous updates** with latest Azure capabilities
+> Reduce misconfigurations with standardized, production-tested templates
 
 </div>
 </div>
@@ -1230,55 +864,22 @@ Guidance for web apps on Azure, offering prescriptive architecture, code, and co
 <div class="columns">
 <div>
 
-### What is APRL?
+## What is APRL?
 
-- **Curated catalog** of resiliency recommendations for Azure workloads
-- **Azure Resource Graph (ARG) queries** for identifying non-compliant resources
-- **Community-driven** with 75+ contributors and active maintenance
-- **Open source** under MIT license
-
-</div>
-<div>
-
-### Key Features
-
-- **Resource-specific guidance** for 100+ Azure services
-- **Automated compliance checks** with ready-to-use ARG queries
-- **Well-Architected Framework alignment** with reliability best practices
-- **Specialized workload patterns** for common scenarios
-
-</div>
-</div>
-
----
-
-# APRL Library Structure
-
-<div class="columns">
-<div>
-
-### 🏗️ **Azure Resources**
-- Service-specific resiliency recommendations
-- Individual Azure service best practices
-- Resource configuration guidance
-
-### 🔧 **Specialized Workloads**
-- End-to-end workload patterns
-- Industry-specific scenarios
-- Multi-service architectures
+- **Curated catalog** of resiliency recommendations for 100+ Azure services
+- **Azure Resource Graph queries** to find non-compliant resources
+- **WAF-aligned** reliability best practices
+- **Open source** — 75+ contributors
 
 </div>
 <div>
 
-### 📊 **Azure Resource Graph Queries**
-- Automated compliance detection
-- Resource inventory and assessment
-- Policy enforcement support
+## What’s Inside
 
-### 🛡️ **WAF Integration**
-- Well-Architected Framework alignment
-- Reliability pillar implementation
-- Assessment and review tools
+- 🏗️ **Resource-specific** configuration guidance
+- 🔧 **Specialized workload** patterns
+- 📊 **Ready-to-use ARG queries** for compliance
+- 🛡️ **Assessment & review** tools
 
 </div>
 </div>
@@ -1292,44 +893,22 @@ Guidance for web apps on Azure, offering prescriptive architecture, code, and co
 
 ## What They Are
 
-- **Design validation tool** for Azure architectures and workloads
-- **Community-driven** checklists based on Microsoft best practices
-- **Version-controlled** alternative to Excel spreadsheets
-- **Collaborative** approach with GitHub integration
+- **Design validation tool** for Azure architectures
+- **Community-driven** best practice checklists
+- **Proactive issue detection** before deployment
 
 </div>
 <div>
 
-## Key Benefits
+## Coverage
 
-- **Proactive issue detection** before deployment
-- **Standardized reviews** across teams and projects
-- **Time-saving** with pre-built checklists
-- **Continuous improvement** through community contributions
+- Landing Zones, AKS, App Service, SQL
+- Networking, Cost Optimization, DevOps
+- AI Landing Zone, Spring Apps, SAP
+- Standardized reviews across teams & projects
 
 </div>
 </div>
-
----
-
-# Azure Review Checklists
-
-## Supported Checklists & Services
-
-<style scoped>
-table { font-size: 0.8em; }
-</style>
-
-| Service Category | Checklist | Status | Key Focus Areas |
-|------------------|-----------|---------|-----------------|
-| **Foundation** | Azure Landing Zone | GA | Governance, Security, Networking |
-| **AI/ML** | AI Landing Zone | Preview | AI services, responsible AI,  governance |
-| **Containers** | AKS, ARO | GA/Preview | Security, scalability, monitoring |
-| **Applications** | App Service, Spring Apps | GA/Preview | Performance, security, DevOps |
-| **Data** | SQL Migration, SAP | Preview/GA | Migration, performance, compliance |
-| **Networking** | Application Delivery | GA | Load balancing, security, performance |
-| **Cost Management** | Cost Optimization | GA | Resource optimization, monitoring |
-| **DevOps** | Azure DevOps | Preview | Pipeline security, compliance |
 
 ---
 

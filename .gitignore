@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 .playwright-mcp/
 slides/output.html
+slides/.playwright-cli/
