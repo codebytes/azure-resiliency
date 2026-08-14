@@ -59,11 +59,13 @@ _Microsoft_
 
 ---
 
-# Understanding Reliability and Resiliency
+# Understanding Reliability, Resiliency & Recoverability
 
 - Failures are **inevitable** in distributed systems
-- Workloads must **detect**, **withstand**, and **recover** from failures within _**acceptable**_ timeframes
-- Ensuring availability for users to access workloads as promised
+- The WAF frames reliability as three distinct properties:
+  - **Resilient** — detect and **withstand** faults, degrade gracefully
+  - **Recoverable** — **restore** within agreed **RTO/RPO** when resiliency is exceeded
+  - **Available** — users access the workload at the promised quality
 - Failures impact _**revenue**_, _**reputation**_, and _**customer trust**_
 
 ---
@@ -214,6 +216,7 @@ Establish resilience expectations before selecting technology:
 - Shift left to anticipate failures early
 - Test failures in development
 - Ensure cross-team visibility
+- Use **health models** to track SLO attainment & workload health
 - Use observability for rapid remediation
 
 </div>
@@ -225,6 +228,7 @@ Establish resilience expectations before selecting technology:
 | Failure Simulation | Validate recovery metrics with realistic tests |
 | Automation | Minimize human error and ensure consistency |
 | Continuous Learning | Improve from real production incidents |
+| Health Modeling | Map telemetry to SLO-based health state (Azure Monitor) |
 | Proactive Monitoring | Prioritize alerts for active failures |
 
 </div>
@@ -296,6 +300,33 @@ Establish resilience expectations before selecting technology:
 
 ---
 
+# Reliability Maturity Model
+
+<div class="columns">
+<div>
+
+- Assess your **current posture** and follow a staged path to improve
+- Five levels, each building on the previous
+- Complements the Reliability **checklist** with a roadmap
+
+> [Reliability maturity model](https://learn.microsoft.com/en-us/azure/well-architected/reliability/maturity-model)
+
+</div>
+<div>
+
+| Level | Goal |
+|-------|------|
+| **1 · Get resilient** | Groundwork in infra & ops |
+| **2 · Self-preservation** | Self-healing + basic recovery |
+| **3 · Recovery readiness** | SLOs, health modeling, FMA, DR |
+| **4 · Maintain stability** | Change control & incident mgmt |
+| **5 · Stay resilient** | Adapt to new, unforeseen risks |
+
+</div>
+</div>
+
+---
+
 # Architecture Layer
 
 ## Structuring for Failure Containment
@@ -344,9 +375,9 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 ## Proactive Identification
 
-- Recognize potential weaknesses before outages occur
-- Use checklists, post-mortems, dependency mapping
-- Prioritize by user impact & blast radius
+- Distinguish **failures** (unexpected, need intervention) from **errors** (expected in normal ops)
+- Analyze **read** vs. **write** failures separately — impact & mitigation differ
+- Prioritize by user impact & blast radius; use checklists, post-mortems, dependency maps
 
 </div>
 <div>
@@ -383,6 +414,7 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 - Redundancy & diversity (multi-zone / multi-instance)
 - Load balancing & partitioning
 - Automated failover runbooks
+- **Delete protection** via Azure resource locks on redundant components
 - Regular design & dependency reviews
 
 </div>
@@ -591,7 +623,10 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 | Circuit Breaker | Failing dependency cascading | Trip on error rate/latency; half-open probes |
 | Bulkhead Isolation | One noisy component  | Resource partitioning |
 | Dead Letter Queue | Bad messages blocking progress | Monitor & replay with alerting |
+| Throttling / Rate Limiting | Protect service from overload & noisy neighbors | Shed or queue excess load; return `Retry-After` |
 | Graceful Degradation | Maintain partial service | Feature flags, fallback data |
+
+> [Throttling design guide](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/throttling)
 
 ---
 
@@ -825,6 +860,33 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 
 ## [Enterprise Web App Patterns](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/overview)
 - Prescriptive architecture, code, and configuration
+
+</div>
+</div>
+
+---
+
+# WAF Design Guides (Design Essentials)
+
+<div class="columns">
+<div>
+
+Prescriptive, **cross-pillar** guidance for specific practices — a newer addition to the framework.
+
+- [Regions & availability zones](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/regions-availability-zones)
+- [Handle transient faults](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/handle-transient-faults)
+- [Throttling](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/throttling)
+- [Background jobs](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/background-jobs)
+
+</div>
+<div>
+
+- [Build a monitoring system](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/monitoring)
+- [Health modeling](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/health-modeling)
+- [Disaster recovery (multi-region)](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/disaster-recovery)
+- [Incident management](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/incident-management)
+
+> Bridge principles → implementation
 
 </div>
 </div>

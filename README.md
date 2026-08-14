@@ -14,8 +14,12 @@ The repository includes a variety of demos that demonstrate the principles of Az
 
 For more information on Azure resiliency and best practices, you can refer to the following resources:
 
-- [Azure Well-Architected Framework](https://learn.microsoft.com/en-us/azure/architecture/framework/)
-- [Azure Availability Zones](https://learn.microsoft.com/en-us/azure/availability-zones/)
+- [Azure Well-Architected Framework](https://learn.microsoft.com/en-us/azure/well-architected/)
+- [Reliability design principles](https://learn.microsoft.com/en-us/azure/well-architected/reliability/principles)
+- [Reliability maturity model](https://learn.microsoft.com/en-us/azure/well-architected/reliability/maturity-model)
+- [Well-Architected design guides (Design essentials)](https://learn.microsoft.com/en-us/azure/well-architected/design)
+- [Azure Well-Architected Review assessment](https://learn.microsoft.com/en-us/assessments/azure-architecture-review/)
+- [Azure Availability Zones](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview)
 - [Azure Resiliency Checklist](https://learn.microsoft.com/en-us/azure/reliability/)
 
 ## Connect with Chris Ayers
