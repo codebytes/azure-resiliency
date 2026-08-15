@@ -350,12 +350,6 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 ---
 
-<!-- _footer: "" -->
-
-![bg fit](./img/dependency-map.drawio.png)
-
----
-
 # Dependency Management
 
 <div class="columns">
@@ -382,6 +376,12 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 </div>
 </div>
+
+---
+
+<!-- _footer: "" -->
+
+![bg fit](./img/dependency-map.drawio.png)
 
 ---
 
@@ -434,13 +434,12 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 </div>
 <div>
 
-## Mitigation Strategies
+## Eliminating SPOFs
 
 - Redundancy & diversity (multi-zone / multi-instance)
 - Load balancing & partitioning
 - Automated failover runbooks
 - **Delete protection** via Azure resource locks on redundant components
-- Regular design & dependency reviews
 
 </div>
 </div>
@@ -587,22 +586,12 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 # Data Replication: Storage Options
 
-| Option | Scope | RPO | Use Case |
-|--------|-------|-----|----------|
-| **LRS** | Single datacenter | 0 (sync) | Dev/test, easily reconstructed data |
-| **ZRS** | Across AZs | 0 (sync) | Production, zone-level protection |
-| **GRS** | Cross-region | ~15 min | DR across regions |
-| **GZRS** | AZs + cross-region | ~15 min | Best durability |
-| **RA-GRS/RA-GZRS** | + read access | ~15 min | Read from secondary during outage |
-
-- Hot vs. Cool vs. Archive affects **recovery time**
-- **Immutable storage** for ransomware protection
-
----
-
 <!-- _footer: "" -->
 
-![bg fit](./img/storage-options.png)
+![w:820px center](./img/storage-options.png)
+
+- **RPO**: LRS/ZRS sync = 0, GRS/GZRS async ~15 min; **GZRS / RA-GZRS** = best durability
+- Tiering (Hot/Cool/Archive) affects **recovery time**; **immutable storage** for ransomware protection
 
 ---
 
