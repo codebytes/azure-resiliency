@@ -151,7 +151,7 @@ table {
 
 ![w:900px center](./img/layers-roadmap.drawio.svg)
 
-> We build reliability layer by layer — requirements first, enablement last
+> We build reliability layer by layer — from requirements to scaling it across the org
 
 ---
 
@@ -870,12 +870,12 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 
 ---
 
-# Governance & Enablement Layer
+# Scale &amp; Acceleration Layer
 
-## Guardrails, Standards, Acceleration
+## Making Reliability Repeatable
 
-- Enforce consistency through policy-driven environments
-- Accelerate delivery with proven reference architectures
+- Scale the reliability you designed across many workloads and teams
+- Cut the effort with reusable modules (AVM), proactive assessment (APRL), and standardized landing zones
 
 ---
 
