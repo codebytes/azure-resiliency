@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 600" width="1120" height="600" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="riseArrow" markerWidth="14" markerHeight="14" refX="7" refY="7" orient="auto">
+      <path d="M1,1 L13,7 L1,13 Z" fill="#107c10"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1120" height="600" fill="#ffffff"/>
+
+  <!-- baseline -->
+  <line x1="30" y1="540" x2="1090" y2="540" stroke="#c8c6c4" stroke-width="2"/>
+
+  <!-- Step 1 -->
+  <rect x="40" y="400" width="196" height="140" fill="#4fa1e3"/>
+  <text x="138" y="438" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle">L1</text>
+  <text x="138" y="470" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">Get</text>
+  <text x="138" y="492" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">resilient</text>
+
+  <!-- Step 2 -->
+  <rect x="244" y="330" width="196" height="210" fill="#2b88d8"/>
+  <text x="342" y="368" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle">L2</text>
+  <text x="342" y="400" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">Self-</text>
+  <text x="342" y="422" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">preservation</text>
+
+  <!-- Step 3 -->
+  <rect x="448" y="260" width="196" height="280" fill="#106ebe"/>
+  <text x="546" y="298" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle">L3</text>
+  <text x="546" y="330" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">Recovery</text>
+  <text x="546" y="352" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">readiness</text>
+
+  <!-- Step 4 -->
+  <rect x="652" y="190" width="196" height="350" fill="#0d5391"/>
+  <text x="750" y="228" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle">L4</text>
+  <text x="750" y="260" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">Maintain</text>
+  <text x="750" y="282" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">stability</text>
+
+  <!-- Step 5 -->
+  <rect x="856" y="120" width="196" height="420" fill="#09437a"/>
+  <text x="954" y="158" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle">L5</text>
+  <text x="954" y="190" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">Stay</text>
+  <text x="954" y="212" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle">resilient</text>
+
+  <!-- rising arrow -->
+  <line x1="70" y1="392" x2="1012" y2="112" stroke="#107c10" stroke-width="4" stroke-dasharray="9 7" marker-end="url(#riseArrow)"/>
+  <text x="470" y="150" font-size="18" font-weight="700" fill="#107c10" transform="rotate(-16 470 150)">increasing reliability maturity</text>
+
+  <!-- captions -->
+  <text x="138" y="566" font-size="14" fill="#323130" text-anchor="middle">built-in AZ redundancy</text>
+  <text x="342" y="566" font-size="14" fill="#323130" text-anchor="middle">self-healing + basic recovery</text>
+  <text x="546" y="566" font-size="14" fill="#323130" text-anchor="middle">SLOs, health model, FMA, DR</text>
+  <text x="750" y="566" font-size="14" fill="#323130" text-anchor="middle">change control, incident mgmt</text>
+  <text x="954" y="566" font-size="14" fill="#323130" text-anchor="middle">adapt to new, unforeseen risks</text>
+</svg>

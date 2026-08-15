@@ -127,6 +127,14 @@ table {
 
 ---
 
+# The Reliability Journey
+
+![w:900px center](./img/layers-roadmap.svg)
+
+> We build reliability layer by layer — requirements first, enablement last
+
+---
+
 # Business & Non-Functional Requirements Layer
 
 ## From Intent to Quantified Reliability
@@ -238,6 +246,8 @@ Establish resilience expectations before selecting technology:
 
 # Keep It Simple
 
+![bg right:38% fit](./img/scales.png)
+
 - Avoid overengineering architecture, code, and operations
 - Simplicity reduces inefficiencies and misconfigurations
 - Maintain a balanced approach to avoid single points of failure
@@ -302,28 +312,11 @@ Establish resilience expectations before selecting technology:
 
 # Reliability Maturity Model
 
-<div class="columns">
-<div>
+Assess your **current posture** and follow a staged path — five levels, each building on the previous.
 
-- Assess your **current posture** and follow a staged path to improve
-- Five levels, each building on the previous
-- Complements the Reliability **checklist** with a roadmap
+![w:1000px center](./img/maturity-model.svg)
 
 > [Reliability maturity model](https://learn.microsoft.com/en-us/azure/well-architected/reliability/maturity-model)
-
-</div>
-<div>
-
-| Level | Goal |
-|-------|------|
-| **1 · Get resilient** | Groundwork in infra & ops |
-| **2 · Self-preservation** | Self-healing + basic recovery |
-| **3 · Recovery readiness** | SLOs, health modeling, FMA, DR |
-| **4 · Maintain stability** | Change control & incident mgmt |
-| **5 · Stay resilient** | Adapt to new, unforeseen risks |
-
-</div>
-</div>
 
 ---
 
@@ -392,6 +385,12 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 </div>
 
 > [Failure Examples](https://learn.microsoft.com/en-us/azure/well-architected/reliability/failure-mode-analysis#example)
+
+---
+
+# FMA: Failure vs. Error
+
+![w:1000px center](./img/fma-flow.svg)
 
 ---
 
@@ -508,6 +507,12 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 ---
 
+# Azure Region Pairs
+
+![w:1000px center](./img/region-pairs.svg)
+
+---
+
 # Azure Availability Zones
 
 - Physically separate datacenters within a region
@@ -569,6 +574,10 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 ---
 
+![bg fit](./img/storage-options.png)
+
+---
+
 # Scaling Strategies
 
 ![width:1080px](./img/scaling-strategies.drawio.png)
@@ -627,6 +636,12 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 | Graceful Degradation | Maintain partial service | Feature flags, fallback data |
 
 > [Throttling design guide](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/throttling)
+
+---
+
+# Circuit Breaker — State Machine
+
+![w:920px center](./img/circuit-breaker.svg)
 
 ---
 
@@ -696,6 +711,12 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 - Burn Rate **> 4×** for 1h: Freeze deploys; incident review
 - Burn Rate **2×** sustained: Reduce change volume
 - Burn Rate **< 1×**: Continue roadmap; schedule chaos tests
+
+---
+
+# Error Budget Burn-Down
+
+![w:900px center](./img/burn-rate.svg)
 
 ---
 
@@ -866,6 +887,44 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 
 ---
 
+# Web App Patterns
+
+<div class="columns">
+<div>
+
+**Reliable Web App**
+![w:520px center](./img/reliable-web-app-architecture-plus-optional.svg)
+
+</div>
+<div>
+
+**Modern Web App**
+![w:520px center](./img/modern-web-app-architecture-plus-optional.svg)
+
+</div>
+</div>
+
+---
+
+# Enterprise & Mission-Critical
+
+<div class="columns">
+<div>
+
+**Enterprise App**
+![w:520px center](./img/enterprise-app.png)
+
+</div>
+<div>
+
+**Mission-Critical**
+![w:520px center](./img/mission-critical.png)
+
+</div>
+</div>
+
+---
+
 # WAF Design Guides (Design Essentials)
 
 <div class="columns">
@@ -981,6 +1040,12 @@ Prescriptive, **cross-pillar** guidance for specific practices — a newer addit
 - **Trade-offs**: Every decision impacts cost, security, operational excellence, and performance
 - **Proactive Reliability**: Use FMA, dependency mapping, safe deployments, and tested DR plans
 - **Continuous Improvement**: Chaos engineering, load testing, incident response, and blameless postmortems
+
+---
+
+# Questions?
+
+![bg right:45%](./img/questions.jpg)
 
 ---
 
