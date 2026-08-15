@@ -3,9 +3,7 @@
         "./slides/themes/custom.css",
         "./slides/themes/custom-default.css",
         "./slides/themes/custom-gaia.css",
-        "./slides/themes/custom-uncover.css",
-        "./slides/themes/custom-aspire-dark.css",
-        "./slides/themes/custom-aspire-light.css"
+        "./slides/themes/custom-uncover.css"
     ],
     "markdown.marp.html": "all",
     "cSpell.words": [
