@@ -118,6 +118,10 @@ table {
 
 ---
 
+![bg fit](./img/composite-sla.drawio.png)
+
+---
+
 # Understanding RPOs and RTOs
 
 - **RTO**: Max acceptable **downtime** before services must be restored
@@ -209,10 +213,6 @@ Establish resilience expectations before selecting technology:
 ---
 
 ![bg fit](./img/user-flow-criticality.drawio.png)
-
----
-
-![bg fit](./img/composite-sla.drawio.png)
 
 ---
 
