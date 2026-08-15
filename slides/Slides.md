@@ -141,7 +141,7 @@ table {
 
 <!-- _footer: "" -->
 
-![w:900px center](./img/layers-roadmap.svg)
+![w:900px center](./img/layers-roadmap.drawio.svg)
 
 > We build reliability layer by layer — requirements first, enablement last
 
@@ -222,7 +222,7 @@ Establish resilience expectations before selecting technology:
 
 <!-- _footer: "" -->
 
-![bg fit](./img/user-flow-criticality.drawio.png)
+![bg fit 95%](./img/user-flow-criticality.drawio.png)
 
 ---
 
@@ -328,7 +328,7 @@ Establish resilience expectations before selecting technology:
 
 Assess your **current posture** and follow a staged path — five levels, each building on the previous.
 
-![w:1000px center](./img/maturity-model.svg)
+![w:1000px center](./img/maturity-model.drawio.svg)
 
 > [Reliability maturity model](https://learn.microsoft.com/en-us/azure/well-architected/reliability/maturity-model)
 
@@ -408,7 +408,7 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 # FMA: Failure vs. Error
 
-![w:1000px center](./img/fma-flow.svg)
+![w:1000px center](./img/fma-flow.drawio.svg)
 
 ---
 
@@ -527,7 +527,7 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 # Azure Region Pairs
 
-![w:1000px center](./img/region-pairs.svg)
+![w:1000px center](./img/region-pairs.drawio.svg)
 
 ---
 
@@ -668,7 +668,7 @@ td, th { padding: 3px 6px; }
 
 # Circuit Breaker — State Machine
 
-![w:920px center](./img/circuit-breaker.svg)
+![w:920px center](./img/circuit-breaker.drawio.svg)
 
 ---
 
@@ -743,7 +743,7 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 
 # Error Budget Burn-Down
 
-![w:900px center](./img/burn-rate.svg)
+![w:900px center](./img/burn-rate.drawio.svg)
 
 ---
 
