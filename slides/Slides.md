@@ -74,6 +74,8 @@ _Microsoft_
 
 ---
 
+<!-- _footer: "" -->
+
 ![bg fit](./img/reliability.jpg)
 
 ---
@@ -101,6 +103,8 @@ table {
 
 ---
 
+<!-- _footer: "" -->
+
 ![bg fit](./img/one-does-not-simply.jpg)
 
 ---
@@ -118,6 +122,8 @@ table {
 
 ---
 
+<!-- _footer: "" -->
+
 ![bg fit](./img/composite-sla.drawio.png)
 
 ---
@@ -132,6 +138,8 @@ table {
 ---
 
 # The Reliability Journey
+
+<!-- _footer: "" -->
 
 ![w:900px center](./img/layers-roadmap.svg)
 
@@ -212,6 +220,8 @@ Establish resilience expectations before selecting technology:
 
 ---
 
+<!-- _footer: "" -->
+
 ![bg fit](./img/user-flow-criticality.drawio.png)
 
 ---
@@ -273,6 +283,8 @@ Establish resilience expectations before selecting technology:
 
 ---
 
+<!-- _footer: "" -->
+
 ![bg](img/tradeoff-cost.jpg)
 
 ---
@@ -286,6 +298,8 @@ Establish resilience expectations before selecting technology:
 ![bg right fit](img/waf.png)
 
 ---
+
+<!-- _footer: "" -->
 
 ![bg fit](./img/well-architected-hub.png)
 
@@ -328,6 +342,8 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 ---
 
+<!-- _footer: "" -->
+
 ![bg fit](./img/dependency-map.drawio.png)
 
 ---
@@ -362,6 +378,8 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 ---
 
 # Failure Mode Analysis (FMA)
+
+<!-- _footer: "" -->
 
 <div class="columns">
 <div>
@@ -574,6 +592,8 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 ---
 
+<!-- _footer: "" -->
+
 ![bg fit](./img/storage-options.png)
 
 ---
@@ -625,6 +645,13 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 ---
 
 # Resilience Patterns
+
+<!-- _footer: "" -->
+
+<style scoped>
+table { font-size: 0.7em; }
+td, th { padding: 3px 6px; }
+</style>
 | Pattern | Problem Solved | Key Considerations |
 |---------|----------------|--------------------|
 | Timeout | Prevent hanging on slow dependency | Set < expected p95 latency; combine with retries |
@@ -857,6 +884,8 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 - Simplifies resource management and reduces misconfigurations.
 
 ---
+
+<!-- _footer: "" -->
 
 ![bg fit](img/azure-landing-zone-architecture-diagram-hub-spoke.svg)
 
