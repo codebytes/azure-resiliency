@@ -364,6 +364,227 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 ---
 
+# FMA: From Risk to Evidence
+
+![width:1080px center](./img/fma-lifecycle.drawio.png)
+
+> FMA is a living engineering practice—not a one-time spreadsheet
+
+---
+
+# Sample Workload: E-Commerce Checkout
+
+![width:1100px center](./img/fma-checkout-architecture.drawio.png)
+
+---
+
+# Start with the Critical User Flow
+
+![width:1080px center](./img/fma-checkout-flow.drawio.png)
+
+| Target | Objective |
+|--------|-----------|
+| Availability | 99.95% successful submissions |
+| Latency | 95% accepted within 3 seconds |
+| Processing | 99% finalized within 2 minutes |
+| Recovery | RTO 15 minutes; RPO 5 minutes |
+| Integrity | No lost orders or duplicate charges |
+
+---
+
+# Map & Classify Dependencies
+
+<div class="columns">
+<div>
+
+## Dependency Strength
+
+- **Strong** — failure stops the flow
+- **Weak** — feature can degrade safely
+- **Synchronous** — directly affects latency
+- **Asynchronous** — creates backlog risk
+- **Shared** — can correlate failures
+
+</div>
+<div>
+
+| Dependency | Classification |
+|------------|----------------|
+| Azure SQL | Strong, synchronous |
+| Service Bus | Strong, asynchronous |
+| Payment provider | Required for completion |
+| Email provider | Weak, asynchronous |
+| Identity / DNS | Strong, shared |
+| Deployment pipeline | Shared |
+
+</div>
+</div>
+
+> Include identity, DNS, secrets, operators, and delivery systems—not only application services
+
+---
+
+# Build the Failure Inventory
+
+![width:1080px center](./img/fma-failure-inventory.drawio.png)
+
+> Ask how each dependency can fail—not only whether it can fail
+
+---
+
+# Anatomy of an FMA Record
+
+| Analyze | Connect |
+|---------|---------|
+| Critical flow & component | Existing controls & gaps |
+| Failure mode & causes | Detection signals & thresholds |
+| Local & customer effects | Mitigation & recovery |
+| Blast radius | Validation experiment |
+| SLO / RTO / RPO impact | Owner & residual risk |
+
+> “Service unavailable” is a symptom, not a complete failure analysis
+
+---
+
+# Prioritize the Risks
+
+<div class="columns">
+<div>
+
+## Score 1–5
+
+- Customer and business **impact**
+- Expected **likelihood**
+- Difficulty of **detection**
+- **Recovery complexity**
+
+`Risk = I × L × D × R`
+
+</div>
+<div>
+
+## Always Escalate
+
+- Duplicate charging
+- Acknowledged-order loss
+- Irreversible corruption
+- Regulatory breach
+- RTO or RPO violation
+- Correlated global failure
+
+</div>
+</div>
+
+> Scoring guides prioritization; it does not replace engineering judgment
+
+---
+
+# Deep Dive: The Dual-Write Failure
+
+![width:1080px center](./img/fma-dual-write.drawio.png)
+
+- SQL contains a pending order, but no message exists to process it
+- A customer retry can create a second order
+- The failure can affect one request—or every checkout during an outage
+- Independent retries cannot make two systems atomic
+
+---
+
+# Mitigation: Transactional Outbox
+
+![width:1080px center](./img/fma-transactional-outbox.drawio.png)
+
+- Persist the order and outbox event in one SQL transaction
+- Publish asynchronously with a stable message ID
+- Use bounded retries, backoff, and consumer deduplication
+- Alert on the **oldest unpublished event**, not only error count
+
+---
+
+# Deep Dive: Ambiguous Payment Outcome
+
+<div class="columns">
+<div>
+
+## Failure
+
+The payment succeeds, but its response is lost.
+
+**Unsafe response:** blindly retrying may charge the customer twice.
+
+</div>
+<div>
+
+## Controls
+
+- Stable idempotency key per order
+- Persist attempt state before calling
+- Treat timeout as **Unknown**, not Failed
+- Query provider before retrying
+- Reconcile unresolved transactions
+
+</div>
+</div>
+
+`Not Started → Initiated → Authorized | Declined | Unknown → Reconciliation`
+
+---
+
+# Deep Dive: Regional Outage
+
+![width:1080px center](./img/fma-regional-failover.drawio.png)
+
+> Traffic, data, and messaging failover are separate operations
+
+- Confirm application, identity, secrets, and dependencies are ready
+- Know replication state and potential data loss before promotion
+- Route traffic only after the secondary is safe to serve
+
+---
+
+# Convert Failure Modes into Experiments
+
+| Failure Mode | Validation |
+|--------------|------------|
+| Instance or zone loss | Remove instances or a zonal deployment |
+| SQL interruption | Block connectivity; verify safe failure |
+| Dual-write interruption | Stop publication after commit |
+| Duplicate delivery | Replay the same message |
+| Payment ambiguity | Drop the provider response |
+| Throttling | Inject 429 responses |
+| Region outage | Run a coordinated regional game day |
+| Backup failure | Restore into an isolated environment |
+
+Capture detection time, customer impact, recovery time, data loss, and corrective actions.
+
+---
+
+# Operationalize the FMA
+
+![width:1080px center](./img/fma-evidence-chain.drawio.png)
+
+- Assign an owner to every critical risk
+- Link risks to dashboards, alerts, runbooks, and experiments
+- Record evidence that recovery objectives are achievable
+- Revisit after architecture changes, incidents, and near misses
+- Explicitly accept or remediate residual risk
+
+---
+
+# FMA Completion Checklist
+
+- Critical flows have explicit SLO, RTO, and RPO targets
+- Strong, weak, shared, data-plane, and control-plane dependencies are mapped
+- Critical risks have detection, mitigation, and recovery controls
+- Runbooks and corrective actions have named owners
+- Recovery assumptions are tested regularly
+- Residual risks receive explicit acceptance
+- Production learning continuously updates the analysis
+
+> A design claim becomes a reliability control only after it is validated
+
+---
+
 # Single Points of Failure (SPOFs)
 
 <div class="columns">
