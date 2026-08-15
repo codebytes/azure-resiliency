@@ -14,6 +14,8 @@ footer: 'https://chris-ayers.com'
 Principal Software Engineer
 Microsoft
 
+<div style="background:#13273b;border-radius:12px;padding:14px 20px;display:inline-block;margin-top:18px;"><img src="./img/conference/fulllogo.png" width="300" /></div>
+
 </div>
 <div>
 
@@ -22,6 +24,12 @@ Microsoft
 </div>
 </div>
 
+
+---
+
+<!-- _footer: "" -->
+
+![bg fit](./img/conference/sponsors-2026.png)
 
 ---
 
