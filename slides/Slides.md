@@ -14,6 +14,8 @@ footer: 'https://chris-ayers.com'
 Principal Software Engineer
 Microsoft
 
+<div style="background:#13273b;border-radius:12px;padding:14px 20px;display:inline-block;margin-top:18px;"><img src="./img/conference/fulllogo.png" width="300" /></div>
+
 </div>
 <div>
 
@@ -22,6 +24,12 @@ Microsoft
 </div>
 </div>
 
+
+---
+
+<!-- _footer: "" -->
+
+![bg fit](./img/conference/sponsors-2026.png)
 
 ---
 
@@ -59,11 +67,13 @@ _Microsoft_
 
 ---
 
-# Understanding Reliability and Resiliency
+# Understanding Reliability, Resiliency & Recoverability
 
 - Failures are **inevitable** in distributed systems
-- Workloads must **detect**, **withstand**, and **recover** from failures within _**acceptable**_ timeframes
-- Ensuring availability for users to access workloads as promised
+- The WAF frames reliability as three distinct properties:
+  - **Resilient** — detect and **withstand** faults, degrade gracefully
+  - **Recoverable** — **restore** within agreed **RTO/RPO** when resiliency is exceeded
+  - **Available** — users access the workload at the promised quality
 - Failures impact _**revenue**_, _**reputation**_, and _**customer trust**_
 
 ---
@@ -71,6 +81,8 @@ _Microsoft_
 # <!-- fit --> FAILURE IS ALWAYS AN OPTION
 
 ---
+
+<!-- _footer: "" -->
 
 ![bg fit](./img/reliability.jpg)
 
@@ -99,6 +111,8 @@ table {
 
 ---
 
+<!-- _footer: "" -->
+
 ![bg fit](./img/one-does-not-simply.jpg)
 
 ---
@@ -116,12 +130,28 @@ table {
 
 ---
 
+<!-- _footer: "" -->
+
+![bg fit](./img/composite-sla.drawio.png)
+
+---
+
 # Understanding RPOs and RTOs
 
 - **RTO**: Max acceptable **downtime** before services must be restored
 - **RPO**: Max acceptable **data loss** measured in time
 
 ![width:850px center](./img/rpo-rto.drawio.png)
+
+---
+
+# The Reliability Journey
+
+<!-- _footer: "" -->
+
+![w:900px center](./img/layers-roadmap.drawio.svg)
+
+> We build reliability layer by layer — from requirements to scaling it across the org
 
 ---
 
@@ -198,11 +228,9 @@ Establish resilience expectations before selecting technology:
 
 ---
 
-![bg fit](./img/user-flow-criticality.drawio.png)
+<!-- _footer: "" -->
 
----
-
-![bg fit](./img/composite-sla.drawio.png)
+![bg fit 95%](./img/user-flow-criticality.drawio.png)
 
 ---
 
@@ -214,6 +242,7 @@ Establish resilience expectations before selecting technology:
 - Shift left to anticipate failures early
 - Test failures in development
 - Ensure cross-team visibility
+- Use **health models** to track SLO attainment & workload health
 - Use observability for rapid remediation
 
 </div>
@@ -225,6 +254,7 @@ Establish resilience expectations before selecting technology:
 | Failure Simulation | Validate recovery metrics with realistic tests |
 | Automation | Minimize human error and ensure consistency |
 | Continuous Learning | Improve from real production incidents |
+| Health Modeling | Map telemetry to SLO-based health state (Azure Monitor) |
 | Proactive Monitoring | Prioritize alerts for active failures |
 
 </div>
@@ -233,6 +263,8 @@ Establish resilience expectations before selecting technology:
 ---
 
 # Keep It Simple
+
+![bg right:38% fit](./img/scales.png)
 
 - Avoid overengineering architecture, code, and operations
 - Simplicity reduces inefficiencies and misconfigurations
@@ -259,6 +291,8 @@ Establish resilience expectations before selecting technology:
 
 ---
 
+<!-- _footer: "" -->
+
 ![bg](img/tradeoff-cost.jpg)
 
 ---
@@ -272,6 +306,8 @@ Establish resilience expectations before selecting technology:
 ![bg right fit](img/waf.png)
 
 ---
+
+<!-- _footer: "" -->
 
 ![bg fit](./img/well-architected-hub.png)
 
@@ -296,6 +332,16 @@ Establish resilience expectations before selecting technology:
 
 ---
 
+# Reliability Maturity Model
+
+Assess your **current posture** and follow a staged path — five levels, each building on the previous.
+
+![w:1000px center](./img/maturity-model.drawio.svg)
+
+> [Reliability maturity model](https://learn.microsoft.com/en-us/azure/well-architected/reliability/maturity-model)
+
+---
+
 # Architecture Layer
 
 ## Structuring for Failure Containment
@@ -303,6 +349,8 @@ Establish resilience expectations before selecting technology:
 Focus on failure domains, redundancy strategy, and dependency design before implementation.
 
 ---
+
+<!-- _footer: "" -->
 
 ![bg fit](./img/dependency-map.drawio.png)
 
@@ -339,14 +387,16 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 # Failure Mode Analysis (FMA)
 
+<!-- _footer: "" -->
+
 <div class="columns">
 <div>
 
 ## Proactive Identification
 
-- Recognize potential weaknesses before outages occur
-- Use checklists, post-mortems, dependency mapping
-- Prioritize by user impact & blast radius
+- Distinguish **failures** (unexpected, need intervention) from **errors** (expected in normal ops)
+- Analyze **read** vs. **write** failures separately — impact & mitigation differ
+- Prioritize by user impact & blast radius; use checklists, post-mortems, dependency maps
 
 </div>
 <div>
@@ -361,6 +411,12 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 </div>
 
 > [Failure Examples](https://learn.microsoft.com/en-us/azure/well-architected/reliability/failure-mode-analysis#example)
+
+---
+
+# FMA: Failure vs. Error
+
+![w:1000px center](./img/fma-flow.drawio.svg)
 
 ---
 
@@ -383,6 +439,7 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 - Redundancy & diversity (multi-zone / multi-instance)
 - Load balancing & partitioning
 - Automated failover runbooks
+- **Delete protection** via Azure resource locks on redundant components
 - Regular design & dependency reviews
 
 </div>
@@ -476,6 +533,12 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 ---
 
+# Azure Region Pairs
+
+![w:1000px center](./img/region-pairs.drawio.svg)
+
+---
+
 # Azure Availability Zones
 
 - Physically separate datacenters within a region
@@ -537,6 +600,12 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 
 ---
 
+<!-- _footer: "" -->
+
+![bg fit](./img/storage-options.png)
+
+---
+
 # Scaling Strategies
 
 ![width:1080px](./img/scaling-strategies.drawio.png)
@@ -584,6 +653,13 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 ---
 
 # Resilience Patterns
+
+<!-- _footer: "" -->
+
+<style scoped>
+table { font-size: 0.7em; }
+td, th { padding: 3px 6px; }
+</style>
 | Pattern | Problem Solved | Key Considerations |
 |---------|----------------|--------------------|
 | Timeout | Prevent hanging on slow dependency | Set < expected p95 latency; combine with retries |
@@ -591,7 +667,16 @@ Embed failure-aware logic: timeouts, retries, backoff, bulkheads, circuit breake
 | Circuit Breaker | Failing dependency cascading | Trip on error rate/latency; half-open probes |
 | Bulkhead Isolation | One noisy component  | Resource partitioning |
 | Dead Letter Queue | Bad messages blocking progress | Monitor & replay with alerting |
+| Throttling / Rate Limiting | Protect service from overload & noisy neighbors | Shed or queue excess load; return `Retry-After` |
 | Graceful Degradation | Maintain partial service | Feature flags, fallback data |
+
+> [Throttling design guide](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/throttling)
+
+---
+
+# Circuit Breaker — State Machine
+
+![w:920px center](./img/circuit-breaker.drawio.svg)
 
 ---
 
@@ -661,6 +746,12 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 - Burn Rate **> 4×** for 1h: Freeze deploys; incident review
 - Burn Rate **2×** sustained: Reduce change volume
 - Burn Rate **< 1×**: Continue roadmap; schedule chaos tests
+
+---
+
+# Error Budget Burn-Down
+
+![w:900px center](./img/burn-rate.drawio.svg)
 
 ---
 
@@ -779,12 +870,12 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 
 ---
 
-# Governance & Enablement Layer
+# Scale &amp; Acceleration Layer
 
-## Guardrails, Standards, Acceleration
+## Making Reliability Repeatable
 
-- Enforce consistency through policy-driven environments
-- Accelerate delivery with proven reference architectures
+- Scale the reliability you designed across many workloads and teams
+- Cut the effort with reusable modules (AVM), proactive assessment (APRL), and standardized landing zones
 
 ---
 
@@ -801,6 +892,8 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 - Simplifies resource management and reduces misconfigurations.
 
 ---
+
+<!-- _footer: "" -->
 
 ![bg fit](img/azure-landing-zone-architecture-diagram-hub-spoke.svg)
 
@@ -825,6 +918,71 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 
 ## [Enterprise Web App Patterns](https://learn.microsoft.com/en-us/azure/architecture/web-apps/guides/enterprise-app-patterns/overview)
 - Prescriptive architecture, code, and configuration
+
+</div>
+</div>
+
+---
+
+# Web App Patterns
+
+<div class="columns">
+<div>
+
+**Reliable Web App**
+![w:520px center](./img/reliable-web-app-architecture-plus-optional.svg)
+
+</div>
+<div>
+
+**Modern Web App**
+![w:520px center](./img/modern-web-app-architecture-plus-optional.svg)
+
+</div>
+</div>
+
+---
+
+# Enterprise & Mission-Critical
+
+<div class="columns">
+<div>
+
+**Enterprise App**
+![w:520px center](./img/enterprise-app.png)
+
+</div>
+<div>
+
+**Mission-Critical**
+![w:520px center](./img/mission-critical.png)
+
+</div>
+</div>
+
+---
+
+# WAF Design Guides (Design Essentials)
+
+<div class="columns">
+<div>
+
+Prescriptive, **cross-pillar** guidance for specific practices — a newer addition to the framework.
+
+- [Regions & availability zones](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/regions-availability-zones)
+- [Handle transient faults](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/handle-transient-faults)
+- [Throttling](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/throttling)
+- [Background jobs](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/background-jobs)
+
+</div>
+<div>
+
+- [Build a monitoring system](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/monitoring)
+- [Health modeling](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/health-modeling)
+- [Disaster recovery (multi-region)](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/disaster-recovery)
+- [Incident management](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/incident-management)
+
+> Bridge principles → implementation
 
 </div>
 </div>
@@ -919,6 +1077,12 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 - **Trade-offs**: Every decision impacts cost, security, operational excellence, and performance
 - **Proactive Reliability**: Use FMA, dependency mapping, safe deployments, and tested DR plans
 - **Continuous Improvement**: Chaos engineering, load testing, incident response, and blameless postmortems
+
+---
+
+# Questions?
+
+![bg right:45%](./img/questions.jpg)
 
 ---
 
