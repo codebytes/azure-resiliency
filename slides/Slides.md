@@ -364,6 +364,191 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 ---
 
+# FMA Through All Five Pillars
+
+> FMA is [Reliability recommendation RE:03](https://learn.microsoft.com/en-us/azure/well-architected/reliability/failure-mode-analysis), but failure consequences cross every pillar
+
+| Pillar | Ask | Evidence |
+|--------|-----|----------|
+| Reliability | Can the flow meet its SLO during failure? | Failover, restore, and chaos results |
+| Security | Can a control fail, be bypassed, or block recovery? | Threat model and control tests |
+| Cost Optimization | Can failure or mitigation create runaway spend? | Degraded-state cost model and guardrails |
+| Operational Excellence | Can people detect, decide, and recover safely? | Alerts, runbooks, drills, and deployment gates |
+| Performance Efficiency | What happens at saturation or throttling? | Load tests, limits, and scaling telemetry |
+
+---
+
+# [Reliability](https://learn.microsoft.com/en-us/azure/well-architected/reliability/checklist): Preserve Critical Flows
+
+<div class="columns">
+<div>
+
+## Failure Modes
+
+- Partial, transient, and gray failures
+- Correlated or shared-dependency outages
+- Data-plane and control-plane loss
+- Replication lag and data corruption
+- Failover or restore that does not work
+
+</div>
+<div>
+
+## Controls & Evidence
+
+- Define SLO, RTO, and RPO per flow
+- Isolate faults and bound blast radius
+- Design graceful degradation
+- Test failover, failback, and restore
+- Measure residual risk after mitigation
+
+</div>
+</div>
+
+> Run FMA per critical flow—not only per component
+
+---
+
+# [Security](https://learn.microsoft.com/en-us/azure/well-architected/security/checklist): Controls Can Fail Too
+
+<div class="columns">
+<div>
+
+## Failure Modes
+
+- Microsoft Entra ID or authorization unavailable
+- Expired certificates, keys, or secrets
+- Excess privilege or emergency-access failure
+- Segmentation and policy misconfiguration
+- Missing, delayed, or tampered audit signals
+- Recovery path bypasses a security boundary
+
+</div>
+<div>
+
+## Controls & Evidence
+
+- Pair FMA with threat modeling
+- Decide where to fail closed or degrade safely
+- Test rotation and secret-recovery paths
+- Validate least privilege and emergency access
+- Monitor control health—not only attacks
+- Reassess after threats or architecture change
+
+</div>
+</div>
+
+---
+
+# [Cost Optimization](https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/checklist): Model Failure-Driven Spend
+
+<div class="columns">
+<div>
+
+## Failure Modes
+
+- Retry storms multiply transactions
+- Failover creates data-transfer charges
+- Emergency scaling has no upper bound
+- Idle disaster recovery capacity is oversized
+- Telemetry volume spikes during incidents
+- Backlogs prolong recovery consumption
+
+</div>
+<div>
+
+## Controls & Evidence
+
+- Model normal, degraded, and recovery states
+- Track cost per critical flow and unit of work
+- Set budgets, anomaly alerts, and guardrails
+- Bound retries, scaling, and retention
+- Tier redundancy by business criticality
+- Include cost in game-day observations
+
+</div>
+</div>
+
+> Every mitigation has a cost mode—budget it before the incident
+
+---
+
+# [Operational Excellence](https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/checklist): Make Recovery Executable
+
+<div class="columns">
+<div>
+
+## Failure Modes
+
+- Deployment and rollback both fail
+- Infrastructure or configuration drifts
+- Alerts are missing, noisy, or unactionable
+- Runbooks are stale or permissions are absent
+- Manual handoffs delay or amplify impact
+- Recovery depends on one expert
+
+</div>
+<div>
+
+## Controls & Evidence
+
+- Use progressive delivery and health gates
+- Manage telemetry and runbooks as code
+- Automate repeatable recovery steps
+- Drill decision points and escalation paths
+- Track detection and recovery time
+- Feed incidents and near misses into FMA
+
+</div>
+</div>
+
+---
+
+# [Performance Efficiency](https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/checklist): Degradation Is Failure
+
+<div class="columns">
+<div>
+
+## Failure Modes
+
+- Resource saturation and queue buildup
+- Throttling and exhausted service limits
+- Autoscale lag or exhausted regional capacity
+- Hot partitions and noisy neighbors
+- Retry amplification overwhelms dependencies
+- Performance does not recover after demand falls
+
+</div>
+<div>
+
+## Controls & Evidence
+
+- Tie latency and throughput limits to SLOs
+- Load, stress, spike, and soak test
+- Apply backpressure and admission control
+- Degrade noncritical work first
+- Scale on leading and backlog signals
+- Verify recovery, not only peak throughput
+
+</div>
+</div>
+
+---
+
+# Expanding the FMA Lens
+
+| Current Guidance | Add to the Analysis |
+|------------------|---------------------|
+| [Throttling](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/throttling) | Dynamic limits, fairness, backpressure, and retry amplification |
+| [Sustainability](https://learn.microsoft.com/en-us/azure/well-architected/sustainability/overview) | Waste from idle redundancy, excessive telemetry, and inefficient recovery |
+| [AI workloads](https://learn.microsoft.com/en-us/azure/well-architected/ai/get-started) | Model drift, nondeterminism, grounding gaps, unsafe output, and token-cost spikes |
+| [Workload guidance](https://learn.microsoft.com/en-us/azure/well-architected/workloads) | Service- and workload-specific failure modes and trade-offs |
+
+- Keep the five pillars as the foundation; apply additional workload lenses
+- Review [What’s new in Azure Well-Architected](https://learn.microsoft.com/en-us/azure/well-architected/whats-new) when revisiting the FMA
+
+---
+
 # FMA: From Risk to Evidence
 
 ![width:1080px center](./img/fma-lifecycle.drawio.png)
