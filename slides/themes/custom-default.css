@@ -2,6 +2,7 @@
 /* @theme custom-default */
 
 @import 'default';
+@import 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css';
 
 .columns {
   display: grid;
@@ -12,20 +13,38 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
-} 
+}
 img[alt~="center"] {
   display: block;
   margin: 0 auto;
 }
-.fa-twitter { color: aqua; }
-.fa-mastodon { color: purple; }
-.fa-linkedin { color: blue; }
-.fa-window-maximize { color: skyblue; }
-.fa-bluesky { color: skyblue; }
+.fa-twitter,
+.fa-x-twitter { color: #1da1f2; }
+.fa-mastodon { color: #6364ff; }
+.fa-linkedin { color: #0a66c2; }
+.fa-window-maximize { color: #0366d6; }
+.fa-github { color: #333333; }
+.fa-bluesky { color: #1185fe; }
+.fa-youtube { color: #ff0000; }
 
-svg[id^="mermaid-"] { 
-  max-width: 960px; 
-  max-height: 600px; 
+section.lead {
+  text-align: center;
+}
+
+section.small {
+  font-size: 24px;
+}
+
+pre.mermaid {
+  background: transparent;
+  padding: 0;
+  text-align: center;
+}
+
+.mermaid svg,
+svg[id^="mermaid-"] {
+  max-width: 100%;
+  max-height: 500px;
 }
 
 table {
@@ -43,5 +62,3 @@ td {
   padding: 5px;
   vertical-align: top;
 }
-
-@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css'

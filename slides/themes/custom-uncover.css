@@ -2,8 +2,41 @@
 /* @theme custom-uncover */
 
 @import 'uncover';
+@import 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css';
 
 section {
   /* Override default background */
   background: #fff;
+}
+
+.columns,
+.columns3 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.columns3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+
+section.small {
+  font-size: 24px;
+}
+
+pre.mermaid {
+  background: transparent;
+  padding: 0;
+  text-align: center;
+}
+
+.mermaid svg,
+svg[id^="mermaid-"] {
+  max-width: 100%;
+  max-height: 500px;
 }

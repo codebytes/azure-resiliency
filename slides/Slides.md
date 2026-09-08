@@ -14,8 +14,6 @@ footer: 'https://chris-ayers.com'
 Principal Software Engineer
 Microsoft
 
-<div style="background:#13273b;border-radius:12px;padding:14px 20px;display:inline-block;margin-top:18px;"><img src="./img/conference/fulllogo.png" width="300" /></div>
-
 </div>
 <div>
 
@@ -23,13 +21,6 @@ Microsoft
 
 </div>
 </div>
-
-
----
-
-<!-- _footer: "" -->
-
-![bg fit](./img/conference/sponsors-2026.png)
 
 ---
 
@@ -336,9 +327,9 @@ Establish resilience expectations before selecting technology:
 
 Assess your **current posture** and follow a staged path — five levels, each building on the previous.
 
-![w:1000px center](./img/maturity-model.drawio.svg)
+![w:820px center](./img/maturity-model.drawio.svg)
 
-> [Reliability maturity model](https://learn.microsoft.com/en-us/azure/well-architected/reliability/maturity-model)
+<p style="font-size:0.7em;text-align:right;margin:0;"><a href="https://learn.microsoft.com/en-us/azure/well-architected/reliability/maturity-model">Reliability maturity model</a></p>
 
 ---
 
@@ -416,7 +407,7 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 
 # FMA: Failure vs. Error
 
-![w:1000px center](./img/fma-flow.drawio.svg)
+![w:950px center](./img/fma-flow.drawio.svg)
 
 ---
 
@@ -587,11 +578,12 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 # Data Replication: Storage Options
 
 <!-- _footer: "" -->
+<!-- _class: small -->
 
-![w:820px center](./img/storage-options.png)
+![bg left:60% fit](./img/storage-options.png)
 
-- **RPO**: LRS/ZRS sync = 0, GRS/GZRS async ~15 min; **GZRS / RA-GZRS** = best durability
-- Tiering (Hot/Cool/Archive) affects **recovery time**; **immutable storage** for ransomware protection
+- **RPO:** LRS/ZRS sync = 0; GRS/GZRS async ≈15 min. GZRS/RA-GZRS maximize durability.
+- **Recovery:** Hot/Cool/Archive tiering changes restore time; immutable storage protects against ransomware.
 
 ---
 
@@ -925,7 +917,7 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 <div>
 
 **Modern Web App**
-![w:520px center](./img/modern-web-app-architecture-plus-optional.svg)
+![h:480px center](./img/modern-web-app-architecture-plus-optional.svg)
 
 </div>
 </div>
@@ -944,7 +936,7 @@ Emphasize fast detection, validated recovery paths, and continuous improvement t
 <div>
 
 **Mission-Critical**
-![w:520px center](./img/mission-critical.png)
+![h:480px center](./img/mission-critical.png)
 
 </div>
 </div>
