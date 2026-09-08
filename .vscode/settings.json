@@ -1,11 +1,15 @@
 {
+    "markdown.marp.diagnostics.slideContentOverflow": true,
     "markdown.marp.themes": [
         "./slides/themes/custom.css",
         "./slides/themes/custom-default.css",
         "./slides/themes/custom-gaia.css",
-        "./slides/themes/custom-uncover.css"
+        "./slides/themes/custom-uncover.css",
+        "./slides/themes/vsl.css"
     ],
     "markdown.marp.html": "all",
+    "markdown.marp.exportType": "html",
+    "markdown.marp.pptx.editable": "smart",
     "cSpell.words": [
         "APRL",
         "overengineering",

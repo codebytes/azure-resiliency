@@ -351,3 +351,9 @@ MigrationBackup/
 .playwright-mcp/
 slides/output.html
 slides/.playwright-cli/
+
+# Generated slide exports and local review artifacts
+/build/
+/.playwright-cli/
+/playwright-report/
+/test-results/
