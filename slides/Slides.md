@@ -13,6 +13,7 @@ footer: 'https://chris-ayers.com'
 
 Principal Software Engineer
 Microsoft
+Azure EngOps AzRel
 
 </div>
 <div>
