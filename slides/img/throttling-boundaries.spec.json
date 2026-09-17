@@ -1,0 +1,131 @@
+{
+  "title": "Throttle across the request path",
+  "description": "Caller -> ingress limits per caller and operation -> internal API pool limits -> egress fan-out caps -> dependency. The lower state-aware control uses latency, saturation and dependency health to adapt limits along the path. Its dashed arrow is a control signal, not another request hop. Enforcement is local; no remote accounting store is implied on every request's critical path. Throttling is not only a gateway concern.",
+  "background": "#ffffff",
+  "padding": 20,
+  "nodes": [
+    {
+      "id": "caller",
+      "label": "Caller",
+      "x": 20,
+      "y": 30,
+      "width": 140,
+      "height": 120,
+      "shape": "rounded",
+      "fill": "#f5f5f5",
+      "stroke": "#52616b",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 26
+    },
+    {
+      "id": "ingress",
+      "label": "Ingress\ncaller + operation",
+      "x": 200,
+      "y": 30,
+      "width": 220,
+      "height": 120,
+      "shape": "rounded",
+      "fill": "#e8f3fb",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 26
+    },
+    {
+      "id": "internal",
+      "label": "API\ninternal pools",
+      "x": 460,
+      "y": 30,
+      "width": 180,
+      "height": 120,
+      "shape": "rounded",
+      "fill": "#e8f3fb",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 26
+    },
+    {
+      "id": "egress",
+      "label": "Egress\nfan-out cap",
+      "x": 680,
+      "y": 30,
+      "width": 180,
+      "height": 120,
+      "shape": "rounded",
+      "fill": "#e8f3fb",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 26
+    },
+    {
+      "id": "dependency",
+      "label": "Dependency",
+      "x": 900,
+      "y": 30,
+      "width": 180,
+      "height": 120,
+      "shape": "rounded",
+      "fill": "#f5f5f5",
+      "stroke": "#52616b",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 26
+    },
+    {
+      "id": "state-aware",
+      "label": "State-aware: adapt limits\nlatency + saturation + dependency health",
+      "x": 200,
+      "y": 240,
+      "width": 660,
+      "height": 80,
+      "shape": "rounded",
+      "fill": "#ffffff",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 26,
+      "dashed": true
+    }
+  ],
+  "edges": [
+    {
+      "id": "caller-to-ingress",
+      "source": "caller",
+      "target": "ingress",
+      "orthogonal": true,
+      "strokeWidth": 2
+    },
+    {
+      "id": "ingress-to-internal",
+      "source": "ingress",
+      "target": "internal",
+      "orthogonal": true,
+      "strokeWidth": 2
+    },
+    {
+      "id": "internal-to-egress",
+      "source": "internal",
+      "target": "egress",
+      "orthogonal": true,
+      "strokeWidth": 2
+    },
+    {
+      "id": "egress-to-dependency",
+      "source": "egress",
+      "target": "dependency",
+      "orthogonal": true,
+      "strokeWidth": 2
+    },
+    {
+      "id": "state-aware-control",
+      "source": "state-aware",
+      "target": "internal",
+      "orthogonal": true,
+      "dashed": true,
+      "strokeWidth": 2
+    }
+  ]
+}

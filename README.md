@@ -1,6 +1,6 @@
 # Ensuring Azure Resiliency
 
-This repository contains the slide deck, demos, and additional resources for the "Ensuring Azure Resiliency" talk by Chris Ayers, Senior Risk SRE at Microsoft. The talk provides an in-depth look at Azure resiliency, design principles, and best practices.
+This repository contains the slide deck and additional resources for the "Ensuring Azure Resiliency" talk by Chris Ayers, Principal Software Engineer at Microsoft. The talk provides an in-depth look at Azure resiliency, design principles, and best practices.
 
 ## Slides
 
@@ -9,6 +9,11 @@ This repository contains the slide deck, demos, and additional resources for the
 
 Merging to `main` triggers the Pages workflow, which builds and publishes both
 artifacts together.
+
+The talk retains its existing slide content and visuals. Six focused additions
+cover survivor capacity, end-to-end throttling, retry contracts, retry
+amplification, controlled recovery, and combined load/failure tests. Sources and
+qualifications are in speaker notes; the worked numbers are illustrative.
 
 ## Authoring and Building Slides
 
@@ -94,13 +99,17 @@ authoring conventions and shared skills used by this deck.
 
 ## Demos
 
-The repository includes a variety of demos that demonstrate the principles of Azure resiliency in different scenarios. These demos can help you understand how to implement resilient architectures effectively.
+The deck includes a proposed load/failure experiment with example acceptance
+criteria. This is teaching material, not a deployed demo or a report of an
+executed Azure experiment.
 
 ## Resources
 
 For more information on Azure resiliency and best practices, you can refer to the following resources:
 
 - [Azure Well-Architected Framework](https://learn.microsoft.com/en-us/azure/well-architected/)
+- [WAF throttling design guide](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/throttling)
+- [Transient fault handling](https://learn.microsoft.com/en-us/azure/well-architected/design-guides/handle-transient-faults)
 - [Reliability design principles](https://learn.microsoft.com/en-us/azure/well-architected/reliability/principles)
 - [Reliability maturity model](https://learn.microsoft.com/en-us/azure/well-architected/reliability/maturity-model)
 - [Well-Architected design guides (Design essentials)](https://learn.microsoft.com/en-us/azure/well-architected/design)

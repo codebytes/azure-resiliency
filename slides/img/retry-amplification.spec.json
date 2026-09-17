@@ -1,0 +1,93 @@
+{
+  "title": "Nested retries multiply downstream attempts",
+  "description": "Worst case before fan-out: one logical request encounters three nested retry layers, each allowing three TOTAL attempts including its initial call. Gateway attempts produce 3 API calls; API attempts produce 9 SDK calls; SDK attempts produce 27 dependency calls when all retry budgets exhaust. 3 x 3 x 3 = 27 downstream attempts, not 27 retries plus an initial call. Choose one retry owner per dependency and one end-to-end deadline.",
+  "background": "#ffffff",
+  "padding": 20,
+  "nodes": [
+    {
+      "id": "attempt-budget",
+      "label": "1 logical request | 3 total attempts per layer\nInitial attempt + up to 2 retries at each layer",
+      "x": 20,
+      "y": 10,
+      "width": 1060,
+      "height": 80,
+      "shape": "rectangle",
+      "fill": "none",
+      "stroke": "none",
+      "fontColor": "#172b3a",
+      "fontSize": 28
+    },
+    {
+      "id": "gateway",
+      "label": "Gateway: 3\nAPI calls",
+      "x": 20,
+      "y": 130,
+      "width": 280,
+      "height": 120,
+      "shape": "rounded",
+      "fill": "#e8f3fb",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 30
+    },
+    {
+      "id": "api",
+      "label": "API: 9\nSDK calls",
+      "x": 360,
+      "y": 130,
+      "width": 300,
+      "height": 120,
+      "shape": "rounded",
+      "fill": "#e8f3fb",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 30
+    },
+    {
+      "id": "sdk-dependency",
+      "label": "SDK / dependency: 27\nDownstream attempts",
+      "x": 720,
+      "y": 130,
+      "width": 360,
+      "height": 120,
+      "shape": "rounded",
+      "fill": "#fff4e5",
+      "stroke": "#b45a00",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 30
+    },
+    {
+      "id": "retry-owner",
+      "label": "Choose one retry owner per dependency",
+      "x": 20,
+      "y": 300,
+      "width": 1060,
+      "height": 60,
+      "shape": "rounded",
+      "fill": "#ffffff",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 28
+    }
+  ],
+  "edges": [
+    {
+      "id": "gateway-to-api",
+      "source": "gateway",
+      "target": "api",
+      "orthogonal": true,
+      "strokeWidth": 2
+    },
+    {
+      "id": "api-to-sdk",
+      "source": "api",
+      "target": "sdk-dependency",
+      "orthogonal": true,
+      "strokeWidth": 2
+    }
+  ]
+}
