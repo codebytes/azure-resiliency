@@ -1,0 +1,80 @@
+{
+  "title": "Recover through probes and a bounded ramp",
+  "description": "Open blocks normal calls. Probe admits bounded trial calls. Ramp admits 10%, 25%, 50%, then 100% of a calibrated safe per-dependency budget: illustrative shares, not production thresholds or proof of safety. Meter existing queued work and new requests within that same budget; stagger cache refill and never release the backlog at once. Advance only while latency and saturation remain safe. New failures stop the ramp and reopen the breaker.",
+  "background": "#ffffff",
+  "padding": 20,
+  "nodes": [
+    {
+      "id": "open",
+      "label": "Open\nno normal calls",
+      "x": 20,
+      "y": 20,
+      "width": 250,
+      "height": 150,
+      "shape": "rounded",
+      "fill": "#fff4e5",
+      "stroke": "#b45a00",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 28
+    },
+    {
+      "id": "probe",
+      "label": "Probe\nbounded trial calls",
+      "x": 330,
+      "y": 20,
+      "width": 270,
+      "height": 150,
+      "shape": "rounded",
+      "fill": "#e8f3fb",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 28
+    },
+    {
+      "id": "ramp",
+      "label": "Ramp\n10% -> 25% -> 50% -> 100%\nof safe dependency budget",
+      "x": 660,
+      "y": 20,
+      "width": 420,
+      "height": 150,
+      "shape": "rounded",
+      "fill": "#e8f3fb",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 28
+    },
+    {
+      "id": "safe-reopening",
+      "label": "Reopen traffic only while latency + saturation remain safe\nNew failures: stop ramp / reopen breaker",
+      "x": 20,
+      "y": 260,
+      "width": 1060,
+      "height": 100,
+      "shape": "rounded",
+      "fill": "#ffffff",
+      "stroke": "#0078d4",
+      "fontColor": "#172b3a",
+      "strokeWidth": 2,
+      "fontSize": 28
+    }
+  ],
+  "edges": [
+    {
+      "id": "open-to-probe",
+      "source": "open",
+      "target": "probe",
+      "orthogonal": true,
+      "strokeWidth": 2
+    },
+    {
+      "id": "probe-to-ramp",
+      "source": "probe",
+      "target": "ramp",
+      "orthogonal": true,
+      "strokeWidth": 2
+    }
+  ]
+}

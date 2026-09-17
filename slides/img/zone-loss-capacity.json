@@ -1,0 +1,24 @@
+{
+  "type": "bar",
+  "title": "Zone loss: 105% required",
+  "description": "Illustrative capacity calculation, not observed data or a benchmark. The two categories are '3 zones: normal' at 70% required utilization per zone and '2 survivors: same load' at 105% required utilization per surviving zone. All zones have identical capacity, load is shared equally and scales linearly, total demand is unchanged, and retries are not included. 70% x 3 / 2 = 105% of one zone's capacity: required load exceeds available capacity by 5 percentage points, not measured CPU utilization above 100%. The 100% gridline represents one full zone's capacity. Category labels are shortened to keep the shared chart helper's labels horizontal.",
+  "width": 640,
+  "height": 360,
+  "xLabel": "Available zones (unchanged demand)",
+  "yLabel": "% of one zone capacity",
+  "source": "Illustrative capacity model: 70% x 3 / 2",
+  "showValues": true,
+  "background": "#ffffff",
+  "foreground": "#172b3a",
+  "grid": "#d0d7de",
+  "series": [
+    {
+      "name": "Required utilization (%)",
+      "color": "#0078d4",
+      "values": [
+        { "label": "3: normal", "value": 70 },
+        { "label": "2: same load", "value": 105 }
+      ]
+    }
+  ]
+}

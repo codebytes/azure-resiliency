@@ -1,4 +1,5 @@
 - All slides must be written in Markdown format and use the [Marp](https://marp.app/) framework.
+- Always keep the speaker bio slide and the closing resources slide with contact details. Preserve their active contact links when shortening or restructuring a deck.
 - frontmatter Each slide deck must include the following frontmatter:
    ```yaml
    ---
