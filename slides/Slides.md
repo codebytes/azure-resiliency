@@ -12,8 +12,8 @@ footer: 'https://chris-ayers.com'
 ## Chris Ayers
 
 Principal Software Engineer
-Microsoft
 Azure EngOps AzRel
+Microsoft
 
 </div>
 <div>
@@ -150,7 +150,7 @@ Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/met
 - Ensures workloads are reliable, secure, efficient, and cost-effective.
 - [Azure Well-Architected Framework](https://learn.microsoft.com/en-us/azure/well-architected/)
  
-![bg right fit](img/waf.png)
+![bg right:45% fit](img/waf.png)
 
 ---
 
@@ -169,6 +169,10 @@ Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/met
 ---
 
 # The Reliability Journey
+
+<style scoped>
+section { padding-block: 35px; }
+</style>
 
 <!-- _footer: "" -->
 
@@ -338,6 +342,10 @@ Establish resilience expectations before selecting technology:
 
 # Reliability Maturity Model
 
+<style scoped>
+section { padding-block: 35px; }
+</style>
+
 Assess your **current posture** and follow a staged path — five levels, each building on the previous.
 
 ![w:820px center](./img/maturity-model.drawio.svg)
@@ -420,6 +428,10 @@ Focus on failure domains, redundancy strategy, and dependency design before impl
 ---
 
 # FMA: Failure vs. Error
+
+<style scoped>
+section { padding-block: 35px; }
+</style>
 
 ![w:950px center](./img/fma-flow.drawio.svg)
 
@@ -555,7 +567,7 @@ Automated, policy-driven environments (Landing Zones, AVM, APRL) reduce variance
 - Maintenance and failover behavior vary by service
 - [View Region Support](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-region-support)
 
-![bg right fit](img/az-diagram.png)
+![bg right:45% fit](img/az-diagram.png)
 
 ---
 
@@ -1309,7 +1321,7 @@ Prescriptive, **cross-pillar** guidance for specific practices — a newer addit
 ## Chris Ayers
 
 _Principal Software Engineer_
-_Azure CXP AzRel_
+_Azure EngOps AzRel_
 _Microsoft_
 
 <i class="fa-brands fa-bluesky"></i> BlueSky: [@chris-ayers.com](https://bsky.app/profile/chris-ayers.com)  
