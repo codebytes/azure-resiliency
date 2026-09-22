@@ -24,6 +24,7 @@ resilient Azure workloads.
 ## Contact
 
 **Chris Ayers**, Principal Software Engineer
+Azure EngOps AzRel
 
 [Blog](https://chris-ayers.com/) | [GitHub](https://github.com/codebytes) | [LinkedIn](https://linkedin.com/in/chris-l-ayers/) | [Bluesky](https://bsky.app/profile/chris-ayers.com) | [Mastodon](https://hachyderm.io/@Chrisayers)
 
