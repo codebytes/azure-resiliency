@@ -1,0 +1,136 @@
+{
+  "title": "Azure Well-Architected Framework guidance and people",
+  "description": "Pillar guidance includes a checklist, recommendation guides, and tradeoffs. People bring a consulting role and a workload-facing perspective. The diagram preserves the original grouping and relationships.",
+  "background": "#ffffff",
+  "padding": 36,
+  "nodes": [
+    {
+      "id": "pillar-group",
+      "label": "",
+      "x": 36,
+      "y": 36,
+      "width": 528,
+      "height": 380,
+      "fill": "none",
+      "stroke": "#b8cee0",
+      "strokeWidth": 2
+    },
+    {
+      "id": "people-group",
+      "label": "",
+      "x": 36,
+      "y": 484,
+      "width": 528,
+      "height": 228,
+      "fill": "none",
+      "stroke": "#b8cee0",
+      "strokeWidth": 2
+    },
+    {
+      "id": "pillar",
+      "label": "Pillar",
+      "x": 36,
+      "y": 36,
+      "width": 528,
+      "height": 72,
+      "fill": "#164a75",
+      "stroke": "#164a75",
+      "fontColor": "#ffffff",
+      "fontSize": 36
+    },
+    {
+      "id": "tradeoffs",
+      "label": "Tradeoffs",
+      "x": 60,
+      "y": 132,
+      "width": 480,
+      "height": 56,
+      "shape": "rounded",
+      "fill": "#f1f6fc",
+      "stroke": "#b8cee0",
+      "fontColor": "#172b3a",
+      "fontSize": 30
+    },
+    {
+      "id": "recommendation-guides",
+      "label": "Recommendation guides",
+      "x": 60,
+      "y": 232,
+      "width": 480,
+      "height": 56,
+      "shape": "rounded",
+      "fill": "#f1f6fc",
+      "stroke": "#b8cee0",
+      "fontColor": "#172b3a",
+      "fontSize": 30
+    },
+    {
+      "id": "checklist",
+      "label": "Checklist",
+      "x": 60,
+      "y": 332,
+      "width": 480,
+      "height": 56,
+      "shape": "rounded",
+      "fill": "#f1f6fc",
+      "stroke": "#b8cee0",
+      "fontColor": "#172b3a",
+      "fontSize": 30
+    },
+    {
+      "id": "people",
+      "label": "People",
+      "x": 36,
+      "y": 484,
+      "width": 528,
+      "height": 72,
+      "fill": "#164a75",
+      "stroke": "#164a75",
+      "fontColor": "#ffffff",
+      "fontSize": 36
+    },
+    {
+      "id": "consulting-role",
+      "label": "Consulting role",
+      "x": 60,
+      "y": 580,
+      "width": 480,
+      "height": 46,
+      "shape": "rounded",
+      "fill": "#f1f6fc",
+      "stroke": "#b8cee0",
+      "fontColor": "#172b3a",
+      "fontSize": 30
+    },
+    {
+      "id": "workload-facing",
+      "label": "Workload facing",
+      "x": 60,
+      "y": 646,
+      "width": 480,
+      "height": 46,
+      "shape": "rounded",
+      "fill": "#f1f6fc",
+      "stroke": "#b8cee0",
+      "fontColor": "#172b3a",
+      "fontSize": 30
+    }
+  ],
+  "edges": [
+    {
+      "source": "checklist",
+      "target": "recommendation-guides",
+      "strokeWidth": 2
+    },
+    {
+      "source": "recommendation-guides",
+      "target": "tradeoffs",
+      "strokeWidth": 2
+    },
+    {
+      "source": "pillar-group",
+      "target": "people-group",
+      "strokeWidth": 2
+    }
+  ]
+}

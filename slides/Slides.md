@@ -16,30 +16,12 @@ Azure EngOps AzRel
 Microsoft
 
 </div>
-<div style="text-align: center;">
+<div>
 
-![w:220 center The Cloud & AI Summit (CAS)](./img/cas-2026/cas-logo.jpeg)
-
-**The Cloud & AI Summit 2026**
-
-![w:360 center Azure workload architecture](./img/arch.png)
+![Azure workload architecture](./img/arch.png)
 
 </div>
 </div>
-
----
-
-<!-- _footer: "" -->
-
-![bg fit CAS 2026 sponsors: Anders, ArchitectNow, Microsoft, SyllogisTeks, Covenant Technology Partners, MiTek, Oakwood, Silika, StratoLens, and Kepler](./img/cas-2026/cas-2026-sponsors.png)
-
-<!--
-Thank the Cloud & AI Summit 2026 sponsors using the official September 25 artwork.
-Premium exhibitors: Anders, ArchitectNow, and Microsoft.
-Exhibitors: SyllogisTeks, Covenant Technology Partners, MiTek, Oakwood, Silika, and StratoLens.
-Experience sponsor: Kepler.
-Keep the full image visible, including its event details, website, and hashtag.
--->
 
 ---
 
@@ -57,35 +39,6 @@ _Microsoft_
 <i class="fa-brands fa-github"></i> GitHub: [Codebytes](https://github.com/codebytes)
 <i class="fa-brands fa-mastodon"></i> Mastodon: [@Chrisayers@hachyderm.io](https://hachyderm.io/@Chrisayers)
 ~~<i class="fa-brands fa-twitter"></i> Twitter: @Chris_L_Ayers~~
-
----
-
-<div class="columns">
-<div>
-
-![w:220 The Cloud & AI Summit (CAS)](./img/cas-2026/cas-logo.jpeg)
-
-# Your Feedback Matters
-
-**Resilient by Design**
-
-Scan now and keep the link.
-Rate the session after the talk.
-
-</div>
-<div>
-
-[![w:430 center QR code for Resilient by Design session feedback](./img/cas-2026/resilient-by-design-feedback-qr-1172517.png)](https://www.cloudandaisummit.com/content/sessionfeedback/1172517)
-
-</div>
-</div>
-
-[cloudandaisummit.com/content/sessionfeedback/1172517](https://www.cloudandaisummit.com/content/sessionfeedback/1172517)
-
-<!--
-Give attendees a moment to scan and save the session-specific feedback link.
-Ask them to submit feedback after the talk; show this QR code again near the end.
--->
 
 ---
 
@@ -197,7 +150,7 @@ Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/met
 - Ensures workloads are reliable, secure, efficient, and cost-effective.
 - [Azure Well-Architected Framework](https://learn.microsoft.com/en-us/azure/well-architected/)
  
-![bg right:45% fit](img/waf.png)
+![bg right:45% fit 90% Pillar guidance covers tradeoffs, recommendation guides, and checklists; people bring consulting and workload-facing roles](./img/waf-overview.drawio.svg)
 
 ---
 
@@ -223,7 +176,7 @@ section { padding-block: 35px; }
 
 <!-- _footer: "" -->
 
-![w:900px center](./img/layers-roadmap.drawio.svg)
+![w:1100px center Six connected reliability layers, from requirements to scale and acceleration, with each layer's practices alongside it](./img/layers-roadmap.drawio.svg)
 
 > We build reliability layer by layer — from requirements to scaling it across the org
 
@@ -1344,36 +1297,6 @@ Prescriptive, **cross-pillar** guidance for specific practices — a newer addit
 # Questions?
 
 ![bg right:45%](./img/questions.jpg)
-
----
-
-<div class="columns">
-<div>
-
-![w:220 The Cloud & AI Summit (CAS)](./img/cas-2026/cas-logo.jpeg)
-
-# Rate This Session
-
-**What will you put into practice?**
-
-Tell us what helped
-and what could be clearer.
-
-</div>
-<div>
-
-[![w:430 center QR code for Resilient by Design session feedback](./img/cas-2026/resilient-by-design-feedback-qr-1172517.png)](https://www.cloudandaisummit.com/content/sessionfeedback/1172517)
-
-</div>
-</div>
-
-[cloudandaisummit.com/content/sessionfeedback/1172517](https://www.cloudandaisummit.com/content/sessionfeedback/1172517)
-
-<!--
-Pause so attendees can scan and rate this session.
-The QR code and clickable link use the same session-specific URL shown near the opening.
-Advance to the closing resources and contact links after the feedback reminder.
--->
 
 ---
 

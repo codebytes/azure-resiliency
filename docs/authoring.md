@@ -15,31 +15,6 @@ cover survivor capacity, end-to-end throttling, retry contracts, retry
 amplification, controlled recovery, and combined load/failure tests. Sources and
 qualifications are in speaker notes; the worked numbers are illustrative.
 
-### CAS 2026 Conference Slides
-
-The title includes the CAS logo, followed by the official sponsor slide on
-slide 2, the speaker bio, and the opening feedback slide. Near the end, a second
-feedback slide appears before the closing resources and contact links. Conference
-branding is limited to these slides; the technical content, `custom-default`
-theme, speaker bio, and closing contact links are preserved.
-
-The supplied CAS speaker and sponsor PowerPoints dated September 25, 2026 are
-reference materials, not a replacement for the Markdown source. Local assets
-live in `slides/img/cas-2026/`:
-
-| Asset | Source |
-|-------|--------|
-| `cas-2026-sponsors.png` | Original 3840x2160 artwork embedded in the supplied CAS sponsor PowerPoint |
-| `cas-logo.jpeg` | Supplied `CAS-Logo4.jpeg` |
-| `resilient-by-design-feedback-qr-1172517.png` | Supplied session-specific feedback QR code |
-
-Both feedback slides link to
-[session 1172517](https://www.cloudandaisummit.com/content/sessionfeedback/1172517).
-Keep the QR code's white border intact and its visible link in sync with the
-encoded destination. The sponsor slide uses `bg fit` with its normal footer
-hidden so no sponsor, event detail, or organizer contact information is cropped
-or covered.
-
 ## Authoring and Building Slides
 
 The tooling follows [marp-slides-template](https://github.com/codebytes/marp-slides-template),
@@ -112,6 +87,17 @@ The talk contains both editable `.drawio.svg` / `.drawio.png` diagrams and
 regular image exports. Use the shared `drawio-diagrams` skill when a diagram
 must remain editable, and store diagrams and any source specifications in
 `slides/img/`.
+
+The Reliability Journey diagram is generated from
+`slides/img/layers-roadmap.spec.json` with the shared `drawio-diagrams` skill.
+Its full-width rows place layer names beside their practices so the smallest
+labels remain at least 24px at the deck's native 1280x720 size. Regenerate the
+editable SVG when changing the specification.
+
+The WAF introduction uses `slides/img/waf-overview.drawio.svg`, generated from
+the adjacent `waf-overview.spec.json` with the same skill. It replaces the
+low-resolution `waf.png` with larger, high-contrast vector labels while preserving
+the original Pillar/People groups and relationships.
 
 ### Slide Review and Copilot Guidance
 
