@@ -7,6 +7,12 @@ resilient Azure workloads.
 
 [View HTML slides](https://chris-ayers.com/azure-resiliency/) | [Download PDF](https://chris-ayers.com/azure-resiliency/Slides.pdf)
 
+## Recordings
+
+- [NDC London 2026 — Resilient by Design](https://www.youtube.com/watch?v=vgOzZBAfMpA)
+- [Azure Dev Summit 2025 — Crafting Resilient and Unbreakable Azure Solutions](https://www.youtube.com/watch?v=PyfTpm9rySI)
+- [NDC Oslo 2025 — Resilient by Design](https://www.youtube.com/watch?v=Vn-vcl4rQX0)
+
 ## Resources
 
 - [Slide source](slides/Slides.md)
