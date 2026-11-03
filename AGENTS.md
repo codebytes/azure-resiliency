@@ -32,7 +32,7 @@ This repository holds the slides for Chris Ayers' talk **Resilient by Design / E
 
 ## Shared skills
 
-Use the shared skills from [codebytes/skills](https://github.com/codebytes/skills) (for Copilot CLI: `copilot plugin install https://github.com/codebytes/skills`). Don't copy their instructions or scripts into this repo.
+Use the shared skills from [codebytes/skills](https://github.com/codebytes/skills) (for Copilot CLI: `copilot plugin install https://github.com/codebytes/skills`). Don't copy their instructions or scripts into this repository.
 
 | Task                                                                          | Skill               |
 | ----------------------------------------------------------------------------- | ------------------- |
